@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aadityansha Verma - Backend Developer & Web Designer</title>
+   <meta name="google-site-verification" content="4pAV5sb37L7j3-MzhgkRuwtt7_B7AEJZKIG20WOgfr0" />
+    <!-- Favicon for Browsers -->
+
+<meta name="robots" content="index, follow">
+<meta http-equiv="cache-control" content="no-cache, no-store, must-revalidate">
+
+ <link rel="icon" type="image/x-icon" href="pic/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="pic/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="pic/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="pic/favicon-16x16.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+
+    <!-- SEO Meta Tags -->
+    <title>Aadityansha | Developer & Web Designer Portfolio</title>
+    <meta name="description" content="Hi, I'm Aadityansha Verma!  A Backend Developer & Web Designer. Explore my projects, blogs, and skills. Available for hire!">
+
+    <meta name="keywords" content="Aadityansha, Web Developer, Backend Developer, Web Designer, Portfolio">
+
+    <meta name="author" content="Aadityansha">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://aadityansha06.github.io/">
+
+    
+    <!-- Open Graph Meta Tags (For Social Media) -->
+    <meta property="og:title" content="Aadityansha | Backend Developer & Web Designer">
+    <meta property="og:description" content="Check out my portfolio and projects. Available for hire.">
+    <meta property="og:image" content="https://aadityansha06.github.io/pic/main-img.png">
+    <meta name="twitter:image" content="https://aadityansha06.github.io/pic/main-img.png">
+    
+
+
+    <meta property="og:url" content="https://aadityansha06.github.io/">
+    <meta property="og:type" content="website">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Aadityansha | Backend Developer & Web Designer">
+    <meta name="twitter:description" content="Check out my portfolio and projects. Available for hire.">
+   
+    
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            "name": "Aadityansha Portfolio",
+            "url": "https://aadityansha06.github.io/",
+            "description": "Aadityansha - Backend Developer & Web Designer. Check out my portfolio and projects. Available for hire.",
+            "author": {
+              "@type": "Person",
+              "name": "Aadityansha"
+            },
+            "sameAs": [
+              "https://github.com/aadityansha06",
+              "https://www.linkedin.com/in/aadityansha-verma-a4a35a213/",
+              "https://www.instagram.com/_dont_distrube/"
+            ]
+          }
+          
+        </script>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Boxicons -->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Patrick+Hand&display=swap"
+        rel="stylesheet">
+
+    <!-- Lottie Player -->
+    <script src="https://unpkg.com/@lottiefiles/dotlottie-wc@0.6.2/dist/dotlottie-wc.js" type="module"></script>
+    
+    <!-- Lenis Smooth Scroll -->
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+
+    <style>
+        /* --- THEME COLORS (CSS VARIABLES) --- */
+
+        /* Default Theme: Light */
+        :root {
+            --bg-primary: #fff1cb;
+            --bg-secondary: #faedcd;
+            --bg-card: rgba(255, 241, 203, 0.7);
+            --bg-header: rgba(250, 237, 205, 0.85);
+            --text-heading: #222;
+            --text-body: #3c3c3c;
+            --text-muted: #777;
+            --accent-color: #ff5e6c;
+            --accent-hover: #e84a58;
+            --accent-subtle: rgba(255, 94, 108, 0.12);
+            --accent-text: #b33c47;
+            --border-color: #e8dcb6;
+            --border-accent: rgba(255, 94, 108, 0.25);
+            --hero-gradient-start: #fff1cb;
+            --hero-gradient-end: #faedcd;
+        }
+
+        /* Dark Theme: Rose */
+        .theme-rose {
+            --bg-primary: #19150f;
+            --bg-secondary: #211c16;
+            --bg-card: rgba(40, 35, 29, 0.5);
+            --bg-header: rgba(25, 21, 15, 0.8);
+            --text-heading: #eee;
+            --text-body: #ddd;
+            --text-muted: #ccc;
+            --accent-color: #ff5e6c;
+            --accent-hover: #fe3c4f;
+            --accent-subtle: rgba(255, 94, 108, 0.15);
+            --accent-text: #fca9b0;
+            --border-color: #443c33;
+            --border-accent: rgba(255, 94, 108, 0.3);
+            --hero-gradient-start: #211c16;
+            --hero-gradient-end: #19150f;
+        }
+
+
+        /* --- BASE STYLES --- */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-body);
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        
+        html {
+            scroll-behavior: auto !important;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-secondary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--border-color);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #9ca3af;
+        }
+        
+        /* Humor text styling */
+        .humor-text {
+            font-family: 'Patrick Hand', cursive;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            opacity: 0.8;
+            font-weight: 400;
+            display: inline-block;
+            margin-left: 4px;
+            transform: translateY(1px);
+            transition: opacity 0.3s ease, color 0.3s ease;
+        }
+
+        .humor-text:hover {
+            opacity: 1;
+            color: var(--accent-color);
+        }
+
+        /* Skill humor text - even smaller */
+        .skill-humor {
+            font-family: 'Patrick Hand', cursive;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            opacity: 0.7;
+            font-weight: 400;
+            margin-top: 2px;
+            text-align: center;
+            transition: opacity 0.3s ease, color 0.3s ease;
+        }
+
+        .skill-item:hover .skill-humor {
+            opacity: 0.9;
+            color: var(--accent-color);
+        }
+
+        /* --- ANIMATIONS --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Landing Animation */
+        .landing-hidden {
+            opacity: 0;
+        }
+
+        .landing-header {
+            transform: translateY(-100%);
+            transition: transform 0.8s ease-out, opacity 0.8s ease-out;
+        }
+
+        .landing-hero>* {
+            transform: translateY(30px);
+            transition: transform 1s ease-out, opacity 1s ease-out;
+        }
+
+        body.loaded .landing-header,
+        body.loaded .landing-hero>* {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Typing animation cursor */
+        .typewriter-cursor {
+            display: inline-block;
+            width: 3px;
+            height: 1.5rem;
+            background-color: var(--accent-color);
+            margin-left: 5px;
+            animation: blink 0.7s infinite;
+        }
+
+        @keyframes blink {
+            50% {
+                opacity: 0;
+            }
+        }
+
+        /* Hero Background Gradient Animation */
+        #hero {
+            background: linear-gradient(45deg, var(--hero-gradient-start), var(--hero-gradient-end));
+            background-size: 200% 200%;
+            animation: gradient-animation 15s ease infinite;
+            transition: background 0.5s ease;
+        }
+
+        @keyframes gradient-animation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Fullscreen loading overlay */
+        #loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #fff1cb;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
+        }
+
+        #loading.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        #content {
+            display: none;
+        }
+
+        /* --- helpers --- */
+        .icon-hover {
+            transition: transform 250ms ease, color 250ms ease, opacity 250ms ease;
+        }
+
+        .icon-hover:hover {
+            transform: translateY(-2px) scale(1.05);
+            opacity: 0.95;
+            color: var(--accent-color);
+        }
+
+        .nav-accent a:hover,
+        #theme-toggle:hover i {
+            color: var(--accent-color) !important;
+        }
+
+        .skill-item {
+            transition: transform 250ms ease, box-shadow 250ms ease;
+        }
+
+        .skill-item:hover {
+            transform: translateY(-6px);
+        }
+
+        @keyframes move-sideways {
+            0% { transform: translateX(0); }
+            50% { transform: translateX(-40%); }
+            100% { transform: translateX(0); }
+        }
+
+        .skills-marquee {
+            overflow: hidden;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+
+        .skills-track {
+            display: flex;
+            gap: 2rem;
+            animation: move-sideways 8s ease-in-out infinite;
+        }
+
+        .skill-item {
+            flex: 0 0 auto;
+            transition: transform 0.3s ease;
+        }
+
+        .skill-item:hover {
+            transform: scale(1.2) rotate(3deg);
+        }
+    </style>
+</head>
+
+<body class="antialiased landing-hidden">
+    <div id="loading">
+        <dotlottie-wc src="https://lottie.host/1c1777ab-8c78-4644-b77c-04dfd06326fa/zlYPpE5bAG.lottie"
+            style="width: 500px; height: 500px" speed="1" autoplay loop>
+        </dotlottie-wc>
+    </div>
+
+    <div id="content">
+        <!-- Header & Navigation -->
+        <header
+            class="bg-[var(--bg-header)] backdrop-blur-sm fixed top-0 left-0 right-0 z-50 border-b border-[var(--border-color)] landing-header">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center justify-between h-16">
+                    <div class="flex-shrink-0">
+                        <a href="#hero"
+                            class="flex items-center space-x-3 text-xl font-bold text-[var(--text-heading)] transition-colors duration-300 hover:text-[var(--accent-color)]">
+                            <img src="https://avatars.githubusercontent.com/u/96714228?v=4" alt="Logo"
+                                class="w-8 h-8 rounded-full border-2 border-[var(--border-accent)]">
+                            <span>Aadityansha Verma</span>
+                        </a>
+                    </div>
+                    <div class="flex items-center">
+                        <nav class="hidden md:block">
+                            <div class="ml-10 flex items-baseline space-x-4 nav-accent">
+                                <a href="#about"
+                                    class="px-3 py-2 rounded-md text-sm font-medium text-[var(--text-body)] hover:text-[var(--accent-color)] hover:bg-[var(--bg-card)] transition-all duration-300">About</a>
+                                <a href="#projects"
+                                    class="px-3 py-2 rounded-md text-sm font-medium text-[var(--text-body)] hover:text-[var(--accent-color)] hover:bg-[var(--bg-card)] transition-all duration-300">Projects</a>
+                                <a href="#skills"
+                                    class="px-3 py-2 rounded-md text-sm font-medium text-[var(--text-body)] hover:text-[var(--accent-color)] hover:bg-[var(--bg-card)] transition-all duration-300">Skills</a>
+                                <a href="#contact"
+                                    class="px-3 py-2 rounded-md text-sm font-medium text-[var(--text-body)] hover:text-[var(--accent-color)] hover:bg-[var(--bg-card)] transition-all duration-300">Contact</a>
+                            </div>
+                        </nav>
+
+                        <button id="theme-toggle"
+                            class="ml-6 p-2 rounded-full text-[var(--text-body)] hover:bg-[var(--bg-card)] focus:outline-none transition-colors duration-300">
+                            <i class='bx bxs-moon text-xl icon-hover'></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main class="pt-16">
+            <!-- Hero Section -->
+            <section id="hero" class="min-h-screen flex items-center">
+                <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                    <div class="max-w-3xl mx-auto landing-hero">
+                        <img src="https://avatars.githubusercontent.com/u/96714228?v=4" alt="Aadityansha Verma"
+                            class="w-32 h-32 rounded-full mx-auto mb-6 border-4 border-[var(--border-accent)] shadow-lg"
+                            style="transition-delay: 100ms;" onerror="this.style.display='none'">
+                        <h1 class="text-4xl md:text-6xl font-extrabold text-[var(--text-heading)] leading-tight mb-4"
+                            style="transition-delay: 200ms;">
+                            Aadityansha Verma
+                        </h1>
+                        <p class="text-xl md:text-2xl text-[var(--accent-color)] font-semibold mb-8 h-8"
+                            style="transition-delay: 300ms;">
+                            <span id="typewriter"></span><span class="typewriter-cursor"></span>
+                        </p>
+                        <p class="max-w-xl mx-auto text-[var(--text-muted)] mb-10" style="transition-delay: 400ms;">
+                            Passionate about C, Web-dev, Python and Deep-learning<span class="humor-text">(maybe 😒)</span>. I love building efficient backend systems<span class="humor-text">(true)</span> and
+                            beautiful, optimized frontend experiences<span class="humor-text">just vibe code them 🥱</span>.
+                        </p>
+                        <div class="flex justify-center items-center space-x-6" style="transition-delay: 500ms;">
+                            <a href="https://github.com/aadityansha06" target="_blank"
+                                class="text-[var(--text-muted)] hover:text-[var(--accent-color)] transition-transform duration-300 transform hover:scale-110"><i
+                                    class='bx bxl-github text-3xl'></i></a>
+                            <a href="https://www.linkedin.com/in/aadityansha-verma-a4a35a213/" target="_blank"
+                                class="text-[var(--text-muted)] hover:text-[var(--accent-color)] transition-transform duration-300 transform hover:scale-110"><i
+                                    class='bx bxl-linkedin-square text-3xl'></i></a>
+                            <a href="https://t.me/aadityansha" target="_blank"
+                                class="text-[var(--text-muted)] hover:text-[var(--accent-color)] transition-transform duration-300 transform hover:scale-110"><i
+                                    class='bx bxl-telegram text-3xl'></i></a>
+                            <a href="https://x.com/aadityansha_06" target="_blank"
+                                class="text-[var(--text-muted)] hover:text-[var(--accent-color)] transition-transform duration-300 transform hover:scale-110">
+                                <img src="https://img.icons8.com/?size=50&id=YfCbGWCWcuar&format=png&color=#E5E7EB"
+                                    alt="X social icon" class="w-8 h-8">
+                            </a>
+                            <a href="mailto:pkumariverma42@gmail.com"
+                                class="text-[var(--text-muted)] hover:text-[var(--accent-color)] transition-transform duration-300 transform hover:scale-110"><i
+                                    class='bx bxs-envelope text-3xl'></i></a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- About Section -->
+            <section id="about" class="py-20 sm:py-32 bg-[var(--bg-primary)]">
+                <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center mb-12 reveal">
+                        <h2 class="text-3xl sm:text-4xl font-bold text-[var(--text-heading)]">About Me</h2>
+                        <p class="text-[var(--accent-color)] mt-2">My journey and background </p>
+                        <span class="humor-text">(One-word: pathetic)</span>
+                    </div>
+                    <div class="max-w-3xl mx-auto text-center reveal">
+                        <h3 class="text-2xl font-semibold text-[var(--text-heading)] mb-4">A Passion for Creation</h3>
+                        <p class="text-[var(--text-muted)] mb-4">
+                            I'm a 17-year-old programmer preparing for JEE (2026)<span class="humor-text">(which i'll unable to crack obvis..)</span>. My coding journey began in Class 8<span class="humor-text">becuz my Ex left me</span>,
+                            sparking a deep interest in backend development, system optimization, and intuitive UI
+                            design<span class="humor-text">(frontend isn't my cup of tea 😪)</span>.
+                            <br><br>
+                            solving real-world problems through technology<span class="humor-text">--except my own 🙂</span>.
+                        </p>
+                        <p class="mt-6 text-[var(--text-body)] flex items-center justify-center">
+                            <i class='bx bxs-map text-xl mr-2 text-[var(--accent-color)]'></i>
+                            Bihar, India
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Projects Section -->
+            <section id="projects" class="py-20 sm:py-32 bg-[var(--bg-secondary)]">
+                <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center mb-12 reveal">
+                        <h2 class="text-3xl sm:text-4xl font-bold text-[var(--text-heading)]">Featured Projects</h2>
+                        <p class="text-[var(--accent-color)] mt-2">A selection of my work</p>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <!-- Project Card 1 -->
+                        <div
+                            class="bg-[var(--bg-card)] border border-[var(--border-color)] rounded-lg p-6 flex flex-col justify-between transform hover:-translate-y-2 transition-transform duration-300 reveal">
+                            <div>
+                                <h3 class="text-xl font-bold text-[var(--text-heading)] mb-2">Make Private</h3>
+                                <p class="text-[var(--text-muted)] mb-4">Secure your sensitive data with modern
+                                    encryption techniques right in your browser.</p>
+                                <div class="flex flex-wrap gap-2 mb-4">
+                                    <span class="bg-[var(--accent-subtle)] text-[var(--accent-text)] text-xs font-medium px-2.5 py-0.5 rounded-full">JavaScript</span>
+                                    <span class="bg-[var(--accent-subtle)] text-[var(--accent-text)] text-xs font-medium px-2.5 py-0.5 rounded-full">Encryption</span>
+                                    <span class="bg-[var(--accent-subtle)] text-[var(--accent-text)] text-xs font-medium px-2.5 py-0.5 rounded-full">Web App</span>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-4 mt-4">
+                                <a href="https://aadityansha06.github.io/make-private/" target="_blank"
+                                    class="text-[var(--text-body)] hover:text-[var(--accent-color)] transition-colors duration-300 flex items-center"><i class='bx bx-link-external mr-1'></i> Live Demo</a>
+                                <a href="https://github.com/aadityansha06/make-private" target="_blank"
+                                    class="text-[var(--text-body)] hover:text-[var(--accent-color)] transition-colors duration-300 flex items-center"><i class='bx bxl-github mr-1'></i> View Code</a>
+                            </div>
+                        </div>
+                        <!-- Project Card 2 -->
+                        <div class="bg-[var(--bg-card)] border border-[var(--border-color)] rounded-lg p-6 flex flex-col justify-between transform hover:-translate-y-2 transition-transform duration-300 reveal" style="transition-delay: 100ms;">
+                            <div>
+                                <h3 class="text-xl font-bold text-[var(--text-heading)] mb-2">Snip Version System</h3>
+                                <p class="text-[var(--text-muted)] mb-4">A lightweight, Git-like version control system
+                                    built from scratch in C for the command line.</p>
+                                <div class="flex flex-wrap gap-2 mb-4">
+                                    <span class="bg-[var(--accent-subtle)] text-[var(--accent-text)] text-xs font-medium px-2.5 py-0.5 rounded-full">C</span>
+                                    <span class="bg-[var(--accent-subtle)] text-[var(--accent-text)] text-xs font-medium px-2.5 py-0.5 rounded-full">Linked-list</span>
+                                    <span class="bg-[var(--accent-subtle)] text-[var(--accent-text)] text-xs font-medium px-2.5 py-0.5 rounded-full">File-handling</span>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-4 mt-4">
+                                <a href="https://github.com/aadityansha06/snip/releases/tag/1.01" target="_blank"
+                                    class="text-[var(--text-body)] hover:text-[var(--accent-color)] transition-colors duration-300 flex items-center"><i class='bx bx-download mr-1'></i> Download</a>
+                                <a href="https://github.com/aadityansha06/snip" target="_blank"
+                                    class="text-[var(--text-body)] hover:text-[var(--accent-color)] transition-colors duration-300 flex items-center"><i class='bx bxl-github mr-1'></i> View Code</a>
+                            </div>
+                        </div>
+                        <!-- Project Card 3 -->
+                        <div class="bg-[var(--bg-card)] border border-[var(--border-color)] rounded-lg p-6 flex flex-col justify-between transform hover:-translate-y-2 transition-transform duration-300 reveal" style="transition-delay: 200ms;">
+                            <div>
+                                <h3 class="text-xl font-bold text-[var(--text-heading)] mb-2">C-Socket Realtime Chat</h3>
+                                <p class="text-[var(--text-muted)] mb-4">A terminal-based realtime chat application
+                                    using sockets and multithreading in C.</p>
+                                <div class="flex flex-wrap gap-2 mb-4">
+                                    <span class="bg-[var(--accent-subtle)] text-[var(--accent-text)] text-xs font-medium px-2.5 py-0.5 rounded-full">C</span>
+                                    <span class="bg-[var(--accent-subtle)] text-[var(--accent-text)] text-xs font-medium px-2.5 py-0.5 rounded-full">Socket</span>
+                                    <span class="bg-[var(--accent-subtle)] text-[var(--accent-text)] text-xs font-medium px-2.5 py-0.5 rounded-full">Win-API</span>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-4 mt-4">
+                                <a href="https://github.com/aadityansha06/c-socket-realtime-chat-app" target="_blank"
+                                    class="text-[var(--text-body)] hover:text-[var(--accent-color)] transition-colors duration-300 flex items-center"><i class='bx bxl-github mr-1'></i> View Code</a>
+                            </div>
+                        </div>
+                        <!-- Project Card 4 -->
+                        <div class="bg-[var(--bg-card)] border border-[var(--border-color)] rounded-lg p-6 flex flex-col justify-between transform hover:-translate-y-2 transition-transform duration-300 reveal" style="transition-delay: 300ms;">
+                            <div>
+                                <h3 class="text-xl font-bold text-[var(--text-heading)] mb-2">Quick-Ask</h3>
+                                <p class="text-[var(--text-muted)] mb-4">A dynamic, full-stack Q&A platform built with a
+                                    PHP backend and MySQL database.</p>
+                                <div class="flex flex-wrap gap-2 mb-4">
+                                    <span class="bg-[var(--accent-subtle)] text-[var(--accent-text)] text-xs font-medium px-2.5 py-0.5 rounded-full">PHP</span>
+                                    <span class="bg-[var(--accent-subtle)] text-[var(--accent-text)] text-xs font-medium px-2.5 py-0.5 rounded-full">MySQL</span>
+                                    <span class="bg-[var(--accent-subtle)] text-[var(--accent-text)] text-xs font-medium px-2.5 py-0.5 rounded-full">Web App</span>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-4 mt-4">
+                                <a href="http://quick-ask.byethost6.com/index.php" target="_blank"
+                                    class="text-[var(--text-body)] hover:text-[var(--accent-color)] transition-colors duration-300 flex items-center"><i class='bx bx-link-external mr-1'></i> Live Demo</a>
+                                <a href="https://github.com/aadityansha06/quick-ask" target="_blank"
+                                    class="text-[var(--text-body)] hover:text-[var(--accent-color)] transition-colors duration-300 flex items-center"><i class='bx bxl-github mr-1'></i> View Code</a>
+                            </div>
+                        </div>
+
+                        <!---project 5-->
+                        <div class="bg-[var(--bg-card)] border border-[var(--border-color)] rounded-lg p-6 flex flex-col justify-between transform hover:-translate-y-2 transition-transform duration-300 reveal" style="transition-delay: 300ms;">
+                            <div>
+                                <h3 class="text-xl font-bold text-[var(--text-heading)] mb-2">Order-Tracking</h3>
+                                <p class="text-[var(--text-muted)] mb-4">Order placing and tracking system inspired from <a href="https://www.delhivery.com/" target="_blank" style="color: #e84a58;">Delhivery </a>and flipkart <br>
+                                User can place order, recive automated email for placing order with order id , can track it and on delivery again recive an automated email </p>
+                                <div class="flex flex-wrap gap-2 mb-4">
+                                    <span class="bg-[var(--accent-subtle)] text-[var(--accent-text)] text-xs font-medium px-2.5 py-0.5 rounded-full">JavaScript</span>
+                                    <span class="bg-[var(--accent-subtle)] text-[var(--accent-text)] text-xs font-medium px-2.5 py-0.5 rounded-full">AppScript</span>
+                                    <span class="bg-[var(--accent-subtle)] text-[var(--accent-text)] text-xs font-medium px-2.5 py-0.5 rounded-full">Automation</span>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-4 mt-4">
+                                <a href="https://order-track-ashen.vercel.app/" target="_blank"
+                                    class="text-[var(--text-body)] hover:text-[var(--accent-color)] transition-colors duration-300 flex items-center"><i class='bx bx-link-external mr-1'></i> Live Demo</a>
+                                <a href="https://github.com/aadityansha06/order-track" target="_blank"
+                                    class="text-[var(--text-body)] hover:text-[var(--accent-color)] transition-colors duration-300 flex items-center"><i class='bx bxl-github mr-1'></i> View Code</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Skills Section -->
+            <section id="skills" class="py-20 sm:py-32 bg-[var(--bg-primary)]">
+                <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center mb-12 reveal">
+                        <h2 class="text-3xl sm:text-4xl font-bold text-[var(--text-heading)]">My Tech Stack</h2>
+                        <p class="text-[var(--accent-color)] mt-2">Technologies I work with</p>
+                    </div>
+                    <div class="skills-marquee">
+                        <div class="skills-track">
+                            <div class="flex flex-col items-center p-4 reveal skill-item">
+                                <i class='bx bx-code-alt text-5xl text-[var(--accent-color)]'></i>
+                                <span class="mt-2 text-[var(--text-body)]">C</span>
+                                 <p class="skill-humor">💖</p>
+                            </div>
+                            <div class="flex flex-col items-center p-4 reveal skill-item">
+                                <i class='bx bxl-javascript text-5xl text-[var(--accent-color)]'></i>
+                                <span class="mt-2 text-[var(--text-body)]" style="font-size: large;">JavaScript</span>
+                                <p class="skill-humor">a little bit</p>
+                            </div>
+                            <div class="flex flex-col items-center p-4 reveal skill-item">
+                                <i class='bx bxl-html5 text-5xl text-[var(--accent-color)]'></i>
+                                <span class="mt-2 text-[var(--text-body)]">HTML</span>
+                                   <p class="skill-humor">Don't have time</p>
+                            </div>
+                            <div class="flex flex-col items-center p-4 reveal skill-item">
+                                <i class='bx bxl-css3 text-5xl text-[var(--accent-color)]'></i>
+                                <span class="mt-2 text-[var(--text-body)]">CSS</span>
+                                 <p class="skill-humor">Vibe code it</p>
+                            </div>
+                            <div class="flex flex-col items-center p-4 reveal skill-item">
+                                <i class='bx bxl-php text-5xl text-[var(--accent-color)]'></i>
+                                <span class="mt-2 text-[var(--text-body)]">PHP</span>
+                                  <p class="skill-humor">🥰</p>
+                            </div>
+                            <div class="flex flex-col items-center p-4 reveal skill-item">
+                                <i class='bx bxl-firebase text-5xl text-[var(--accent-color)]'></i>
+                                <span class="mt-2 text-[var(--text-body)]">Firebase</span>
+                                <p class="skill-humor">(&frac14;th of js)</p>
+                            </div>
+                            <div class="flex flex-col items-center p-4 reveal skill-item">
+                                <i class='bx bxl-google text-5xl text-[var(--accent-color)]'></i>
+                                <span class="mt-2 text-[var(--text-body)]">Apps Script</span>
+                                 <p class="skill-humor">(⅛th of firebase)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Contact Section -->
+            <section id="contact" class="py-20 sm:py-32 bg-[var(--bg-secondary)]">
+                <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center mb-12 reveal">
+                        <h2 class="text-3xl sm:text-4xl font-bold text-[var(--text-heading)]">Get In Touch <span class="humor-text">(if wish 🥱)</span></h2>
+                        <p class="text-[var(--accent-color)] mt-2">Let's build something amazing together. <span class="humor-text">(don't have money so asking to u 😥)</span></p>
+                    </div>
+                    <div class="max-w-xl mx-auto">
+                        <form id="contact-form" class="space-y-6 reveal">
+                            <input type="text" name="name" required placeholder="Your Name"
+                                class="w-full bg-[var(--bg-card)] border border-[var(--border-color)] rounded-md py-3 px-4 text-[var(--text-heading)] focus:outline-none focus:ring-2 focus:ring-[var(--accent-color)] transition-all duration-300">
+                            <input type="email" name="email" required placeholder="Your Email"
+                                class="w-full bg-[var(--bg-card)] border border-[var(--border-color)] rounded-md py-3 px-4 text-[var(--text-heading)] focus:outline-none focus:ring-2 focus:ring-[var(--accent-color)] transition-all duration-300">
+                            <input type="text" name="social"
+                                placeholder="Social Media id (e.g., aadityansha_06 (X-account))"
+                                class="w-full bg-[var(--bg-card)] border border-[var(--border-color)] rounded-md py-3 px-4 text-[var(--text-heading)] focus:outline-none focus:ring-2 focus:ring-[var(--accent-color)] transition-all duration-300">
+                            <textarea name="Feedback" required rows="5" placeholder="Your Message"
+                                class="w-full bg-[var(--bg-card)] border border-[var(--border-color)] rounded-md py-3 px-4 text-[var(--text-heading)] focus:outline-none focus:ring-2 focus:ring-[var(--accent-color)] transition-all duration-300"></textarea>
+                            <div class="text-center">
+                                <button type="submit" id="submit-button"
+                                    class="bg-[var(--accent-color)] text-white font-bold py-3 px-8 rounded-md hover:bg-[var(--accent-hover)] transition-all duration-300 transform hover:scale-105 active:scale-95">
+                                    Send Message
+                                </button>
+                            </div>
+                        </form>
+                        <div id="form-status" class="mt-6 text-center"></div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="bg-[var(--bg-primary)] border-t border-[var(--border-color)]">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-6 text-center text-[var(--text-muted)]">
+                <p>&copy; 2025 Aadityansha Verma | All Rights Reserved</p>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- SMOOTH SCROLLING (LENIS) ---
+            const lenis = new Lenis();
+
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    lenis.scrollTo(this.getAttribute('href'));
+                });
+            });
+
+            function raf(time) {
+                lenis.raf(time);
+                requestAnimationFrame(raf);
+            }
+            requestAnimationFrame(raf);
+
+            // --- LANDING ANIMATION ---
+            window.onload = () => {
+                document.body.classList.remove('landing-hidden');
+                document.body.classList.add('loaded');
+            };
+
+            const themeToggle = document.getElementById('theme-toggle');
+            const toggleIcon = themeToggle.querySelector('i');
+            const loading = document.getElementById("loading");
+
+            const currentTheme = localStorage.getItem('theme') || 'rose';
+if (currentTheme === 'rose') {
+    document.body.classList.add('theme-rose');
+    toggleIcon.classList.replace('bxs-moon', 'bxs-sun');
+    loading.style.background = "#342c22";
+} else {
+    // This 'else' block now handles the light theme
+    document.body.classList.remove('theme-rose'); // Ensure dark theme is not applied
+    toggleIcon.classList.replace('bxs-sun', 'bxs-moon');
+    loading.style.background = "#fff1cb";
+}
+
+            themeToggle.addEventListener('click', () => {
+                document.body.classList.toggle('theme-rose');
+                let theme = 'default';
+
+                if (document.body.classList.contains('theme-rose')) {
+                    theme = 'rose';
+                    toggleIcon.classList.replace('bxs-moon', 'bxs-sun');
+                    loading.style.background = "#342c22";
+                } else {
+                    toggleIcon.classList.replace('bxs-sun', 'bxs-moon');
+                    loading.style.background = "#fff1cb";
+                }
+
+                localStorage.setItem('theme', theme);
+            });
+
+            // --- SCROLL REVEAL ANIMATION LOGIC ---
+            const revealElements = document.querySelectorAll('.reveal');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+            revealElements.forEach(el => observer.observe(el));
+
+            // --- TYPING ANIMATION LOGIC ---
+            const typewriterElement = document.getElementById('typewriter');
+            const words = ["Backend Developer", "Web Designer", "Student"];
+            let wordIndex = 0;
+            let charIndex = 0;
+            let isDeleting = false;
+
+            function type() {
+                const currentWord = words[wordIndex];
+                let displayText = isDeleting
+                    ? currentWord.substring(0, charIndex - 1)
+                    : currentWord.substring(0, charIndex + 1);
+
+                typewriterElement.textContent = displayText;
+                charIndex = isDeleting ? charIndex - 1 : charIndex + 1;
+
+                let typeSpeed = isDeleting ? 100 : 200;
+
+                if (!isDeleting && charIndex === currentWord.length) {
+                    typeSpeed = 2000;
+                    isDeleting = true;
+                } else if (isDeleting && charIndex === 0) {
+                    isDeleting = false;
+                    wordIndex = (wordIndex + 1) % words.length;
+                    typeSpeed = 500;
+                }
+
+                setTimeout(type, typeSpeed);
+            }
+            type();
+
+            // --- CONTACT FORM LOGIC ---
+            const contactForm = document.getElementById('contact-form');
+            const submitButton = document.getElementById('submit-button');
+            const formStatus = document.getElementById('form-status');
+            contactForm.addEventListener("submit", async function (event) {
+                event.preventDefault();
+
+                const form = event.target;
+                const formData = new FormData(form);
+                formData.append("formType", "contact");
+
+                submitButton.innerText = "Please be patient 😊, Sending...";
+                submitButton.disabled = true;
+                formStatus.innerHTML = "";
+
+                try {
+                    const response = await fetch("https://script.google.com/macros/s/AKfycbwSjWYoMNKfuZpg1-BF5SJP3p4daM2hxPTCvwefCGwMdREwq6WjPLllfhobcjK9inLOuQ/exec", {
+                        method: "POST",
+                        body: formData,
+                    });
+
+                    if (response.ok) {
+                        const Username = form.querySelector('input[name="name"]').value;
+                        submitButton.style.display = "none";
+                        formStatus.innerHTML = `${Username} <span style="color: #0f0;">Your message has been successfully delivered!</span>`;
+                        formStatus.style.color = ' #ff5e6c';
+                        formStatus.style.padding = '10px';
+                        formStatus.style.textAlign = 'center';
+
+                        setTimeout(() => {
+                            formStatus.style.display = 'none';
+                            location.reload();
+                        }, 4000);
+                    } else {
+                        throw new Error("Failed to send message.");
+                    }
+                } catch (error) {
+                    formStatus.innerHTML = `<span style="color: red;">❌ Error: Unable to send message. Try again later.</span>`;
+                } finally {
+                    submitButton.innerText = "Send Message";
+                    submitButton.disabled = false;
+                }
+            });
+        });
+
+        window.addEventListener("load", () => {
+            const loading = document.getElementById("loading");
+            const content = document.getElementById("content");
+
+            setTimeout(() => {
+                loading.classList.add("hidden");
+                content.style.display = "block";
+            }, 2000);
+        });
+    </script>
+</body>
+
+</html>
