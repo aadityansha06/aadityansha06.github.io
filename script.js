@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const messages = [
         "Come back! 👋",
         "Don't leave yet!",
-        "Let's build something."
+        "you are not my ex"
     ];
     let i = 0;
     let interval;
@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (document.hidden) {
             interval = setInterval(() => {
                 document.title = messages[i++ % messages.length];
-            }, 1500);
+            }, 1600);
         } else {
             clearInterval(interval);
             document.title = originalTitle;
