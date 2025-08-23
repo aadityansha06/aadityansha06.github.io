@@ -466,7 +466,25 @@
         transition-duration: 0.01ms !important;
     }
 }
+/* Add for better mobile performance */
+@media (max-width: 768px) {
+    #smooth-wrapper, #smooth-content {
+        transform: none !important;
+    }
+    
+    .skills-track {
+        animation-duration: 12s; /* Faster on mobile */
+    }
+}
 
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
 
 /* Responsive adjustments */
 @media (max-width: 640px) {
@@ -486,6 +504,12 @@
         height: 16px;
         top: -6px;
     }
+}
+@media (max-width: 390px){
+    #hero{
+        margin-top: 6rem;
+    }
+
 }
     </style>
 </head>
