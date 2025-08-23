@@ -79,6 +79,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Patrick+Hand&display=swap"
         rel="stylesheet">
+        <link rel="manifest" href="/site.webmanifest" />
 
     <!-- Lottie Player -->
     <script src="https://unpkg.com/@lottiefiles/dotlottie-wc@0.6.2/dist/dotlottie-wc.js" type="module"></script>
@@ -421,6 +422,51 @@
 .theme-rose .sticky-corner {
     border-bottom-color: #24201a;
 }
+        /* Add to your existing styles */
+.scroll-parallax {
+    transform: translateY(0);
+    transition: transform 0.1s ease-out;
+}
+
+/* Enhanced reveal animations */
+.reveal {
+    opacity: 0;
+    transform: translateY(50px) scale(0.95);
+    transition: opacity 1s cubic-bezier(0.23, 1, 0.32, 1), 
+                transform 1s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.reveal.visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+/* Staggered animations */
+.reveal:nth-child(1) { transition-delay: 0.1s; }
+.reveal:nth-child(2) { transition-delay: 0.2s; }
+.reveal:nth-child(3) { transition-delay: 0.3s; }
+.reveal:nth-child(4) { transition-delay: 0.4s; }
+.reveal:nth-child(5) { transition-delay: 0.5s; }
+/* Add for better mobile performance */
+@media (max-width: 768px) {
+    #smooth-wrapper, #smooth-content {
+        transform: none !important;
+    }
+    
+    .skills-track {
+        animation-duration: 12s; /* Faster on mobile */
+    }
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
 
 /* Responsive adjustments */
 @media (max-width: 640px) {
@@ -451,7 +497,9 @@
         </dotlottie-wc>
     </div>
 
-    <div id="content">
+    
+    <div id="smooth-wrapper">
+        <div id="smooth-content">
         <!-- Header & Navigation -->
         <header
             class="bg-[var(--bg-header)] backdrop-blur-sm fixed top-0 left-0 right-0 z-50 border-b border-[var(--border-color)] landing-header">
@@ -593,7 +641,7 @@
                                 </div>
                             </div>
                             <div class="flex items-center space-x-4 mt-4">
-                                <a href="https://aadityansha06.github.io/make-private/" target="_blank"
+                                <a href="https://make-private.vercel.app/" target="_blank"
                                     class="text-[var(--text-body)] hover:text-[var(--accent-color)] transition-colors duration-300 flex items-center"><i class='bx bx-link-external mr-1'></i> Live Demo</a>
                                 <a href="https://github.com/aadityansha06/make-private" target="_blank"
                                     class="text-[var(--text-body)] hover:text-[var(--accent-color)] transition-colors duration-300 flex items-center"><i class='bx bxl-github mr-1'></i> View Code</a>
@@ -730,9 +778,11 @@
             <!-- Contact Section -->
             <section id="contact" class="py-20 sm:py-32 bg-[var(--bg-secondary)]">
                 <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                    
                     <div class="text-center mb-12 reveal">
-                        <h2 class="text-4xl sm:text-4xl font-bold text-[var(--text-heading)]">Get In Touch <span class="humor-text">(if you genuinely wish  🤗)</span></h2>
-                        <p class="text-[var(--accent-color)] mt-2">Let's build something amazing together. </p>
+                        <h2 class="text-4xl sm:text-4xl font-bold text-[var(--text-heading)]">Get In Touch</h2>
+                         <span class="humor-text">(if you genuinely wish  🤗)</span>
+                      <p class="text-[var(--accent-color)] mt-2">Let's build something amazing together. </p>
                             <span class="humor-text">(becuz i'have a lot's of tech ideas to build a unicorn 🦄)</span>
                     </div>
                     <div class="max-w-xl mx-auto">
@@ -777,26 +827,81 @@
             © 2025 Aadityansha Verma. All rights reserved.
         </p>
     </div>
-</footer>
-
+    </footer>
+    </div>
+    </div>
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollSmoother.min.js"></script>
+<!-- Add these for enhanced animations -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/TextPlugin.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             // --- SMOOTH SCROLLING (LENIS) ---
-            const lenis = new Lenis();
-
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    lenis.scrollTo(this.getAttribute('href'));
+           
+                      // Replace the existing initSmoothScrolling function with:
+// --- GSAP INITIALIZATION (Enhanced) ---
+function initSmoothScrolling() {
+    let attempts = 0;
+    const maxAttempts = 50;
+    
+    function tryInit() {
+        if (window.gsap && window.ScrollTrigger && window.ScrollSmoother) {
+            try {
+                gsap.registerPlugin(ScrollTrigger, ScrollSmoother, ScrollToPlugin);
+                
+                ScrollSmoother.create({
+                    wrapper: "#smooth-wrapper",
+                    content: "#smooth-content",
+                    smooth: 1.2,
+                    effects: true,
+                    normalizeScroll: true,
+                    ignoreMobileResize: true,
                 });
-            });
-
-            function raf(time) {
-                lenis.raf(time);
-                requestAnimationFrame(raf);
+                
+                console.log('GSAP ScrollSmoother initialized successfully');
+                
+                // Add smooth scroll for navigation
+                document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                    anchor.addEventListener('click', function (e) {
+                        e.preventDefault();
+                        const target = document.querySelector(this.getAttribute('href'));
+                        if (target) {
+                            gsap.to(window, {
+                                duration: 1.2, 
+                                scrollTo: { y: target, offsetY: 80 }, 
+                                ease: "power2.inOut"
+                            });
+                        }
+                    });
+                });
+                
+            } catch (error) {
+                console.error('GSAP ScrollSmoother initialization failed:', error);
             }
-            requestAnimationFrame(raf);
+        } else if (attempts < maxAttempts) {
+            attempts++;
+            setTimeout(tryInit, 100);
+        } else {
+            console.warn('GSAP ScrollSmoother failed to initialize after maximum attempts');
+        }
+    }
+    tryInit();
+}
 
+// Initialize after a brief delay to ensure DOM is ready
+setTimeout(initSmoothScrolling, 100);
+      const revealElements = document.querySelectorAll('.reveal');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+            revealElements.forEach(el => observer.observe(el));
             // --- LANDING ANIMATION ---
             window.onload = () => {
                 document.body.classList.remove('landing-hidden');
@@ -836,15 +941,73 @@ if (currentTheme === 'rose') {
             });
 
             // --- SCROLL REVEAL ANIMATION LOGIC ---
-            const revealElements = document.querySelectorAll('.reveal');
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                    }
+         // Enhanced scroll animations with GSAP
+function initEnhancedScrolling() {
+    if (window.gsap && window.ScrollTrigger) {
+        gsap.registerPlugin(ScrollTrigger);
+        
+        // Smooth reveal animations for each section
+        gsap.utils.toArray('.reveal').forEach((element, index) => {
+            gsap.fromTo(element, {
+                opacity: 0,
+                y: 50,
+                scale: 0.95
+            }, {
+                opacity: 1,
+                y: 0,
+                scale: 1,
+                duration: 0.8,
+                ease: "power2.out",
+                scrollTrigger: {
+                    trigger: element,
+                    start: "top 85%",
+                    end: "bottom 15%",
+                    toggleActions: "play none none reverse"
+                }
+            });
+        });
+        
+        // Parallax effect for hero section
+        gsap.to("#hero", {
+            yPercent: -50,
+            ease: "none",
+            scrollTrigger: {
+                trigger: "#hero",
+                start: "top bottom",
+                end: "bottom top",
+                scrub: true
+            }
+        });
+        
+        // Skills marquee enhanced animation
+        gsap.to(".skills-track", {
+            x: "-50%",
+            duration: 20,
+            ease: "none",
+            repeat: -1
+        });
+    }
+}
+
+// Call the enhanced scrolling function
+initEnhancedScrolling();
+// Add smooth scrolling for navigation links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+            if (window.gsap && window.ScrollToPlugin) {
+                gsap.to(window, {duration: 1.5, scrollTo: target, ease: "power2.inOut"});
+            } else {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
                 });
-            }, { threshold: 0.1 });
-            revealElements.forEach(el => observer.observe(el));
+            }
+        }
+    });
+});
 
             // --- TYPING ANIMATION LOGIC ---
             const typewriterElement = document.getElementById('typewriter');
@@ -922,15 +1085,28 @@ if (currentTheme === 'rose') {
             });
         });
 
-        window.addEventListener("load", () => {
-            const loading = document.getElementById("loading");
-            const content = document.getElementById("content");
+       // Find this code block at the end of your HTML file
+// CORRECTED SCRIPT
+window.addEventListener("load", () => {
+    const loading = document.getElementById("loading");
+    // Get the NEW wrapper element by its ID
+    const smoothWrapper = document.getElementById("smooth-wrapper"); 
+    
+    const lottiePlayer = loading.querySelector('dotlottie-wc');
 
-            setTimeout(() => {
-                loading.classList.add("hidden");
-                content.style.display = "block";
-            }, 2000);
-        });
+    setTimeout(() => {
+        loading.classList.add("hidden");
+        // Set the wrapper's display to block to show the content
+        smoothWrapper.style.display = "block"; 
+        
+        // It's a good practice to initialize GSAP AFTER the content is visible
+        initSmoothScrolling(); 
+        
+        lottiePlayer.stop();
+    }, 2000);
+});
+
+
     </script>
     <script src="script.js"></script>
 </body>
