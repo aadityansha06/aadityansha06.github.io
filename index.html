@@ -516,7 +516,53 @@
         margin-top: 8rem;
     }
 
-
+    /* --- LOG SECTION STYLES --- */
+.log-container {
+    font-family: 'Courier New', Courier, monospace;
+    color: var(--text-body);
+    font-size: 0.9rem;
+    line-height: 1.7;
+    text-align: left;
+    background-color: var(--bg-secondary);
+    padding: 1.5rem;
+    border-radius: 8px;
+    border-left: 4px solid var(--accent-color);
+}
+.log-entry {
+    margin-bottom: 0.75rem;
+}
+.log-entry:last-child {
+    margin-bottom: 0;
+}
+.log-date {
+    color: var(--accent-text);
+    font-weight: bold;
+    margin-right: 0.5rem;
+}
+.log-level {
+    color: #34d399; /* Green for INFO */
+    margin-right: 0.5rem;
+}
+.theme-rose .log-level {
+    color: #6ee7b7;
+}
+.log-tags {
+    color: var(--text-muted);
+    font-style: italic;
+    font-size: 0.8rem;
+}
+.log-entry-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    transition: background-color 0.2s ease;
+    margin: -0.5rem; /* Adjust positioning */
+    padding: 0.5rem;
+    border-radius: 6px;
+}
+.log-entry-link:hover {
+    background-color: var(--border-color);
+}
     </style>
 </head>
 
@@ -552,6 +598,8 @@
                                     class="px-3 py-2 rounded-md text-sm font-medium text-[var(--text-body)] hover:text-[var(--accent-color)] hover:bg-[var(--bg-card)] transition-all duration-300">Projects</a>
                                 <a href="#skills"
                                     class="px-3 py-2 rounded-md text-sm font-medium text-[var(--text-body)] hover:text-[var(--accent-color)] hover:bg-[var(--bg-card)] transition-all duration-300">Skills</a>
+                                    <a href="blog.html" target="_blank"
+                                    class="px-3 py-2 rounded-md text-sm font-medium text-[var(--text-body)] hover:text-[var(--accent-color)] hover:bg-[var(--bg-card)] transition-all duration-300">Blogs</a>
                                 <a href="#contact"
                                     class="px-3 py-2 rounded-md text-sm font-medium text-[var(--text-body)] hover:text-[var(--accent-color)] hover:bg-[var(--bg-card)] transition-all duration-300">Contact</a>
                             </div>
@@ -804,7 +852,19 @@
                     </div>
                 </div>
             </section>
+<!---Logs-->
 
+<section id="blogs" class="py-20 sm:py-32 bg-[var(--bg-primary)]">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12 reveal">
+            <h2 class="text-3xl sm:text-4xl font-bold text-[var(--text-heading)]">Latest logs</h2>
+            <p class="text-[var(--accent-color)] mt-2">A feed of recent posts and updates</p>
+        </div>
+        <div id="log-container" class="log-container max-w-4xl mx-auto reveal">
+            <p class="log-entry">Loading latest logs...</p>
+        </div>
+    </div>
+</section>
             <!-- Contact Section -->
             <section id="contact" class="py-20 sm:py-32 bg-[var(--bg-secondary)]">
                 <div class="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -860,6 +920,11 @@
     </footer>
     </div>
     </div>
+    
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/9.23.0/firebase-app-compat.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/9.23.0/firebase-firestore-compat.min.js"></script>
+
     
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
@@ -932,6 +997,7 @@ setTimeout(initSmoothScrolling, 100);
                 });
             }, { threshold: 0.1 });
             revealElements.forEach(el => observer.observe(el));
+            
             // --- LANDING ANIMATION ---
             window.onload = () => {
                 document.body.classList.remove('landing-hidden');
@@ -1137,6 +1203,71 @@ window.addEventListener("load", () => {
 });
 
 
+        // 1. Firebase Configuration from your blog.html
+        const firebaseConfig = {
+          apiKey: "AIzaSyAbXdJRgirJTehgW-kpUMYdTjGw_hFvfkY",
+          authDomain: "blog-ffec3.firebaseapp.com",
+          projectId: "blog-ffec3",
+          storageBucket: "blog-ffec3.firebasestorage.app",
+          messagingSenderId: "521676827644",
+          appId: "1:521676827644:web:2f7867d4caaf25142ae079",
+          measurementId: "G-CR5PQX8GHZ"
+        };
+
+        // 2. Initialize Firebase
+        if (!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
+        }
+        const db = firebase.firestore();
+
+        // 3. Function to fetch and display latest logs
+      // 3. Function to fetch and display latest logs in a card layout
+    async function loadLatestLogs() {
+    const logContainer = document.getElementById('log-container');
+    if (!logContainer) return;
+
+    try {
+        const snapshot = await db.collection('articles')
+            .orderBy('createdAt', 'desc')
+            .limit(4)
+            .get();
+
+        if (snapshot.empty) {
+            logContainer.innerHTML = '<p class="log-entry">No logs found.</p>';
+            return;
+        }
+
+        let logsHTML = '';
+        snapshot.forEach(doc => {
+            const article = doc.data();
+            const date = article.createdAt.toDate();
+            // Format date to YYYY-MM-DD to match the image
+            const formattedDate = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+            const readTime = Math.ceil(article.content.split(' ').length / 200);
+
+            logsHTML += `
+                <a href="blog.html?article=${doc.id}" class="log-entry-link">
+                    <p class="log-entry">
+                        <span class="log-date">[${formattedDate}]</span>
+                        <span class="log-level">INFO:</span>
+                        ${article.title} (${readTime} min read) - 
+                        <span class="log-tags">Tags: ${article.tags.join(', ')}</span>
+                    </p>
+                </a>
+            `;
+        });
+
+        logContainer.innerHTML = logsHTML;
+
+    } catch (error) {
+        console.error("Error loading latest logs:", error);
+        logContainer.innerHTML = '<p class="log-entry" style="color: red;">Error loading logs.</p>';
+    }
+}
+
+        // 4. Run the function after the page content has loaded
+        document.addEventListener('DOMContentLoaded', loadLatestLogs);
+    
     </script>
     <script src="script.js"></script>
 </body>

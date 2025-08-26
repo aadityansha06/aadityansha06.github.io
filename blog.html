@@ -1,0 +1,1436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Blog - Aadityansha Verma</title>
+    
+    <link rel="icon" type="image/x-icon" href="pic/favicon.ico" />
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Patrick+Hand&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/9.23.0/firebase-app-compat.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/9.23.0/firebase-firestore-compat.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/9.23.0/firebase-auth-compat.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/9.23.0/firebase-storage-compat.min.js"></script>
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/quill/1.3.7/quill.snow.min.css" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-primary: #fff1cb;
+            --bg-secondary: #faedcd;
+            --bg-card: rgba(255, 241, 203, 0.7);
+            --bg-header: rgba(250, 237, 205, 0.85);
+            --text-heading: #222;
+            --text-body: #3c3c3c;
+            --text-muted: #777;
+            --accent-color: #ff5e6c;
+            --accent-hover: #e84a58;
+            --accent-subtle: rgba(255, 94, 108, 0.12);
+            --accent-text: #b33c47;
+            --border-color: #e8dcb6;
+            --border-accent: rgba(255, 94, 108, 0.25);
+            --code-bg: #2d3748;
+            --code-border: #4a5568;
+        }
+
+        .theme-rose {
+            --bg-primary: #19150f;
+            --bg-secondary: #211c16;
+            --bg-card: rgba(40, 35, 29, 0.5);
+            --bg-header: rgba(25, 21, 15, 0.8);
+            --text-heading: #eee;
+            --text-body: #ddd;
+            --text-muted: #ccc;
+            --accent-color: #ff5e6c;
+            --accent-hover: #fe3c4f;
+            --accent-subtle: rgba(255, 94, 108, 0.15);
+            --accent-text: #fca9b0;
+            --border-color: #443c33;
+            --border-accent: rgba(255, 94, 108, 0.3);
+            --code-bg: #1a1a1a;
+            --code-border: #333;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-body);
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .humor-text {
+            font-family: 'Patrick Hand', cursive;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            opacity: 0.8;
+            font-weight: 400;
+        }
+
+        .blog-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            cursor: pointer;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .blog-meta {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .blog-title {
+            color: var(--text-heading);
+            font-weight: 700;
+            margin: 1rem 0 0.5rem 0;
+            line-height: 1.3;
+        }
+
+        .tech-tag {
+            background: var(--accent-subtle);
+            color: var(--accent-text);
+            font-size: 0.7rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            overflow-y: auto;
+        }
+
+        .modal-content {
+            background: var(--bg-primary);
+            margin: 2% auto;
+            padding: 0;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 900px;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .modal-header {
+            background: var(--bg-secondary);
+            padding: 1rem 2rem;
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .close {
+            color: var(--text-muted);
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .close:hover {
+            color: var(--accent-color);
+        }
+
+        .article-content {
+            padding: 2rem;
+            line-height: 1.7;
+        }
+
+        .article-content h2 {
+            color: var(--text-heading);
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin: 2rem 0 1rem 0;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--accent-color);
+        }
+
+        .article-content h3 {
+            color: var(--text-heading);
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin: 1.5rem 0 1rem 0;
+        }
+
+        .article-content p {
+            margin-bottom: 1.2rem;
+            color: var(--text-body);
+        }
+
+        .article-content pre {
+            background: var(--code-bg) !important;
+            border: 1px solid var(--code-border) !important;
+            border-radius: 8px !important;
+            padding: 1rem !important;
+            margin: 1rem 0 !important;
+            font-family: 'JetBrains Mono', monospace !important;
+            font-size: 0.9rem !important;
+            overflow-x: auto;
+        }
+
+        .article-content hr {
+            border: none;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent-color), transparent);
+            margin: 2rem 0;
+        }
+
+        .search-container {
+            position: relative;
+            margin-bottom: 2rem;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 1rem 1rem 1rem 3rem;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            background: var(--bg-card);
+            color: var(--text-body);
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--accent-color);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+        }
+
+        .share-buttons {
+            display: flex;
+            gap: 0.5rem;
+            margin: 1rem 0;
+        }
+
+        .share-btn {
+            padding: 0.5rem 1rem;
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: all 0.3s;
+        }
+
+        .share-btn:hover {
+            background: var(--accent-hover);
+            transform: translateY(-1px);
+        }
+
+        .admin-panel {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bg-primary);
+            z-index: 2000;
+            overflow-y: auto;
+        }
+
+        .admin-header {
+            background: var(--bg-secondary);
+            padding: 1rem 2rem;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .admin-content {
+            display: flex;
+            height: calc(100vh - 70px);
+        }
+
+        .admin-editor {
+            flex: 1;
+            padding: 2rem;
+            border-right: 1px solid var(--border-color);
+        }
+
+        .admin-preview {
+            flex: 1;
+            padding: 2rem;
+            overflow-y: auto;
+            background: var(--bg-card);
+        }
+
+        .toolbar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background: var(--bg-card);
+            border-radius: 8px;
+        }
+
+        .toolbar-btn {
+            padding: 0.5rem 1rem;
+            background: var(--accent-subtle);
+            color: var(--accent-text);
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: all 0.3s;
+        }
+
+        .toolbar-btn:hover {
+            background: var(--accent-color);
+            color: white;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--text-heading);
+        }
+
+        .form-input, .form-textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid var(--border-color);
+            border-radius: 6px;
+            background: var(--bg-card);
+            color: var(--text-body);
+            font-family: inherit;
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 300px;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .form-input:focus, .form-textarea:focus {
+            outline: none;
+            border-color: var(--accent-color);
+        }
+
+        .tag-input-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            align-items: center;
+            min-height: 40px;
+            padding: 0.5rem;
+            border: 2px solid var(--border-color);
+            border-radius: 6px;
+            background: var(--bg-card);
+            cursor: text;
+        }
+
+        .tag-item {
+            background: var(--accent-subtle);
+            color: var(--accent-text);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .tag-remove {
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .tag-input {
+            border: none;
+            outline: none;
+            background: transparent;
+            color: var(--text-body);
+            flex: 1;
+            min-width: 100px;
+        }
+
+        #editor {
+            height: 300px;
+            background: var(--bg-card);
+            color: var(--text-body);
+        }
+
+        .ql-toolbar {
+            background: var(--bg-secondary) !important;
+            border-color: var(--border-color) !important;
+        }
+
+        .ql-container {
+            background: var(--bg-card) !important;
+            border-color: var(--border-color) !important;
+            color: var(--text-body) !important;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-muted);
+        }
+
+        .no-results {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-muted);
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .slide-up {
+            animation: slideUp 0.3s ease-out;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(100px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+    </style>
+</head>
+
+<body class="antialiased">
+    <header class="bg-[var(--bg-header)] backdrop-blur-sm fixed top-0 left-0 right-0 z-50 border-b border-[var(--border-color)]">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex-shrink-0">
+                    <a href="index.html" class="flex items-center space-x-3 text-xl font-bold text-[var(--text-heading)] transition-colors duration-300 hover:text-[var(--accent-color)]">
+                        <img src="https://avatars.githubusercontent.com/u/96714228?v=4" alt="Logo" class="w-8 h-8 rounded-full border-2 border-[var(--border-accent)]">
+                        <span>Aadityansha Verma</span>
+                    </a>
+                </div>
+                <div class="flex items-center">
+                    <nav class="hidden md:block">
+                        <div class="ml-10 flex items-baseline space-x-4">
+                            <a href="index.html" class="px-3 py-2 rounded-md text-sm font-medium text-[var(--text-body)] hover:text-[var(--accent-color)] hover:bg-[var(--bg-card)] transition-all duration-300">Home</a>
+                            <a href="index.html#about" class="px-3 py-2 rounded-md text-sm font-medium text-[var(--text-body)] hover:text-[var(--accent-color)] hover:bg-[var(--bg-card)] transition-all duration-300">About</a>
+                            <a href="#" class="px-3 py-2 rounded-md text-sm font-medium text-[var(--accent-color)] bg-[var(--accent-subtle)] transition-all duration-300">Blog</a>
+                            <button id="admin-toggle" class="px-3 py-2 rounded-md text-sm font-medium text-[var(--text-body)] hover:text-[var(--accent-color)] hover:bg-[var(--bg-card)] transition-all duration-300">Admin</button>
+                        </div>
+                    </nav>
+                    <button id="theme-toggle" class="ml-6 p-2 rounded-full text-[var(--text-body)] hover:bg-[var(--bg-card)] focus:outline-none transition-colors duration-300">
+                        <i class='bx bxs-moon text-xl'></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="pt-24">
+        <section class="py-16 bg-gradient-to-br from-[var(--bg-primary)] to-[var(--bg-secondary)]">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h1 class="text-4xl md:text-5xl font-bold text-[var(--text-heading)] mb-4">
+                    Tech Thoughts & Tutorials
+                </h1>
+                <p class="text-xl text-[var(--text-muted)] mb-2">
+                    Real-world programming experiences <span class="humor-text">(and mistakes I made so you don't have to)</span>
+                </p>
+                <p class="text-[var(--accent-color)] font-medium">
+                    C programming, Linux adventures, and backend development insights
+                </p>
+            </div>
+        </section>
+
+        <section class="py-12 bg-[var(--bg-primary)]">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="search-container">
+                    <i class='bx bx-search search-icon'></i>
+                    <input type="text" id="search-input" class="search-input" placeholder="Search articles, tags, or content...">
+                </div>
+                
+                <div id="tag-filter" class="flex flex-wrap gap-2 justify-center mb-8">
+                    </div>
+            </div>
+        </section>
+
+        <section class="py-20 bg-[var(--bg-primary)]">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="loading" id="loading">
+                    <i class='bx bx-loader-alt bx-spin text-4xl text-[var(--accent-color)]'></i>
+                    <p class="mt-4">Loading articles...</p>
+                </div>
+                
+                <div class="no-results" id="no-results">
+                    <i class='bx bx-search-alt text-4xl text-[var(--text-muted)] mb-4'></i>
+                    <p>No articles found matching your search.</p>
+                </div>
+                
+                <div id="articles-grid" class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="article-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-title" class="text-2xl font-bold text-[var(--text-heading)]"></h2>
+                <span class="close" id="close-modal">&times;</span>
+            </div>
+            <div class="article-content">
+                <div id="modal-meta" class="text-center mb-8">
+                    <div id="modal-date" class="blog-meta"></div>
+                    <div id="modal-tags" class="flex justify-center gap-2 mt-4 mb-6"></div>
+                    <div class="share-buttons justify-center">
+                        <button class="share-btn" onclick="shareArticle('twitter')">
+                            <i class='bx bxl-twitter'></i> Twitter
+                        </button>
+                        <button class="share-btn" onclick="shareArticle('linkedin')">
+                            <i class='bx bxl-linkedin'></i> LinkedIn
+                        </button>
+                        <button class="share-btn" onclick="shareArticle('copy')">
+                            <i class='bx bx-copy'></i> Copy Link
+                        </button>
+                    </div>
+                </div>
+                <div id="modal-content"></div>
+            </div>
+        </div>
+    </div>
+
+            <div id="login-modal" class="modal">
+        <div class="modal-content" style="max-width: 400px; margin-top: 10%;">
+            <div class="modal-header">
+                <h2 class="text-2xl font-bold text-[var(--text-heading)]">Admin Login</h2>
+                <span class="close" id="close-login">&times;</span>
+            </div>
+            <div class="p-6">
+                <form id="login-form">
+                    <div class="form-group">
+                        <label class="form-label">Email</label>
+                        <input type="email" id="login-email" class="form-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Password</label>
+                        <input type="password" id="login-password" class="form-input" required>
+                    </div>
+                    <button type="submit" id="login-btn" class="w-full share-btn">
+                        <i class='bx bx-log-in'></i> Login
+                    </button>
+                </form>
+                <div id="login-error" class="mt-4 p-3 bg-red-100 text-red-700 rounded-lg" style="display: none;"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="admin-panel" class="admin-panel">
+        <div class="admin-header">
+            <h1 class="text-2xl font-bold text-[var(--text-heading)]">Admin Panel</h1>
+            <div class="flex gap-4">
+                <span id="admin-user" class="text-[var(--text-muted)]"></span>
+                <button id="save-article" class="share-btn">
+                    <i class='bx bx-save'></i> Save Article
+                </button>
+                <button id="logout-btn" class="share-btn bg-yellow-500">
+                    <i class='bx bx-log-out'></i> Logout
+                </button>
+                <button id="close-admin" class="share-btn bg-gray-500">
+                    <i class='bx bx-x'></i> Close
+                </button>
+            </div>
+        </div>
+        
+        <div class="admin-content">
+            <div class="admin-editor">
+                <h2 class="text-xl font-bold text-[var(--text-heading)] mb-4">Create/Edit Article</h2>
+                
+                <form id="article-form">
+                    <div class="form-group">
+                        <label class="form-label">Title</label>
+                        <input type="text" id="article-title" class="form-input" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Excerpt</label>
+                        <textarea id="article-excerpt" class="form-input" rows="3" placeholder="Brief description of the article..."></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Tags</label>
+                        <div id="tags-container" class="tag-input-container">
+                            <input type="text" id="tag-input" class="tag-input" placeholder="Press Enter to add tags...">
+                        </div>
+                    </div>
+                    
+                    <div class="toolbar">
+                        <button type="button" class="toolbar-btn" onclick="insertFormat('**', '**', 'Bold text')">
+                            <i class='bx bx-bold'></i> Bold
+                        </button>
+                        <button type="button" class="toolbar-btn" onclick="insertFormat('*', '*', 'Italic text')">
+                            <i class='bx bx-italic'></i> Italic
+                        </button>
+                        <button type="button" class="toolbar-btn" onclick="insertFormat('`', '`', 'inline code')">
+                            <i class='bx bx-code'></i> Code
+                        </button>
+                        <button type="button" class="toolbar-btn" onclick="insertFormat('\n```\n', '\n```\n', 'code block')">
+                            <i class='bx bx-code-block'></i> Code Block
+                        </button>
+                        <button type="button" class="toolbar-btn" onclick="insertHumorText()">
+                            <i class='bx bx-smile'></i> Humor
+                        </button>
+                        <button type="button" class="toolbar-btn" onclick="insertHR()">
+                            <i class='bx bx-minus'></i> HR
+                        </button>
+                        <button type="button" class="toolbar-btn" onclick="insertHeading('## ')">
+                            H2
+                        </button>
+                        <button type="button" class="toolbar-btn" onclick="insertHeading('### ')">
+                            H3
+                        </button>
+                        <button type="button" class="toolbar-btn" onclick="insertList('- ')">
+                            <i class='bx bx-list-ul'></i> List
+                        </button>
+                        <button type="button" class="toolbar-btn" onclick="insertQuote()">
+                            <i class='bx bx-quote-right'></i> Quote
+                        </button>
+                        <button type="button" class="toolbar-btn" onclick="insertImage()">
+                            <i class='bx bx-image'></i> Image
+                        </button>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Content (Markdown)</label>
+                        <textarea id="article-content" class="form-textarea" placeholder="Write your article content in Markdown..."></textarea>
+                    </div>
+                </form>
+            </div>
+            
+            <div class="admin-preview">
+                <h2 class="text-xl font-bold text-[var(--text-heading)] mb-4">Live Preview</h2>
+                <div id="preview-container" class="article-content">
+                    <p class="text-[var(--text-muted)]">Preview will appear here as you type...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/4.3.0/marked.min.js"></script>
+
+    <script>
+        // Firebase Configuration (Replace with your config)
+        const firebaseConfig = {
+          apiKey: "AIzaSyAbXdJRgirJTehgW-kpUMYdTjGw_hFvfkY",
+          authDomain: "blog-ffec3.firebaseapp.com",
+          projectId: "blog-ffec3",
+          storageBucket: "blog-ffec3.firebasestorage.app",
+          messagingSenderId: "521676827644",
+          appId: "1:521676827644:web:2f7867d4caaf25142ae079",
+          measurementId: "G-CR5PQX8GHZ"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+        const auth = firebase.auth();
+        const storage = firebase.storage();
+
+        // Global variables
+        let allArticles = [];
+        let currentArticle = null;
+        let tags = [];
+        let currentUser = null;
+
+        // Initialize app
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeTheme();
+            initializeAuth();
+            loadArticles();
+            setupEventListeners();
+            setupAdminPanel();
+        });
+
+        // Initialize Authentication
+        function initializeAuth() {
+            auth.onAuthStateChanged((user) => {
+                currentUser = user;
+                updateUIForAuth();
+            });
+        }
+
+        // Update UI based on authentication state
+        function updateUIForAuth() {
+            const adminToggle = document.getElementById('admin-toggle');
+            const adminUser = document.getElementById('admin-user');
+            const logoutBtn = document.getElementById('logout-btn');
+            
+            if (currentUser) {
+                adminToggle.textContent = 'Admin Panel';
+                adminUser.textContent = `Welcome, ${currentUser.email}`;
+                logoutBtn.style.display = 'inline-flex';
+            } else {
+                adminToggle.textContent = 'Admin Login';
+                adminUser.textContent = '';
+                logoutBtn.style.display = 'none';
+            }
+        }
+
+        // Toggle Admin Panel or Login
+        function toggleAdminPanel() {
+            if (currentUser) {
+                const adminPanel = document.getElementById('admin-panel');
+                adminPanel.style.display = adminPanel.style.display === 'block' ? 'none' : 'block';
+                if (adminPanel.style.display === 'block') {
+                    document.body.style.overflow = 'hidden';
+                }
+            } else {
+                showLoginModal();
+            }
+        }
+
+        // Show Login Modal
+        function showLoginModal() {
+            const loginModal = document.getElementById('login-modal');
+            loginModal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Hide Login Modal
+        function hideLoginModal() {
+            const loginModal = document.getElementById('login-modal');
+            loginModal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+            
+            // Reset form
+            document.getElementById('login-form').reset();
+            document.getElementById('login-error').style.display = 'none';
+        }
+
+        // Handle Login
+        async function handleLogin(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+            const loginBtn = document.getElementById('login-btn');
+            const loginError = document.getElementById('login-error');
+            
+            // Reset error state
+            loginError.style.display = 'none';
+            
+            // Update button state
+            const originalText = loginBtn.innerHTML;
+            loginBtn.innerHTML = '<i class="bx bx-loader-alt bx-spin"></i> Logging in...';
+            loginBtn.disabled = true;
+            
+            try {
+                await auth.signInWithEmailAndPassword(email, password);
+                hideLoginModal();
+                showNotification('Logged in successfully!');
+                
+                // Open admin panel after successful login
+                setTimeout(() => {
+                    const adminPanel = document.getElementById('admin-panel');
+                    adminPanel.style.display = 'block';
+                    document.body.style.overflow = 'hidden';
+                }, 500);
+                
+            } catch (error) {
+                console.error('Login error:', error);
+                loginError.textContent = getAuthErrorMessage(error.code);
+                loginError.style.display = 'block';
+            } finally {
+                loginBtn.innerHTML = originalText;
+                loginBtn.disabled = false;
+            }
+        }
+
+        // Handle Logout
+        async function handleLogout() {
+            try {
+                await auth.signOut();
+                closeAdminPanel();
+                showNotification('Logged out successfully');
+            } catch (error) {
+                console.error('Logout error:', error);
+                showNotification('Error logging out', 'error');
+            }
+        }
+
+        // Get user-friendly error messages
+        function getAuthErrorMessage(errorCode) {
+            switch (errorCode) {
+                case 'auth/user-not-found':
+                    return 'No user found with this email address.';
+                case 'auth/wrong-password':
+                    return 'Incorrect password.';
+                case 'auth/invalid-email':
+                    return 'Invalid email address.';
+                case 'auth/user-disabled':
+                    return 'This user account has been disabled.';
+                case 'auth/too-many-requests':
+                    return 'Too many failed login attempts. Please try again later.';
+                default:
+                    return 'Login failed. Please check your credentials and try again.';
+            }
+        }
+
+        // Theme Management
+        function initializeTheme() {
+            const themeToggle = document.getElementById('theme-toggle');
+            const toggleIcon = themeToggle.querySelector('i');
+            
+            const currentTheme = localStorage.getItem('theme') || 'default';
+            if (currentTheme === 'rose') {
+                document.body.classList.add('theme-rose');
+                toggleIcon.classList.replace('bxs-moon', 'bxs-sun');
+            }
+            
+            themeToggle.addEventListener('click', () => {
+                document.body.classList.toggle('theme-rose');
+                let theme = 'default';
+                
+                if (document.body.classList.contains('theme-rose')) {
+                    theme = 'rose';
+                    toggleIcon.classList.replace('bxs-moon', 'bxs-sun');
+                } else {
+                    toggleIcon.classList.replace('bxs-sun', 'bxs-moon');
+                }
+                
+                localStorage.setItem('theme', theme);
+            });
+        }
+
+        // Load Articles from Firebase
+        async function loadArticles() {
+            const loading = document.getElementById('loading');
+            const noResults = document.getElementById('no-results');
+            
+            loading.style.display = 'block';
+            noResults.style.display = 'none';
+            
+            try {
+                let snapshot = await db.collection('articles').orderBy('createdAt', 'desc').get();
+
+                // If the database is empty, create the sample articles and then fetch again.
+                if (snapshot.empty) {
+                    console.log("No articles found. Creating sample article...");
+                    await createSampleArticles(); // Wait for samples to be created
+                    snapshot = await db.collection('articles').orderBy('createdAt', 'desc').get(); // Re-fetch the data
+                }
+
+                allArticles = [];
+                snapshot.forEach(doc => {
+                    allArticles.push({ id: doc.id, ...doc.data() });
+                });
+
+                displayArticles(allArticles);
+                generateTagFilters();
+
+            } catch (error) {
+                console.error('Error loading articles:', error);
+                noResults.style.display = 'block';
+            } finally {
+                loading.style.display = 'none';
+            }
+        }
+
+        // Display Articles
+        function displayArticles(articles) {
+            const articlesGrid = document.getElementById('articles-grid');
+            const noResults = document.getElementById('no-results');
+            
+            if (articles.length === 0) {
+                noResults.style.display = 'block';
+                articlesGrid.innerHTML = '';
+                return;
+            }
+            
+            noResults.style.display = 'none';
+            
+                            articlesGrid.innerHTML = articles.map(article => `
+                <article class="blog-card fade-in" onclick="openArticle('${article.id}')">
+                    <div class="flex items-center gap-4 mb-3">
+                        ${article.tags.map(tag => 
+                            `<span class="tech-tag">${tag}</span>`
+                        ).join('')}
+                    </div>
+                    <div class="blog-meta">${formatDate(article.createdAt.toDate())} • ${calculateReadTime(article.content)} min read</div>
+                    <h2 class="blog-title text-2xl">${article.title}</h2>
+                    <div class="blog-excerpt">
+                        <p>${article.excerpt}</p>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="read-more">Read Article →</span>
+                        <div class="flex gap-2">
+                            <button class="text-[var(--text-muted)] hover:text-[var(--accent-color)]" onclick="event.stopPropagation(); shareArticle('copy', '${article.id}')">
+                                <i class='bx bx-share'></i>
+                            </button>
+                        </div>
+                    </div>
+                </article>
+            `).join('');
+        }
+
+        // Generate Tag Filters
+        function generateTagFilters() {
+            const tagFilter = document.getElementById('tag-filter');
+            const allTags = [...new Set(allArticles.flatMap(article => article.tags))];
+            
+            tagFilter.innerHTML = `
+                <button class="tech-tag cursor-pointer tag-filter active" onclick="filterByTag('all')">All</button>
+                ${allTags.map(tag => 
+                    `<button class="tech-tag cursor-pointer tag-filter" onclick="filterByTag('${tag}')">${tag}</button>`
+                ).join('')}
+            `;
+        }
+
+        // Filter by Tag
+        function filterByTag(tag) {
+            const filterButtons = document.querySelectorAll('.tag-filter');
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            
+            event.target.classList.add('active');
+            
+            if (tag === 'all') {
+                displayArticles(allArticles);
+            } else {
+                const filtered = allArticles.filter(article => article.tags.includes(tag));
+                displayArticles(filtered);
+            }
+        }
+
+        // Search Functionality
+        function setupEventListeners() {
+            const searchInput = document.getElementById('search-input');
+            searchInput.addEventListener('input', debounce(performSearch, 300));
+            
+            // Modal functionality
+            const modal = document.getElementById('article-modal');
+            const closeBtn = document.getElementById('close-modal');
+            
+            closeBtn.addEventListener('click', closeModal);
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) closeModal();
+            });
+            
+            // Login modal functionality
+            const loginModal = document.getElementById('login-modal');
+            const closeLoginBtn = document.getElementById('close-login');
+            
+            closeLoginBtn.addEventListener('click', hideLoginModal);
+            loginModal.addEventListener('click', (e) => {
+                if (e.target === loginModal) hideLoginModal();
+            });
+            
+            // Login form
+            document.getElementById('login-form').addEventListener('submit', handleLogin);
+            
+            // Admin panel toggle
+            document.getElementById('admin-toggle').addEventListener('click', toggleAdminPanel);
+            document.getElementById('close-admin').addEventListener('click', closeAdminPanel);
+            document.getElementById('logout-btn').addEventListener('click', handleLogout);
+        }
+
+        // Search Articles
+        function performSearch() {
+            const query = document.getElementById('search-input').value.toLowerCase().trim();
+            
+            if (!query) {
+                displayArticles(allArticles);
+                return;
+            }
+            
+            const filtered = allArticles.filter(article => {
+                return article.title.toLowerCase().includes(query) ||
+                       article.excerpt.toLowerCase().includes(query) ||
+                       article.content.toLowerCase().includes(query) ||
+                       article.tags.some(tag => tag.toLowerCase().includes(query));
+            });
+            
+            displayArticles(filtered);
+        }
+
+        // Open Article Modal
+        async function openArticle(articleId) {
+            const article = allArticles.find(a => a.id === articleId);
+            if (!article) return;
+            
+            currentArticle = article;
+            
+            const modal = document.getElementById('article-modal');
+            const modalTitle = document.getElementById('modal-title');
+            const modalMeta = document.getElementById('modal-meta');
+            const modalDate = document.getElementById('modal-date');
+            const modalTags = document.getElementById('modal-tags');
+            const modalContent = document.getElementById('modal-content');
+            
+            modalTitle.textContent = article.title;
+            modalDate.textContent = `${formatDate(article.createdAt.toDate())} • ${calculateReadTime(article.content)} min read`;
+            modalTags.innerHTML = article.tags.map(tag => 
+                `<span class="tech-tag">${tag}</span>`
+            ).join('');
+            
+            // Render markdown content
+            modalContent.innerHTML = renderMarkdown(article.content);
+            
+            // Highlight code blocks
+            Prism.highlightAll();
+            
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+            
+            // Add slide-up animation
+            modal.querySelector('.modal-content').classList.add('slide-up');
+        }
+
+        // Close Modal
+        function closeModal() {
+            const modal = document.getElementById('article-modal');
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Share Article
+        function shareArticle(platform, articleId = null) {
+            const article = articleId ? allArticles.find(a => a.id === articleId) : currentArticle;
+            if (!article) return;
+            
+            const url = `${window.location.origin}${window.location.pathname}?article=${article.id}`;
+            const text = `Check out this article: ${article.title}`;
+            
+            switch (platform) {
+                case 'twitter':
+                    window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`);
+                    break;
+                case 'linkedin':
+                    window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`);
+                    break;
+                case 'copy':
+                    navigator.clipboard.writeText(url).then(() => {
+                        showNotification('Link copied to clipboard!');
+                    });
+                    break;
+            }
+        }
+
+        // Admin Panel Functions
+        function setupAdminPanel() {
+            const tagInput = document.getElementById('tag-input');
+            const articleContent = document.getElementById('article-content');
+            const previewContainer = document.getElementById('preview-container');
+            
+            // Tag input functionality
+            tagInput.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' && e.target.value.trim()) {
+                    e.preventDefault();
+                    addTag(e.target.value.trim());
+                    e.target.value = '';
+                }
+            });
+            
+            // Live preview
+            articleContent.addEventListener('input', debounce(updatePreview, 300));
+            document.getElementById('article-title').addEventListener('input', updatePreview);
+            document.getElementById('article-excerpt').addEventListener('input', updatePreview);
+            
+            // Save article
+            document.getElementById('save-article').addEventListener('click', saveArticle);
+        }
+
+        // Toggle Admin Panel or Login
+        function toggleAdminPanel() {
+            if (currentUser) {
+                const adminPanel = document.getElementById('admin-panel');
+                adminPanel.style.display = adminPanel.style.display === 'block' ? 'none' : 'block';
+                if (adminPanel.style.display === 'block') {
+                    document.body.style.overflow = 'hidden';
+                }
+            } else {
+                showLoginModal();
+            }
+        }
+
+        // Close Admin Panel
+        function closeAdminPanel() {
+            document.getElementById('admin-panel').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Add Tag
+        function addTag(tagText) {
+            const container = document.getElementById('tags-container');
+            const input = document.getElementById('tag-input');
+            
+            // Check if tag already exists
+            const existingTags = Array.from(container.querySelectorAll('.tag-item')).map(tag => tag.dataset.tag);
+            if (existingTags.includes(tagText)) return;
+            
+            const tagElement = document.createElement('div');
+            tagElement.className = 'tag-item';
+            tagElement.dataset.tag = tagText;
+            tagElement.innerHTML = `
+                ${tagText}
+                <span class="tag-remove" onclick="removeTag('${tagText}')">&times;</span>
+            `;
+            
+            container.insertBefore(tagElement, input);
+        }
+
+        // Remove Tag
+        function removeTag(tagText) {
+            const tagElement = document.querySelector(`[data-tag="${tagText}"]`);
+            if (tagElement) {
+                tagElement.remove();
+            }
+        }
+
+        // Toolbar Functions
+        function insertFormat(startTag, endTag, placeholder) {
+            const textarea = document.getElementById('article-content');
+            const start = textarea.selectionStart;
+            const end = textarea.selectionEnd;
+            const selectedText = textarea.value.substring(start, end) || placeholder;
+            
+            const replacement = startTag + selectedText + endTag;
+            textarea.value = textarea.value.substring(0, start) + replacement + textarea.value.substring(end);
+            
+            // Set cursor position
+            const newCursorPos = start + startTag.length + selectedText.length;
+            textarea.setSelectionRange(newCursorPos, newCursorPos);
+            textarea.focus();
+            
+            updatePreview();
+        }
+
+        function insertHumorText() {
+            insertFormat(' <span class="humor-text">(', ')</span>', 'your funny comment here');
+        }
+
+        function insertHR() {
+            const textarea = document.getElementById('article-content');
+            const cursorPos = textarea.selectionStart;
+            const beforeCursor = textarea.value.substring(0, cursorPos);
+            const afterCursor = textarea.value.substring(cursorPos);
+            
+            textarea.value = beforeCursor + '\n\n---\n\n' + afterCursor;
+            textarea.setSelectionRange(cursorPos + 6, cursorPos + 6);
+            textarea.focus();
+            
+            updatePreview();
+        }
+
+        function insertHeading(prefix) {
+            const textarea = document.getElementById('article-content');
+            const cursorPos = textarea.selectionStart;
+            const lines = textarea.value.split('\n');
+            let currentLineIndex = 0;
+            let charCount = 0;
+            
+            // Find current line
+            for (let i = 0; i < lines.length; i++) {
+                if (charCount + lines[i].length >= cursorPos) {
+                    currentLineIndex = i;
+                    break;
+                }
+                charCount += lines[i].length + 1; // +1 for newline
+            }
+            
+            lines[currentLineIndex] = prefix + lines[currentLineIndex].replace(/^#{1,6}\s*/, '');
+            textarea.value = lines.join('\n');
+            textarea.focus();
+            
+            updatePreview();
+        }
+
+        function insertList(prefix) {
+            insertFormat('\n' + prefix, '', 'List item');
+        }
+
+        function insertQuote() {
+            insertFormat('\n> ', '', 'Your quote here');
+        }
+
+        function insertImage() {
+            const url = prompt('Enter image URL:');
+            if (url) {
+                const alt = prompt('Enter alt text (optional):') || 'Image';
+                insertFormat(`![${alt}](${url})`, '', '');
+            }
+        }
+
+        // Update Live Preview
+        function updatePreview() {
+            const title = document.getElementById('article-title').value;
+            const excerpt = document.getElementById('article-excerpt').value;
+            const content = document.getElementById('article-content').value;
+            const previewContainer = document.getElementById('preview-container');
+            
+            let preview = '';
+            
+            if (title) {
+                preview += `<h1 class="text-4xl font-bold text-[var(--text-heading)] mb-4">${title}</h1>`;
+            }
+            
+            if (excerpt) {
+                preview += `<p class="text-xl text-[var(--text-muted)] mb-8 italic">${excerpt}</p>`;
+            }
+            
+            if (content) {
+                preview += renderMarkdown(content);
+            }
+            
+            previewContainer.innerHTML = preview || '<p class="text-[var(--text-muted)]">Preview will appear here as you type...</p>';
+            
+          // Highlight code blocks
+          Prism.highlightAll();
+        }
+
+        // Save Article
+        async function saveArticle() {
+            // Check if user is authenticated
+            if (!currentUser) {
+                showNotification('Please login to save articles', 'error');
+                showLoginModal();
+                return;
+            }
+
+            const title = document.getElementById('article-title').value.trim();
+            const excerpt = document.getElementById('article-excerpt').value.trim();
+            const content = document.getElementById('article-content').value.trim();
+            const tagElements = document.querySelectorAll('.tag-item');
+            const tags = Array.from(tagElements).map(tag => tag.dataset.tag);
+            
+            if (!title || !content) {
+                showNotification('Please fill in title and content', 'error');
+                return;
+            }
+            
+            const saveBtn = document.getElementById('save-article');
+            const originalText = saveBtn.innerHTML;
+            saveBtn.innerHTML = '<i class="bx bx-loader-alt bx-spin"></i> Saving...';
+            saveBtn.disabled = true;
+            
+            try {
+                const articleData = {
+                    title,
+                    excerpt: excerpt || title,
+                    content,
+                    tags: tags.length ? tags : ['General'],
+                    createdAt: firebase.firestore.Timestamp.now(),
+                    updatedAt: firebase.firestore.Timestamp.now(),
+                    author: currentUser.email
+                };
+                
+                await db.collection('articles').add(articleData);
+                
+                showNotification('Article saved successfully!');
+                
+                // Reset form
+                document.getElementById('article-form').reset();
+                document.getElementById('tags-container').innerHTML = '<input type="text" id="tag-input" class="tag-input" placeholder="Press Enter to add tags...">';
+                setupAdminPanel(); // Re-setup event listeners
+                updatePreview();
+                
+                // Reload articles
+                await loadArticles();
+                
+            } catch (error) {
+                console.error('Error saving article:', error);
+                showNotification('Error saving article: ' + error.message, 'error');
+            } finally {
+                saveBtn.innerHTML = originalText;
+                saveBtn.disabled = false;
+            }
+        }
+
+        // Render Markdown
+        function renderMarkdown(content) {
+            // Custom renderer for humor text
+            content = content.replace(/<span class="humor-text">\((.*?)\)<\/span>/g, '<span class="humor-text">($1)</span>');
+            
+            // Custom HR
+            content = content.replace(/^---$/gm, '<hr>');
+            
+            // Use marked.js for basic markdown
+            const renderer = new marked.Renderer();
+            
+            renderer.code = function(code, language) {
+                const validLanguage = language && Prism.languages[language] ? language : 'markup';
+                return `<pre><code class="language-${validLanguage}">${code}</code></pre>`;
+            };
+            
+            renderer.blockquote = function(quote) {
+                return `<blockquote class="bg-[var(--bg-card)] border-l-4 border-[var(--accent-color)] pl-6 py-4 my-6 rounded-r-lg">${quote}</blockquote>`;
+            };
+            
+            marked.setOptions({
+                renderer: renderer
+            });
+            
+            return marked.parse(content);
+        }
+
+        // Create Sample Articles (for demo)
+        async function createSampleArticles() {
+            const sampleArticles = [
+                
+                {
+                    title: "Linux Journey: From Windows Refugee to Terminal Ninja",
+                    excerpt: "Switching to Linux is like learning manual transmission after automatic. Here's your complete guide to making the transition successfully.",
+                    content: `Making the switch to Linux is intimidating but incredibly rewarding. After two years as my daily driver, here's what I wish I knew starting out.
+
+## Why Linux?
+
+Let's be honest about why you're considering Linux:
+- You're tired of Windows getting in your way as a developer
+- You want to understand how computers actually work
+- You're curious about the "hacker" culture <span class="humor-text">(and want to feel cool typing in terminals)</span>
+
+## Choosing Your Distribution
+
+### For Beginners: Ubuntu or Linux Mint
+**Ubuntu** is the Windows of Linux - popular, documented, and user-friendly.
+
+\`\`\`bash
+# Ubuntu's package manager
+sudo apt update
+sudo apt install package-name
+\`\`\`
+
+### For Developers: Pop!_OS
+Comes with developer tools pre-installed and excellent NVIDIA support.
+
+### For the Adventurous: Arch Linux
+Like building a car from parts <span class="humor-text">(and probably breaking your system at least once)</span>.
+
+---
+
+## Essential Terminal Skills
+
+The terminal isn't optional - it's your primary interface:
+
+\`\`\`bash
+# Navigation basics
+pwd                    # Print working directory
+ls -la                # List files with details  
+cd ~/Documents        # Change directories
+find . -name "*.c"    # Find files
+grep -r "function"    # Search in files
+\`\`\`
+
+## The Learning Mindset
+
+Linux rewards curiosity and punishes assumptions. Every broken system is education <span class="humor-text">(expensive education, but education nonetheless)</span>.`,
+                    tags: ["Linux", "Terminal", "System Admin", "Beginner Guide"],
+                    createdAt: firebase.firestore.Timestamp.fromDate(new Date('2025-08-25T12:00:00'))
+                }
+            ];
+            
+            for (const article of sampleArticles) {
+                await db.collection('articles').add({
+                    ...article,
+                    updatedAt: firebase.firestore.Timestamp.now()
+                });
+            }
+        }
+
+        // Utility Functions
+        function formatDate(date) {
+            return date.toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric'
+            });
+        }
+
+        function calculateReadTime(content) {
+            const wordsPerMinute = 200;
+            const wordCount = content.split(' ').length;
+            return Math.ceil(wordCount / wordsPerMinute);
+        }
+
+        function debounce(func, wait) {
+            let timeout;
+            return function executedFunction(...args) {
+                const later = () => {
+                    clearTimeout(timeout);
+                    func(...args);
+                };
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+            };
+        }
+
+        function showNotification(message, type = 'success') {
+            const notification = document.createElement('div');
+            notification.className = `fixed top-20 right-4 z-[9999] p-4 rounded-lg shadow-lg ${
+                type === 'error' ? 'bg-red-500' : 'bg-green-500'
+            } text-white font-medium`;
+            notification.textContent = message;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+
+        // Handle direct article links
+        window.addEventListener('load', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const articleId = urlParams.get('article');
+            if (articleId) {
+                // Wait for the main article list to load before trying to open one
+                setTimeout(() => openArticle(articleId), 1000);
+            }
+        });
+    </script>
+</body>
+</html>
