@@ -1,21 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-   <meta name="description" content="Real-world programming experiences and mistakes I made so you don't have to. C programming, Linux adventures, and backend development insights.">
-<meta name="keywords" content="Aadityansha Verma, programming blog, C programming, backend development, web development, tech tutorials">
-<link rel="canonical" href="https://aadityansha06.github.io/blog.html">
-
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://aadityansha06.github.io/blog.html">
-<meta property="og:title" content="Dynamic Blog - Aadityansha Verma">
-<meta property="og:description" content="Real-world programming experiences and backend development insights">
-<meta property="og:image" content="https://aadityansha06.github.io/pic/main-img.png">
-
-<meta property="twitter:card" content="summary_large_image">
-<meta property="twitter:url" content="https://aadityansha06.github.io/blog.html">
-<meta property="twitter:title" content="Dynamic Blog - Aadityansha Verma">
-<meta property="twitter:description" content="Real-world programming experiences and backend development insights">
-<meta property="twitter:image" content="https://aadityansha06.github.io/pic/main-img.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dynamic Blog - Aadityansha Verma</title>
     
     <link rel="icon" type="image/x-icon" href="pic/favicon.ico" />
@@ -35,6 +22,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/9.23.0/firebase-auth-compat.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/9.23.0/firebase-storage-compat.min.js"></script>
 
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/quill/1.3.7/quill.snow.min.css" rel="stylesheet">
+    
     <style>
         :root {
             --bg-primary: #fff1cb;
@@ -407,110 +396,14 @@
             from { transform: translateY(100px); opacity: 0; }
             to { transform: translateY(0); opacity: 1; }
         }
-        /* Add these styles to your existing <style> tag in the <head> */
-
-/* --- GENERAL RESPONSIVENESS --- */
-@media (max-width: 767px) {
-    /* Reduce padding on the main container for tablets */
-    .container {
-        padding-left: 1rem;
-        padding-right: 1rem;
-    }
-
-    /* Adjust main heading size for tablets */
-    .text-3xl.md\:text-5xl {
-        font-size: 2.25rem; /* ~36px */
-    }
-
-    /* Reduce vertical padding on sections */
-    section.py-16 { padding-top: 3rem; padding-bottom: 3rem; }
-    section.py-12 { padding-top: 2.5rem; padding-bottom: 2.5rem; }
-    section.py-20 { padding-top: 3rem; padding-bottom: 4rem; }
-}
-
-@media (max-width: 480px) {
-    /* Further reduce padding for mobile */
-    .container {
-        padding-left: 0.75rem;
-        padding-right: 0.75rem;
-    }
-
-    /* Further reduce heading size for small mobiles */
-    .text-3xl.md\:text-5xl {
-        font-size: 1.875rem; /* ~30px */
-    }
-    
-    .text-lg.md\:text-xl {
-        font-size: 1rem;
-    }
-
-    /* Optimize blog card padding for small screens */
-    .blog-card {
-        padding: 1rem;
-    }
-
-    /* Optimize modal padding and position */
-    .modal-content {
-        margin: 2.5vh auto; /* Less vertical margin */
-        max-height: 95vh;
-    }
-    .article-content, .modal-header {
-        padding: 1rem;
-    }
-    
-    /* Ensure share buttons stack nicely */
-    .share-buttons {
-        gap: 0.5rem;
-        justify-content: center;
-    }
-}
-
-/* --- ADMIN PANEL & HEADER REFINEMENTS --- */
-@media (max-width: 480px) {
-    /* Make admin header buttons stack cleanly */
-    .admin-header .flex-wrap {
-        justify-content: flex-end;
-    }
-    .admin-header .share-btn {
-        padding: 0.5rem 0.75rem;
-        font-size: 0.8rem;
-    }
-    
-    /* Improve tap targets for header icons */
-    #theme-toggle, #mobile-menu-button {
-        padding: 0.5rem; /* Increase clickable area */
-    }
-
-    /* Tweak editor toolbar for small screens */
-    .toolbar {
-        padding: 0.5rem;
-        gap: 0.25rem; /* Tighter gap */
-    }
-    .toolbar-btn {
-        padding: 0.4rem 0.6rem;
-        font-size: 0.75rem;
-    }
-}
-
-/* --- SMOOTHER TRANSITIONS --- */
-/* Replace 'transition: all' for better performance */
-.blog-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border-color);
-    border-radius: 12px;
-    padding: 1.5rem;
-    /* More performant transition */
-    transition: transform 0.3s ease, box-shadow 0.3s ease; 
-    backdrop-filter: blur(10px);
-    cursor: pointer;
-}
     </style>
 </head>
 
 <body class="antialiased">
     <header class="bg-[var(--bg-header)] backdrop-blur-sm fixed top-0 left-0 right-0 z-50 border-b border-[var(--border-color)]">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between min-h-[4rem]"> <div class="flex-shrink-0">
+            <div class="flex items-center justify-between min-h-[4rem]"> <!-- Changed h-16 to min-h-[4rem] -->
+                <div class="flex-shrink-0">
                     <a href="index.html" class="flex items-center space-x-3 text-xl font-bold text-[var(--text-heading)] transition-colors duration-300 hover:text-[var(--accent-color)]">
                         <img src="https://avatars.githubusercontent.com/u/96714228?v=4" alt="Logo" class="w-8 h-8 rounded-full border-2 border-[var(--border-accent)]">
                         <span>Aadityansha Verma</span>
@@ -528,7 +421,8 @@
                     <button id="theme-toggle" class="ml-4 p-2 rounded-full text-[var(--text-body)] hover:bg-[var(--bg-card)] focus:outline-none transition-colors duration-300">
                         <i class='bx bxs-moon text-xl'></i>
                     </button>
-                     <div class="ml-2 md:hidden">
+                     <!-- Mobile menu button -->
+                    <div class="ml-2 md:hidden">
                         <button id="mobile-menu-button" class="inline-flex items-center justify-center p-2 rounded-md text-[var(--text-body)] hover:text-white hover:bg-[var(--accent-color)] focus:outline-none">
                             <i id="mobile-menu-icon" class='bx bx-menu text-2xl'></i>
                         </button>
@@ -536,6 +430,7 @@
                 </div>
             </div>
         </div>
+        <!-- Mobile menu, show/hide based on menu state. -->
         <div class="md:hidden hidden" id="mobile-menu">
             <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
                 <a href="index.html" class="block px-3 py-2 rounded-md text-base font-medium text-[var(--text-body)] hover:text-[var(--accent-color)] hover:bg-[var(--bg-card)]">Home</a>
@@ -547,7 +442,7 @@
     </header>
 
     <main class="pt-24">
-        <section class="py-16 bg-gradient-to-br from-[var(--bg-primary)] to-[var(--bg-secondary)]">
+         <section class="py-16 bg-gradient-to-br from-[var(--bg-primary)] to-[var(--bg-secondary)]">
             <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
                 <h1 class="text-3xl md:text-5xl font-bold text-[var(--text-heading)] mb-4">
                   Breaking complexity into simplicity
@@ -753,6 +648,7 @@
     let allArticles = [];
     let currentArticle = null;
     let editingArticleId = null; 
+    let tags = [];
     let currentUser = null;
 
     // Initialize app
@@ -850,7 +746,6 @@
     async function handleLogout() {
         try {
             await auth.signOut();
-            resetAdminForm(); // FIX: Clear form on logout
             closeAdminPanel();
             showNotification('Logged out successfully');
         } catch (error) {
@@ -913,7 +808,7 @@
         
         noResults.style.display = 'none';
         articlesGrid.innerHTML = articles.map(article => `
-            <article class="blog-card fade-in" onclick="openArticleWithSEO('${article.id}')">
+            <article class="blog-card fade-in" onclick="openArticle('${article.id}')">
                 <div class="flex flex-wrap gap-2 mb-4">
                     ${article.tags.map(tag => `<span class="tech-tag">${tag}</span>`).join('')}
                 </div>
@@ -945,130 +840,6 @@
             </article>
         `).join('');
     }
-    function updateSEOMetadata(article) {
-    if (!article) return;
-    
-    // Update page title
-    document.title = `${article.title} | Aadityansha Verma Blog`;
-    
-    // Update or create meta tags
-    updateMetaTag('name', 'description', article.excerpt || article.content.substring(0, 160) + '...');
-    updateMetaTag('name', 'keywords', `${article.tags.join(', ')}, Aadityansha Verma, programming, tech blog`);
-    updateMetaTag('name', 'author', 'Aadityansha Verma');
-    
-    // Open Graph tags for social media
-    updateMetaTag('property', 'og:title', article.title);
-    updateMetaTag('property', 'og:description', article.excerpt || article.content.substring(0, 160) + '...');
-    updateMetaTag('property', 'og:url', `${window.location.origin}${window.location.pathname}?article=${article.id}`);
-    updateMetaTag('property', 'og:type', 'article');
-    updateMetaTag('property', 'og:image', 'https://aadityansha06.github.io/pic/main-img.png'); // Use your main image or article-specific image
-    
-    // Twitter Card tags
-    updateMetaTag('name', 'twitter:card', 'summary_large_image');
-    updateMetaTag('name', 'twitter:title', article.title);
-    updateMetaTag('name', 'twitter:description', article.excerpt || article.content.substring(0, 160) + '...');
-    updateMetaTag('name', 'twitter:image', 'https://aadityansha06.github.io/pic/main-img.png');
-    
-    // Article-specific meta tags
-    updateMetaTag('property', 'article:author', 'Aadityansha Verma');
-    updateMetaTag('property', 'article:published_time', article.createdAt.toDate().toISOString());
-    if (article.updatedAt) {
-        updateMetaTag('property', 'article:modified_time', article.updatedAt.toDate().toISOString());
-    }
-    
-    // Add tags as article:tag
-    article.tags.forEach(tag => {
-        addMetaTag('property', 'article:tag', tag);
-    });
-    
-    // Update canonical URL
-    updateCanonicalURL(`${window.location.origin}${window.location.pathname}?article=${article.id}`);
-    
-    // Add structured data (JSON-LD)
-    addStructuredData(article);
-}
-
-function updateMetaTag(attribute, name, content) {
-    let element = document.querySelector(`meta[${attribute}="${name}"]`);
-    if (element) {
-        element.setAttribute('content', content);
-    } else {
-        element = document.createElement('meta');
-        element.setAttribute(attribute, name);
-        element.setAttribute('content', content);
-        document.head.appendChild(element);
-    }
-}
-
-function addMetaTag(attribute, name, content) {
-    const element = document.createElement('meta');
-    element.setAttribute(attribute, name);
-    element.setAttribute('content', content);
-    document.head.appendChild(element);
-}
-
-function updateCanonicalURL(url) {
-    let canonical = document.querySelector('link[rel="canonical"]');
-    if (canonical) {
-        canonical.setAttribute('href', url);
-    } else {
-        canonical = document.createElement('link');
-        canonical.setAttribute('rel', 'canonical');
-        canonical.setAttribute('href', url);
-        document.head.appendChild(canonical);
-    }
-}
-
-function addStructuredData(article) {
-    // Remove existing structured data
-    const existingScript = document.querySelector('script[type="application/ld+json"]');
-    if (existingScript) {
-        existingScript.remove();
-    }
-    
-    // Create new structured data
-    const structuredData = {
-        "@context": "https://schema.org",
-        "@type": "BlogPosting",
-        "headline": article.title,
-        "description": article.excerpt || article.content.substring(0, 160) + '...',
-        "image": "https://aadityansha06.github.io/pic/main-img.png",
-        "author": {
-            "@type": "Person",
-            "name": "Aadityansha Verma",
-            "url": "https://aadityansha06.github.io/"
-        },
-        "publisher": {
-            "@type": "Person",
-            "name": "Aadityansha Verma",
-            "logo": {
-                "@type": "ImageObject",
-                "url": "https://avatars.githubusercontent.com/u/96714228?v=4"
-            }
-        },
-        "datePublished": article.createdAt.toDate().toISOString(),
-        "dateModified": (article.updatedAt || article.createdAt).toDate().toISOString(),
-        "mainEntityOfPage": {
-            "@type": "WebPage",
-            "@id": `${window.location.origin}${window.location.pathname}?article=${article.id}`
-        },
-        "keywords": article.tags.join(', '),
-        "articleSection": "Technology",
-        "inLanguage": "en-US"
-    };
-    
-    const script = document.createElement('script');
-    script.type = 'application/ld+json';
-    script.textContent = JSON.stringify(structuredData);
-    document.head.appendChild(script);
-}
-
-function resetSEOToDefault() {
-    document.title = 'Dynamic Blog - Aadityansha Verma';
-    updateMetaTag('name', 'description', 'Real-world programming experiences and mistakes I made so you don\'t have to. C programming, Linux adventures, and backend development insights.');
-    updateMetaTag('name', 'keywords', 'Aadityansha Verma, programming blog, C programming, backend development, web development, tech tutorials');
-    updateCanonicalURL(`${window.location.origin}${window.location.pathname}`);
-}
 
     function generateTagFilters() {
         const tagFilterContainer = document.getElementById('tag-filter');
@@ -1103,8 +874,8 @@ function resetSEOToDefault() {
         });
 
         document.getElementById('search-input').addEventListener('input', debounce(performSearch, 300));
-        document.getElementById('close-modal').addEventListener('click', closeModalWithSEO);
-        document.getElementById('article-modal').addEventListener('click', (e) => e.target.id === 'article-modal' && closeModalWithSEO());
+        document.getElementById('close-modal').addEventListener('click', closeModal);
+        document.getElementById('article-modal').addEventListener('click', (e) => e.target.id === 'article-modal' && closeModal());
         document.getElementById('close-login').addEventListener('click', hideLoginModal);
         document.getElementById('login-modal').addEventListener('click', (e) => e.target.id === 'login-modal' && hideLoginModal());
         document.getElementById('login-form').addEventListener('submit', handleLogin);
@@ -1127,18 +898,9 @@ function resetSEOToDefault() {
         displayArticles(filtered);
     }
 
-    async function openArticleWithSEO(articleId) {
+    async function openArticle(articleId) {
         const article = allArticles.find(a => a.id === articleId);
         if (!article) return;
-        
-        // Update SEO metadata
-        updateSEOMetadata(article);
-        
-        // Update URL without page reload
-        const newUrl = `${window.location.pathname}?article=${articleId}`;
-        window.history.pushState({articleId}, article.title, newUrl);
-        
-        // Existing modal opening code
         currentArticle = article;
         document.getElementById('modal-title').textContent = article.title;
         document.getElementById('modal-date').textContent = `${formatDate(article.createdAt.toDate())} • ${calculateReadTime(article.content)} min read`;
@@ -1150,36 +912,10 @@ function resetSEOToDefault() {
         document.querySelector('#article-modal .modal-content').classList.add('slide-up');
     }
 
-    // Update your existing closeModal function
-    function closeModalWithSEO() {
+    function closeModal() {
         document.getElementById('article-modal').style.display = 'none';
         document.body.style.overflow = 'auto';
-        
-        // Reset URL and SEO
-        window.history.pushState({}, 'Dynamic Blog - Aadityansha Verma', window.location.pathname);
-        resetSEOToDefault();
     }
-
-    // Handle browser back/forward buttons
-    window.addEventListener('popstate', (event) => {
-        const urlParams = new URLSearchParams(window.location.search);
-        const articleId = urlParams.get('article');
-        
-        if (articleId && allArticles.length > 0) {
-            const article = allArticles.find(a => a.id === articleId);
-            if (article) {
-                updateSEOMetadata(article);
-                // Don't open modal if it's already open with this article
-                if (currentArticle?.id !== articleId) {
-                    openArticleWithSEO(articleId);
-                }
-            }
-        } else {
-            resetSEOToDefault();
-            closeModalWithSEO();
-        }
-    });
-
 
     // --- ADMIN PANEL & EDITING ---
     function setupAdminPanel() {
@@ -1313,21 +1049,6 @@ function resetSEOToDefault() {
         textarea.setSelectionRange(start + startTag.length, start + startTag.length + selectedText.length);
         updatePreview();
     }
-    // Add this inside your DOMContentLoaded event listener,
-// perhaps within the setupEventListeners function.
-
-document.querySelectorAll('#mobile-menu a, #admin-toggle-mobile').forEach(item => {
-    item.addEventListener('click', () => {
-        const menu = document.getElementById('mobile-menu');
-        const icon = document.getElementById('mobile-menu-icon');
-        // Only close if it's currently open
-        if (!menu.classList.contains('hidden')) {
-            menu.classList.add('hidden');
-            icon.classList.remove('bx-x');
-            icon.classList.add('bx-menu');
-        }
-    });
-});
     
     function insertLink() { const url = prompt('Enter link URL:'); if (url) insertFormat('[', `](${url})`, 'Link Text'); }
     function insertHumorText() { insertFormat(' <span class="humor-text">(', ')</span>', 'witty comment'); }
@@ -1406,7 +1127,7 @@ document.querySelectorAll('#mobile-menu a, #admin-toggle-mobile').forEach(item =
         if (articleId) {
             const checkArticlesLoaded = setInterval(() => {
                 if (allArticles.length > 0) {
-                    openArticleWithSEO(articleId); // FIX: Correct function call
+                    openArticle(articleId);
                     clearInterval(checkArticlesLoaded);
                 }
             }, 100);
@@ -1415,3 +1136,4 @@ document.querySelectorAll('#mobile-menu a, #admin-toggle-mobile').forEach(item =
 </script>
 </body>
 </html>
+
