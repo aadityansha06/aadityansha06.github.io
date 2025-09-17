@@ -407,6 +407,103 @@
             from { transform: translateY(100px); opacity: 0; }
             to { transform: translateY(0); opacity: 1; }
         }
+        /* Add these styles to your existing <style> tag in the <head> */
+
+/* --- GENERAL RESPONSIVENESS --- */
+@media (max-width: 767px) {
+    /* Reduce padding on the main container for tablets */
+    .container {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    /* Adjust main heading size for tablets */
+    .text-3xl.md\:text-5xl {
+        font-size: 2.25rem; /* ~36px */
+    }
+
+    /* Reduce vertical padding on sections */
+    section.py-16 { padding-top: 3rem; padding-bottom: 3rem; }
+    section.py-12 { padding-top: 2.5rem; padding-bottom: 2.5rem; }
+    section.py-20 { padding-top: 3rem; padding-bottom: 4rem; }
+}
+
+@media (max-width: 480px) {
+    /* Further reduce padding for mobile */
+    .container {
+        padding-left: 0.75rem;
+        padding-right: 0.75rem;
+    }
+
+    /* Further reduce heading size for small mobiles */
+    .text-3xl.md\:text-5xl {
+        font-size: 1.875rem; /* ~30px */
+    }
+    
+    .text-lg.md\:text-xl {
+        font-size: 1rem;
+    }
+
+    /* Optimize blog card padding for small screens */
+    .blog-card {
+        padding: 1rem;
+    }
+
+    /* Optimize modal padding and position */
+    .modal-content {
+        margin: 2.5vh auto; /* Less vertical margin */
+        max-height: 95vh;
+    }
+    .article-content, .modal-header {
+        padding: 1rem;
+    }
+    
+    /* Ensure share buttons stack nicely */
+    .share-buttons {
+        gap: 0.5rem;
+        justify-content: center;
+    }
+}
+
+/* --- ADMIN PANEL & HEADER REFINEMENTS --- */
+@media (max-width: 480px) {
+    /* Make admin header buttons stack cleanly */
+    .admin-header .flex-wrap {
+        justify-content: flex-end;
+    }
+    .admin-header .share-btn {
+        padding: 0.5rem 0.75rem;
+        font-size: 0.8rem;
+    }
+    
+    /* Improve tap targets for header icons */
+    #theme-toggle, #mobile-menu-button {
+        padding: 0.5rem; /* Increase clickable area */
+    }
+
+    /* Tweak editor toolbar for small screens */
+    .toolbar {
+        padding: 0.5rem;
+        gap: 0.25rem; /* Tighter gap */
+    }
+    .toolbar-btn {
+        padding: 0.4rem 0.6rem;
+        font-size: 0.75rem;
+    }
+}
+
+/* --- SMOOTHER TRANSITIONS --- */
+/* Replace 'transition: all' for better performance */
+.blog-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 1.5rem;
+    /* More performant transition */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; 
+    backdrop-filter: blur(10px);
+    cursor: pointer;
+}
     </style>
 </head>
 
@@ -1216,6 +1313,21 @@ function resetSEOToDefault() {
         textarea.setSelectionRange(start + startTag.length, start + startTag.length + selectedText.length);
         updatePreview();
     }
+    // Add this inside your DOMContentLoaded event listener,
+// perhaps within the setupEventListeners function.
+
+document.querySelectorAll('#mobile-menu a, #admin-toggle-mobile').forEach(item => {
+    item.addEventListener('click', () => {
+        const menu = document.getElementById('mobile-menu');
+        const icon = document.getElementById('mobile-menu-icon');
+        // Only close if it's currently open
+        if (!menu.classList.contains('hidden')) {
+            menu.classList.add('hidden');
+            icon.classList.remove('bx-x');
+            icon.classList.add('bx-menu');
+        }
+    });
+});
     
     function insertLink() { const url = prompt('Enter link URL:'); if (url) insertFormat('[', `](${url})`, 'Link Text'); }
     function insertHumorText() { insertFormat(' <span class="humor-text">(', ')</span>', 'witty comment'); }
