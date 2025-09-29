@@ -396,6 +396,23 @@
             from { transform: translateY(100px); opacity: 0; }
             to { transform: translateY(0); opacity: 1; }
         }
+        /* Add to existing styles */
+.newsletter-success {
+    background: linear-gradient(135deg, var(--accent-color), var(--accent-hover));
+    color: white;
+    animation: successPulse 0.6s ease-out;
+}
+
+@keyframes successPulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.newsletter-loading {
+    background: var(--text-muted);
+    cursor: not-allowed;
+}
     </style>
 </head>
 
@@ -484,6 +501,61 @@
                     </div>
             </div>
         </section>
+        <!-- Newsletter Subscription Section -->
+<section class="py-16 bg-gradient-to-br from-[var(--bg-secondary)] to-[var(--bg-primary)] relative overflow-hidden">
+    <div class="absolute inset-0 opacity-10">
+        <div class="absolute top-10 left-10 w-32 h-32 bg-[var(--accent-color)] rounded-full blur-3xl"></div>
+        <div class="absolute bottom-10 right-10 w-24 h-24 bg-[var(--accent-color)] rounded-full blur-2xl"></div>
+    </div>
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="max-w-2xl mx-auto text-center">
+            <div class="inline-flex items-center justify-center w-16 h-16 bg-[var(--accent-subtle)] rounded-full mb-6 relative">
+                <i class='bx bx-bell-ring text-2xl text-[var(--accent-color)]'></i>
+                <div class="absolute -top-1 -right-1 w-6 h-6 bg-[var(--accent-color)] rounded-full animate-pulse flex items-center justify-center">
+                    <span class="text-white text-xs font-bold">!</span>
+                </div>
+            </div>
+            
+            <h2 class="text-2xl md:text-3xl font-bold text-[var(--text-heading)] mb-4">
+                Don't Miss the Journey
+            </h2>
+            <p class="text-[var(--text-muted)] mb-6 leading-relaxed">
+                Get notified when I break down complex ideas into simple insights. 
+                <span class="humor-text">No spam, just the good stuff that actually matters.</span>
+            </p>
+            
+            <form id="newsletter-form" class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+                <div class="relative flex-1">
+                    <input 
+                        type="email" 
+                        id="newsletter-email" 
+                        placeholder="your@email.com" 
+                        required
+                        class="w-full px-4 py-3 bg-[var(--bg-card)] border-2 border-[var(--border-color)] rounded-lg text-[var(--text-body)] placeholder-[var(--text-muted)] focus:outline-none focus:border-[var(--accent-color)] transition-all duration-300"
+                    >
+                    <div class="absolute inset-y-0 right-3 flex items-center pointer-events-none">
+                        <i class='bx bx-envelope text-[var(--text-muted)]'></i>
+                    </div>
+                </div>
+                <button 
+                    type="submit" 
+                    id="newsletter-btn"
+                    class="px-6 py-3 bg-[var(--accent-color)] text-white font-semibold rounded-lg hover:bg-[var(--accent-hover)] focus:outline-none focus:ring-2 focus:ring-[var(--accent-color)] focus:ring-offset-2 transition-all duration-300 transform hover:scale-105"
+                >
+                    <span class="flex items-center justify-center gap-2">
+                        <i class='bx bx-paper-plane'></i>
+                        Subscribe
+                    </span>
+                </button>
+            </form>
+            
+            <p class="text-xs text-[var(--text-muted)] mt-4 flex items-center justify-center gap-1">
+                <i class='bx bx-shield-check text-[var(--accent-color)]'></i>
+                Unsubscribe anytime. Your email stays private.
+            </p>
+        </div>
+    </div>
+</section>
     </main>
 
     <div id="article-modal" class="modal">
@@ -626,6 +698,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/4.3.0/marked.min.js"></script>
 
+
+
+
+    <script src="blog.js"></script>
   <script>
     // Firebase Configuration
     const firebaseConfig = {
