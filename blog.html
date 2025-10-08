@@ -668,7 +668,57 @@
             displayArticles(allArticles);
         });
     }
+// --- AUTO-SAVE DRAFT FUNCTIONS ---
 
+function saveDraft() {
+    console.log('Saving draft to localStorage...');
+    try {
+        localStorage.setItem('blogDraftTitle', document.getElementById('article-title').value);
+        localStorage.setItem('blogDraftExcerpt', document.getElementById('article-excerpt').value);
+        localStorage.setItem('blogDraftContent', document.getElementById('article-content').value);
+        
+        // Collect and save tags
+        const currentTags = Array.from(document.querySelectorAll('#tags-container .tag-item span:first-child')).map(tag => tag.textContent);
+        localStorage.setItem('blogDraftTags', JSON.stringify(currentTags));
+    } catch (e) {
+        console.error("Could not save draft to localStorage.", e);
+    }
+}
+
+function loadDraft() {
+    console.log('Checking for a saved draft...');
+    const title = localStorage.getItem('blogDraftTitle');
+    const excerpt = localStorage.getItem('blogDraftExcerpt');
+    const content = localStorage.getItem('blogDraftContent');
+    const tagsJson = localStorage.getItem('blogDraftTags');
+
+    if (title || excerpt || content || tagsJson) {
+        if (confirm('A saved draft was found. Do you want to load it?')) {
+            document.getElementById('article-title').value = title || '';
+            document.getElementById('article-excerpt').value = excerpt || '';
+            document.getElementById('article-content').value = content || '';
+            
+            // Clear existing tags before loading draft
+            document.querySelectorAll('#tags-container .tag-item').forEach(el => el.remove());
+            if (tagsJson) {
+                const tagsArray = JSON.parse(tagsJson);
+                tagsArray.forEach(tag => addTag(tag));
+            }
+            
+            // Update the live preview with the loaded content
+            updatePreview();
+            showNotification('Draft loaded successfully!');
+        }
+    }
+}
+
+function clearDraft() {
+    console.log('Clearing saved draft from localStorage.');
+    localStorage.removeItem('blogDraftTitle');
+    localStorage.removeItem('blogDraftExcerpt');
+    localStorage.removeItem('blogDraftContent');
+    localStorage.removeItem('blogDraftTags');
+}
     function updateUIForAuth() {
         const adminToggle = document.getElementById('admin-toggle');
         const adminToggleMobile = document.getElementById('admin-toggle-mobile');
@@ -918,20 +968,43 @@
     }
 
     // --- ADMIN PANEL & EDITING ---
-    function setupAdminPanel() {
-        const tagInput = document.getElementById('tag-input');
-        tagInput.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter' && e.target.value.trim()) {
-                e.preventDefault();
-                addTag(e.target.value.trim());
-                e.target.value = '';
-            }
-        });
-        document.getElementById('article-content').addEventListener('input', debounce(updatePreview, 300));
-        document.getElementById('article-title').addEventListener('input', updatePreview);
-        document.getElementById('article-excerpt').addEventListener('input', updatePreview);
-        document.getElementById('save-article').addEventListener('click', saveArticle);
-    }
+   function setupAdminPanel() {
+    // --- Existing code ---
+    const tagInput = document.getElementById('tag-input');
+    const tagsContainer = document.getElementById('tags-container');
+
+    tagInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' && e.target.value.trim()) {
+            e.preventDefault();
+            addTag(e.target.value.trim());
+            e.target.value = '';
+            saveDraft(); // Save when a tag is added
+        }
+    });
+
+    // Handle tag removal and save draft
+    tagsContainer.addEventListener('click', (e) => {
+        if (e.target.classList.contains('tag-remove')) {
+            e.target.parentElement.remove();
+            saveDraft(); // Save when a tag is removed
+        }
+    });
+
+    // --- Auto-save listeners ---
+    const debouncedSave = debounce(saveDraft, 500); // Save draft 500ms after user stops typing
+    document.getElementById('article-title').addEventListener('input', debouncedSave);
+    document.getElementById('article-excerpt').addEventListener('input', debouncedSave);
+    document.getElementById('article-content').addEventListener('input', () => {
+        debouncedSave();
+        debounce(updatePreview, 300)(); // Also trigger preview update
+    });
+    
+    // --- Keep existing event listener for saving the final article ---
+    document.getElementById('save-article').addEventListener('click', saveArticle);
+
+    // --- Load draft when admin panel is initialized ---
+    loadDraft();
+}
 
     function closeAdminPanel() {
         document.getElementById('admin-panel').style.display = 'none';
@@ -1019,7 +1092,8 @@
                 await db.collection('articles').add(articleData);
                 showNotification('Article saved successfully!');
             }
-            resetAdminForm();
+           resetAdminForm();
+            clearDraft(); // <-- ADD THIS LINE to clear the draft on successful save
             closeAdminPanel();
             await loadArticles();
         } catch (error) {
@@ -1030,12 +1104,14 @@
         }
     }
 
-    function resetAdminForm() {
-        editingArticleId = null;
-        document.getElementById('article-form').reset();
-        document.querySelectorAll('.tag-item').forEach(e => e.remove());
-        updatePreview();
-    }
+  function resetAdminForm() {
+    editingArticleId = null;
+    document.getElementById('article-form').reset();
+    document.querySelectorAll('.tag-item').forEach(e => e.remove());
+    updatePreview();
+    clearDraft(); // <-- ADD THIS LINE
+    showNotification('Form and saved draft have been cleared.'); // <-- Optional: add feedback
+}
 
     // --- TOOLBAR & MARKDOWN ---
     function insertFormat(startTag, endTag, placeholder) {
