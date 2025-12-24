@@ -705,10 +705,10 @@ fill="currentColor" viewBox="0 0 24 24" >
             const themeToggle = document.getElementById('theme-toggle');
             const toggleIcon = themeToggle.querySelector('i');
             const loadingScreen = document.getElementById("loading");
-            if (localStorage.getItem('theme') === 'light') {
-                    document.documentElement.classList.remove('theme-rose');
+            if (localStorage.getItem('theme') === 'theme-rose') {
+                    document.documentElement.classList.remove('light');
             } else {
-                    document.documentElement.classList.add('theme-rose');
+                    document.documentElement.classList.add('light');
             }
             if (document.documentElement.classList.contains('theme-rose')) {
                 toggleIcon.classList.replace('bxs-moon', 'bxs-sun');
