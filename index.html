@@ -848,16 +848,25 @@
             });
         }
 
-        // Loading Screen Logic
+        // Loading Screen Logic - Minimum Display Time
+        const MINIMUM_LOAD_TIME = 1500; // 1.5 seconds minimum
+        let loadingStartTime = Date.now();
+        let contentLoaded = false;
+
         function hideLoading() {
             const loadingElement = document.getElementById('loading');
-            if (loadingElement) {
+            if (!loadingElement) return;
+
+            const elapsedTime = Date.now() - loadingStartTime;
+            const remainingTime = Math.max(0, MINIMUM_LOAD_TIME - elapsedTime);
+
+            setTimeout(() => {
                 loadingElement.classList.add('fade-out');
                 // Remove from DOM after fade out to prevent interaction blocking
                 setTimeout(() => {
                     loadingElement.style.display = 'none';
                 }, 600);
-            }
+            }, remainingTime);
         }
 
         // --- 5. INITIALIZATION ---
@@ -874,11 +883,16 @@
             loadWritings();
         });
 
-        // Hide loading screen when window fully loads
-        window.addEventListener('load', hideLoading);
+        // Hide loading screen when window fully loads (respects minimum time)
+        window.addEventListener('load', () => {
+            contentLoaded = true;
+            hideLoading();
+        });
         
-        // Fallback: Force hide loading after 4 seconds if something gets stuck
-        setTimeout(hideLoading, 4000);
+        // Fallback: Force hide loading after 5 seconds if something gets stuck (respects minimum time)
+        setTimeout(() => {
+            hideLoading();
+        }, 5000);
 
     </script>
 </body>
