@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Aadityansha Verma</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <style>
+        :root {
+            --accent-color: #e84a58;
+            --accent-hover: #d13846;
+            --bg-primary: #fff1cb;
+            --bg-secondary: #faedcd;
+            --bg-card: #fdf6e3;
+            --text-heading: #2c241b;
+            --text-body: #4a4036;
+            --text-muted: #786b59;
+            --border-color: #e6dbb8;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-body);
+        }
+
+        .form-input {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            color: var(--text-body);
+        }
+
+        .form-input:focus {
+            background-color: #fff;
+            border-color: var(--accent-color);
+            outline: none;
+        }
+
+        .btn-primary {
+            background-color: var(--accent-color);
+            color: white;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--accent-hover);
+            transform: scale(1.02);
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .btn-secondary {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            color: var(--text-body);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--accent-color);
+            color: var(--accent-color);
+        }
+
+        .card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .tab-btn {
+            border-bottom: 2px solid transparent;
+            color: var(--text-muted);
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .tab-btn.active {
+            border-bottom-color: var(--accent-color);
+            color: var(--accent-color);
+        }
+    </style>
+</head>
+<body>
+    <div id="login-screen" class="min-h-screen flex items-center justify-center p-4">
+        <div class="card max-w-md w-full">
+            <div class="text-center mb-6">
+                <h1 class="text-3xl font-bold text-[var(--text-heading)]">Admin Panel</h1>
+                <p class="text-[var(--text-muted)] mt-2">Manage your portfolio</p>
+            </div>
+
+            <form id="login-form" class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium mb-1">Email</label>
+                    <input
+                        type="email"
+                        id="login-username"
+                        class="form-input w-full rounded-md px-4 py-2 transition-colors"
+                        placeholder="Enter your email"
+                        required
+                    />
+                </div>
+                <div>
+                    <label class="block text-sm font-medium mb-1">Password</label>
+                    <input
+                        type="password"
+                        id="login-password"
+                        class="form-input w-full rounded-md px-4 py-2 transition-colors"
+                        placeholder="Enter your password"
+                        required
+                    />
+                </div>
+                <button type="submit" class="btn-primary w-full py-2 rounded-md">Login</button>
+                <div id="login-error" class="text-red-600 text-sm text-center hidden"></div>
+            </form>
+        </div>
+    </div>
+
+    <div id="admin-dashboard" class="hidden min-h-screen bg-[var(--bg-primary)]">
+        <header class="bg-[var(--bg-secondary)] border-b border-[var(--border-color)] p-4 shadow-sm">
+            <div class="container mx-auto max-w-6xl flex items-center justify-between">
+                <h1 class="text-2xl font-bold text-[var(--text-heading)]">Admin Dashboard</h1>
+                <button
+                    id="logout-btn"
+                    class="btn-secondary px-4 py-2 rounded-md flex items-center gap-2"
+                >
+                    <i class="bx bx-log-out"></i> Logout
+                </button>
+            </div>
+        </header>
+
+        <div class="container mx-auto max-w-6xl p-4 py-8">
+            <div class="flex gap-6 mb-8 border-b border-[var(--border-color)] pb-4">
+                <button class="tab-btn active" data-tab="projects">
+                    <i class="bx bx-briefcase"></i> Projects
+                </button>
+                <button class="tab-btn" data-tab="writings">
+                    <i class="bx bx-pencil"></i> Writings
+                </button>
+            </div>
+
+            <div id="projects-tab" class="tab-content active">
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <div class="lg:col-span-1">
+                        <div class="card sticky top-4">
+                            <h2 class="text-xl font-bold mb-4">
+                                <span id="form-title">Add New Project</span>
+                            </h2>
+                            <form id="project-form" class="space-y-3">
+                                <input type="hidden" id="project-id" />
+                                
+                                <div>
+                                    <label class="block text-sm font-medium mb-1">Project Title</label>
+                                    <input
+                                        type="text"
+                                        id="project-title"
+                                        class="form-input w-full rounded-md px-3 py-2 text-sm"
+                                        placeholder="e.g., Flash - HTTP CLI"
+                                        required
+                                    />
+                                </div>
+
+                                <div>
+                                    <label class="block text-sm font-medium mb-1">Description</label>
+                                    <textarea
+                                        id="project-description"
+                                        class="form-input w-full rounded-md px-3 py-2 text-sm"
+                                        rows="3"
+                                        placeholder="Project description"
+                                        required
+                                    ></textarea>
+                                </div>
+
+                                <div>
+                                    <label class="block text-sm font-medium mb-1">Icon (Boxicon class)</label>
+                                    <input
+                                        type="text"
+                                        id="project-icon"
+                                        class="form-input w-full rounded-md px-3 py-2 text-sm"
+                                        placeholder="e.g., bx-terminal"
+                                    />
+                                </div>
+
+                                <div>
+                                    <label class="block text-sm font-medium mb-1">Tech Tags (comma separated)</label>
+                                    <input
+                                        type="text"
+                                        id="project-tags"
+                                        class="form-input w-full rounded-md px-3 py-2 text-sm"
+                                        placeholder="C, libcurl, Networking"
+                                    />
+                                </div>
+
+                                <div>
+                                    <label class="block text-sm font-medium mb-1">Demo Link</label>
+                                    <input
+                                        type="url"
+                                        id="project-demo-link"
+                                        class="form-input w-full rounded-md px-3 py-2 text-sm"
+                                        placeholder="https://..."
+                                    />
+                                </div>
+
+                                <div>
+                                    <label class="block text-sm font-medium mb-1">GitHub Link</label>
+                                    <input
+                                        type="url"
+                                        id="project-github-link"
+                                        class="form-input w-full rounded-md px-3 py-2 text-sm"
+                                        placeholder="https://github.com/..."
+                                    />
+                                </div>
+
+                                <div>
+                                    <label class="block text-sm font-medium mb-1">Download Link</label>
+                                    <input
+                                        type="url"
+                                        id="project-download-link"
+                                        class="form-input w-full rounded-md px-3 py-2 text-sm"
+                                        placeholder="https://... (optional)"
+                                    />
+                                </div>
+
+                                <div>
+                                    <label class="block text-sm font-medium mb-1">Position (Order)</label>
+                                    <input
+                                        type="number"
+                                        id="project-position"
+                                        class="form-input w-full rounded-md px-3 py-2 text-sm"
+                                        placeholder="1, 2, 3, etc."
+                                        min="1"
+                                    />
+                                </div>
+
+                                <div class="flex gap-2">
+                                    <button
+                                        type="submit"
+                                        id="project-submit-btn"
+                                        class="btn-primary flex-1 py-2 rounded-md text-sm"
+                                    >
+                                        Add Project
+                                    </button>
+                                    <button
+                                        type="button"
+                                        id="project-reset-btn"
+                                        class="btn-secondary flex-1 py-2 rounded-md text-sm"
+                                    >
+                                        Clear
+                                    </button>
+                                </div>
+
+                                <div id="project-form-status" class="text-sm text-center h-5"></div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="lg:col-span-2">
+                        <h2 class="text-xl font-bold mb-4">Projects List</h2>
+                        <div id="projects-list" class="space-y-4">
+                            <p class="text-[var(--text-muted)]">Loading projects...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="writings-tab" class="tab-content">
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <div class="lg:col-span-1">
+                        <div class="card sticky top-4">
+                            <h2 class="text-xl font-bold mb-4">
+                                <span id="writing-form-title">Add New Writing</span>
+                            </h2>
+                            <form id="writing-form" class="space-y-3">
+                                <input type="hidden" id="writing-id" />
+                                
+                                <div>
+                                    <label class="block text-sm font-medium mb-1">Title</label>
+                                    <input
+                                        type="text"
+                                        id="writing-title"
+                                        class="form-input w-full rounded-md px-3 py-2 text-sm"
+                                        placeholder="Article title"
+                                        required
+                                    />
+                                </div>
+
+                                <div>
+                                    <label class="block text-sm font-medium mb-1">Description</label>
+                                    <textarea
+                                        id="writing-description"
+                                        class="form-input w-full rounded-md px-3 py-2 text-sm"
+                                        rows="3"
+                                        placeholder="Brief description"
+                                        required
+                                    ></textarea>
+                                </div>
+
+                                <div>
+                                    <label class="block text-sm font-medium mb-1">Publication Link</label>
+                                    <input
+                                        type="url"
+                                        id="writing-link"
+                                        class="form-input w-full rounded-md px-3 py-2 text-sm"
+                                        placeholder="https://..."
+                                        required
+                                    />
+                                </div>
+
+                                <div>
+                                    <label class="block text-sm font-medium mb-1">Publication Date</label>
+                                    <input
+                                        type="date"
+                                        id="writing-date"
+                                        class="form-input w-full rounded-md px-3 py-2 text-sm"
+                                        required
+                                    />
+                                </div>
+
+                                <div>
+                                    <label class="block text-sm font-medium mb-1">Platform Icon (Boxicon class)</label>
+                                    <input
+                                        type="text"
+                                        id="writing-icon"
+                                        class="form-input w-full rounded-md px-3 py-2 text-sm"
+                                        placeholder="e.g., bxl-medium or bxl-twitter"
+                                    />
+                                </div>
+
+                                <div class="flex gap-2">
+                                    <button
+                                        type="submit"
+                                        id="writing-submit-btn"
+                                        class="btn-primary flex-1 py-2 rounded-md text-sm"
+                                    >
+                                        Add Writing
+                                    </button>
+                                    <button
+                                        type="button"
+                                        id="writing-reset-btn"
+                                        class="btn-secondary flex-1 py-2 rounded-md text-sm"
+                                    >
+                                        Clear
+                                    </button>
+                                </div>
+
+                                <div id="writing-form-status" class="text-sm text-center h-5"></div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="lg:col-span-2">
+                        <h2 class="text-xl font-bold mb-4">Writings List</h2>
+                        <div id="writings-list" class="space-y-4">
+                            <p class="text-[var(--text-muted)]">Loading writings...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js";
+        import { getFirestore, collection, getDocs, addDoc, updateDoc, deleteDoc, doc, query, orderBy } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js";
+
+        // Your Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyDWAPWRe7ph3q1SI8NDCA5i6B74vW2tLOY",
+            authDomain: "protfolio-22583.firebaseapp.com",
+            projectId: "protfolio-22583",
+            storageBucket: "protfolio-22583.firebasestorage.app",
+            messagingSenderId: "732637607219",
+            appId: "1:732637607219:web:f64cd2a7c671a7d2fcba46",
+            measurementId: "G-JPKWYX7G0D"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        // DOM Elements
+        const loginScreen = document.getElementById('login-screen');
+        const adminDashboard = document.getElementById('admin-dashboard');
+        const loginForm = document.getElementById('login-form');
+        const logoutBtn = document.getElementById('logout-btn');
+        const loginError = document.getElementById('login-error');
+        const projectForm = document.getElementById('project-form');
+        const writingForm = document.getElementById('writing-form');
+        const projectsList = document.getElementById('projects-list');
+        const writingsList = document.getElementById('writings-list');
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        // --- AUTHENTICATION STATE OBSERVER ---
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                // User is signed in
+                loginScreen.classList.add('hidden');
+                adminDashboard.classList.remove('hidden');
+                loadProjects();
+                loadWritings();
+            } else {
+                // User is signed out
+                loginScreen.classList.remove('hidden');
+                adminDashboard.classList.add('hidden');
+                loginForm.reset();
+                loginError.classList.add('hidden');
+            }
+        });
+
+        // --- LOGIN HANDLER ---
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('login-username').value.trim();
+            const password = document.getElementById('login-password').value.trim();
+            const submitBtn = loginForm.querySelector('button[type="submit"]');
+            const loginErrorDiv = document.getElementById('login-error');
+
+            // Validate inputs
+            if (!email || !password) {
+                loginErrorDiv.textContent = 'Please enter both email and password';
+                loginErrorDiv.classList.remove('hidden');
+                return;
+            }
+
+            if (!email.includes('@')) {
+                loginErrorDiv.textContent = 'Please enter a valid email';
+                loginErrorDiv.classList.remove('hidden');
+                return;
+            }
+
+            try {
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'Logging in...';
+                loginErrorDiv.classList.add('hidden');
+                
+                await signInWithEmailAndPassword(auth, email, password);
+                // The onAuthStateChanged will handle the UI switch
+            } catch (error) {
+                console.error("Login Error:", error);
+                loginErrorDiv.textContent = "Login failed: " + (error.message || 'Unknown error');
+                loginErrorDiv.classList.remove('hidden');
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Login';
+            }
+        });
+
+        // --- LOGOUT HANDLER ---
+        logoutBtn.addEventListener('click', async () => {
+            try {
+                await signOut(auth);
+            } catch (error) {
+                console.error('Logout error:', error);
+            }
+        });
+
+        // --- TAB SWITCHING LOGIC ---
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const tabName = btn.dataset.tab;
+                
+                tabBtns.forEach(b => b.classList.remove('active'));
+                tabContents.forEach(content => content.classList.remove('active'));
+                
+                btn.classList.add('active');
+                document.getElementById(`${tabName}-tab`).classList.add('active');
+            });
+        });
+
+        // ==========================================
+        // PROJECTS LOGIC
+        // ==========================================
+
+        async function loadProjects() {
+            projectsList.innerHTML = '<p class="text-[var(--text-muted)]">Loading projects...</p>';
+            try {
+                const projectsCollection = collection(db, 'projects');
+                const q = query(projectsCollection, orderBy('position', 'asc'));
+                const querySnapshot = await getDocs(q);
+                
+                const projects = [];
+                querySnapshot.forEach(doc => {
+                    projects.push({ id: doc.id, ...doc.data() });
+                });
+
+                if (projects.length === 0) {
+                    projectsList.innerHTML = '<p class="text-[var(--text-muted)]">No projects found. Add one!</p>';
+                    return;
+                }
+
+                projectsList.innerHTML = projects.map((project) => {
+                    const tags = Array.isArray(project.tags) ? project.tags : (project.tags ? project.tags.split(',').map(t => t.trim()) : []);
+                    return `
+                    <div class="card flex items-start gap-4">
+                        <div class="flex-1">
+                            <h3 class="font-bold text-lg">${project.title}</h3>
+                            <p class="text-sm text-[var(--text-muted)] mb-2">${project.description.substring(0, 100)}...</p>
+                            <div class="flex flex-wrap gap-1 mb-2">
+                                ${tags.map(tag => `<span class="text-xs bg-[var(--bg-secondary)] px-2 py-1 rounded">${tag}</span>`).join('')}
+                            </div>
+                            <p class="text-xs text-[var(--text-muted)]">Position: ${project.position}</p>
+                        </div>
+                        <div class="flex flex-col gap-2">
+                            <button onclick="window.editProject('${project.id}')" class="btn-secondary px-3 py-1 rounded text-sm">Edit</button>
+                            <button onclick="window.deleteProject('${project.id}')" class="bg-red-500 text-white px-3 py-1 rounded text-sm hover:bg-red-600">Delete</button>
+                        </div>
+                    </div>
+                    `;
+                }).join('');
+            } catch (error) {
+                console.error('Error loading projects:', error);
+                projectsList.innerHTML = `<p class="text-red-600">Error loading projects: ${error.message}</p>`;
+            }
+        }
+
+        projectForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const projectId = document.getElementById('project-id').value;
+            const submitBtn = document.getElementById('project-submit-btn');
+            const status = document.getElementById('project-form-status');
+
+            const projectData = {
+                title: document.getElementById('project-title').value,
+                description: document.getElementById('project-description').value,
+                icon: document.getElementById('project-icon').value,
+                tags: document.getElementById('project-tags').value.split(',').map(t => t.trim()).filter(t => t),
+                demoLink: document.getElementById('project-demo-link').value || null,
+                githubLink: document.getElementById('project-github-link').value,
+                downloadLink: document.getElementById('project-download-link').value || null,
+                position: parseInt(document.getElementById('project-position').value) || 0
+            };
+
+            try {
+                submitBtn.disabled = true;
+                submitBtn.textContent = projectId ? 'Updating...' : 'Adding...';
+
+                if (projectId) {
+                    await updateDoc(doc(db, 'projects', projectId), projectData);
+                    status.innerHTML = '<span style="color: #10b981;">Project updated!</span>';
+                } else {
+                    await addDoc(collection(db, 'projects'), projectData);
+                    status.innerHTML = '<span style="color: #10b981;">Project added!</span>';
+                }
+
+                projectForm.reset();
+                document.getElementById('project-id').value = '';
+                document.getElementById('project-submit-btn').textContent = 'Add Project';
+                document.getElementById('form-title').textContent = 'Add New Project';
+                
+                setTimeout(() => {
+                    loadProjects();
+                    status.innerHTML = '';
+                }, 1500);
+            } catch (error) {
+                console.error('Error saving project:', error);
+                status.innerHTML = '<span style="color: #ef4444;">Error saving project</span>';
+            } finally {
+                submitBtn.disabled = false;
+            }
+        });
+
+        // ==========================================
+        // WRITINGS LOGIC
+        // ==========================================
+
+        async function loadWritings() {
+            writingsList.innerHTML = '<p class="text-[var(--text-muted)]">Loading writings...</p>';
+            try {
+                const writingsCollection = collection(db, 'writings');
+                const q = query(writingsCollection, orderBy('date', 'desc'));
+                const querySnapshot = await getDocs(q);
+                
+                const writings = [];
+                querySnapshot.forEach(doc => {
+                    writings.push({ id: doc.id, ...doc.data() });
+                });
+
+                if (writings.length === 0) {
+                    writingsList.innerHTML = '<p class="text-[var(--text-muted)]">No writings found. Add one!</p>';
+                    return;
+                }
+
+                writingsList.innerHTML = writings.map(writing => `
+                    <div class="card flex items-start gap-4">
+                        <div class="flex-1">
+                            <h3 class="font-bold text-lg">${writing.title}</h3>
+                            <p class="text-sm text-[var(--text-muted)] mb-2">${writing.description.substring(0, 100)}...</p>
+                            <a href="${writing.link}" target="_blank" class="text-sm text-[var(--accent-color)] hover:underline">${writing.link}</a>
+                            <p class="text-xs text-[var(--text-muted)] mt-1">${new Date(writing.date).toLocaleDateString()}</p>
+                        </div>
+                        <div class="flex flex-col gap-2">
+                            <button onclick="window.editWriting('${writing.id}')" class="btn-secondary px-3 py-1 rounded text-sm">Edit</button>
+                            <button onclick="window.deleteWriting('${writing.id}')" class="bg-red-500 text-white px-3 py-1 rounded text-sm hover:bg-red-600">Delete</button>
+                        </div>
+                    </div>
+                `).join('');
+            } catch (error) {
+                console.error('Error loading writings:', error);
+                writingsList.innerHTML = `<p class="text-red-600">Error loading writings: ${error.message}</p>`;
+            }
+        }
+
+        writingForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const writingId = document.getElementById('writing-id').value;
+            const submitBtn = document.getElementById('writing-submit-btn');
+            const status = document.getElementById('writing-form-status');
+
+            const writingData = {
+                title: document.getElementById('writing-title').value,
+                description: document.getElementById('writing-description').value,
+                link: document.getElementById('writing-link').value,
+                date: document.getElementById('writing-date').value,
+                icon: document.getElementById('writing-icon').value
+            };
+
+            try {
+                submitBtn.disabled = true;
+                submitBtn.textContent = writingId ? 'Updating...' : 'Adding...';
+
+                if (writingId) {
+                    await updateDoc(doc(db, 'writings', writingId), writingData);
+                    status.innerHTML = '<span style="color: #10b981;">Writing updated!</span>';
+                } else {
+                    await addDoc(collection(db, 'writings'), writingData);
+                    status.innerHTML = '<span style="color: #10b981;">Writing added!</span>';
+                }
+
+                writingForm.reset();
+                document.getElementById('writing-id').value = '';
+                document.getElementById('writing-submit-btn').textContent = 'Add Writing';
+                document.getElementById('writing-form-title').textContent = 'Add New Writing';
+                
+                setTimeout(() => {
+                    loadWritings();
+                    status.innerHTML = '';
+                }, 1500);
+            } catch (error) {
+                console.error('Error saving writing:', error);
+                status.innerHTML = '<span style="color: #ef4444;">Error saving writing</span>';
+            } finally {
+                submitBtn.disabled = false;
+            }
+        });
+
+        // ==========================================
+        // EXPORTED FUNCTIONS (Attached to Window)
+        // ==========================================
+
+        window.editProject = async (id) => {
+            try {
+                const projectRef = doc(db, 'projects', id);
+                // We fetch all for simplicity, or we could fetch single doc
+                const projectDoc = await getDocs(query(collection(db, 'projects')));
+                const project = projectDoc.docs.find(doc => doc.id === id)?.data();
+                
+                if (project) {
+                    document.getElementById('project-id').value = id;
+                    document.getElementById('project-title').value = project.title;
+                    document.getElementById('project-description').value = project.description;
+                    document.getElementById('project-icon').value = project.icon;
+                    document.getElementById('project-tags').value = (project.tags || []).join(', ');
+                    document.getElementById('project-demo-link').value = project.demoLink || '';
+                    document.getElementById('project-github-link').value = project.githubLink || '';
+                    document.getElementById('project-download-link').value = project.downloadLink || '';
+                    document.getElementById('project-position').value = project.position;
+                    
+                    document.getElementById('project-submit-btn').textContent = 'Update Project';
+                    document.getElementById('form-title').textContent = 'Edit Project';
+                    
+                    document.querySelector('#projects-tab .card').scrollIntoView({ behavior: 'smooth' });
+                }
+            } catch (error) {
+                console.error('Error editing project:', error);
+            }
+        };
+
+        window.deleteProject = async (id) => {
+            if (confirm('Are you sure you want to delete this project?')) {
+                try {
+                    await deleteDoc(doc(db, 'projects', id));
+                    loadProjects();
+                } catch (error) {
+                    console.error('Error deleting project:', error);
+                    alert('Error deleting project: ' + error.message);
+                }
+            }
+        };
+
+        window.editWriting = async (id) => {
+            try {
+                const writingDoc = await getDocs(query(collection(db, 'writings')));
+                const writing = writingDoc.docs.find(doc => doc.id === id)?.data();
+                
+                if (writing) {
+                    document.getElementById('writing-id').value = id;
+                    document.getElementById('writing-title').value = writing.title;
+                    document.getElementById('writing-description').value = writing.description;
+                    document.getElementById('writing-link').value = writing.link;
+                    document.getElementById('writing-date').value = writing.date;
+                    document.getElementById('writing-icon').value = writing.icon;
+                    
+                    document.getElementById('writing-submit-btn').textContent = 'Update Writing';
+                    document.getElementById('writing-form-title').textContent = 'Edit Writing';
+                    
+                    document.querySelector('#writings-tab .card').scrollIntoView({ behavior: 'smooth' });
+                }
+            } catch (error) {
+                console.error('Error editing writing:', error);
+            }
+        };
+
+        window.deleteWriting = async (id) => {
+            if (confirm('Are you sure you want to delete this writing?')) {
+                try {
+                    await deleteDoc(doc(db, 'writings', id));
+                    loadWritings();
+                } catch (error) {
+                    console.error('Error deleting writing:', error);
+                    alert('Error deleting writing: ' + error.message);
+                }
+            }
+        };
+
+        // Reset Buttons
+        document.getElementById('project-reset-btn').addEventListener('click', () => {
+            projectForm.reset();
+            document.getElementById('project-id').value = '';
+            document.getElementById('project-submit-btn').textContent = 'Add Project';
+            document.getElementById('form-title').textContent = 'Add New Project';
+        });
+
+        document.getElementById('writing-reset-btn').addEventListener('click', () => {
+            writingForm.reset();
+            document.getElementById('writing-id').value = '';
+            document.getElementById('writing-submit-btn').textContent = 'Add Writing';
+            document.getElementById('writing-form-title').textContent = 'Add New Writing';
+        });
+
+        console.log("Admin Panel Loaded");
+    </script>
+</body>
+</html>

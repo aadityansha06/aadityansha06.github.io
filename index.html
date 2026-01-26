@@ -272,10 +272,10 @@
 
     <body class="antialiased">
         <div id="loading">
-        <dotlottie-wc src="https://lottie.host/1c1777ab-8c78-4644-b77c-04dfd06326fa/zlYPpE5bAG.lottie"
-            style="width: 500px; height: 500px" speed="1" autoplay loop>
-        </dotlottie-wc>
-    </div>
+            <dotlottie-wc src="https://lottie.host/1c1777ab-8c78-4644-b77c-04dfd06326fa/zlYPpE5bAG.lottie"
+                style="width: 500px; height: 500px" speed="1" autoplay loop>
+            </dotlottie-wc>
+        </div>
         <header class="fixed top-0 left-0 right-0 z-50 bg-[var(--bg-header)]">
             <div class="container mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex items-center justify-between h-16">
@@ -457,290 +457,12 @@
                         </p>
                     </div>
 
-                    <div
+                    <div id="projects-container"
                         class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 max-w-5xl mx-auto"
                     >
-                        <article
-                            class="card flex flex-col justify-between fade-up"
-                        >
-                            <div>
-                                <div
-                                    class="flex justify-between items-start mb-2"
-                                >
-                                    <h3 class="text-xl font-bold">
-                                        Flash - HTTP CLI
-                                    </h3>
-                                    <i
-                                        class="bx bx-terminal text-xl text-[var(--accent-color)]"
-                                    ></i>
-                                </div>
-                                <p
-                                    class="text-[var(--text-muted)] text-sm mb-4"
-                                >
-                                    A minimal HTTP CLI built with C and libcurl.
-                                    Supports GET/POST requests with JSON and
-                                    URL-encoded formats. Works on
-                                    Linux, WSL, and Mac.
-                                </p>
-                                <div class="flex flex-wrap mb-6">
-                                    <span class="tech-tag">C</span>
-                                    <span class="tech-tag">libcurl</span>
-                                    <span class="tech-tag">Networking</span>
-                                </div>
-                            </div>
-                            <div
-                                class="flex items-center gap-4 text-sm font-medium pt-4 border-t border-dashed border-[var(--border-color)]"
-                            >
-                                <a
-                                    href="https://x.com/aadityansha_06/status/1976154306316497235"
-                                    target="_blank"
-                                    class="hover:text-[var(--accent-color)] flex items-center gap-1"
-                                    ><i class="bx bx-play-circle"></i> Demo</a
-                                >
-                                <a
-                                    href="https://github.com/aadityansha06/Flash-Http-cli/releases/tag/1.0"
-                                    target="_blank"
-                                    class="hover:text-[var(--accent-color)] flex items-center gap-1"
-                                    ><i class="bx bx-download"></i> Download</a
-                                >
-                                <a
-                                    href="https://github.com/aadityansha06/Flash-Http-cli/"
-                                    target="_blank"
-                                    class="hover:text-[var(--accent-color)] flex items-center gap-1 ml-auto"
-                                    ><i class="bx bxl-github"></i> Code</a
-                                >
-                            </div>
-                        </article>
-
-                        <article
-                            class="card flex flex-col justify-between fade-up"
-                        >
-                            <div>
-                                <div
-                                    class="flex justify-between items-start mb-2"
-                                >
-                                    <h3 class="text-xl font-bold">
-                                        Snip Version System
-                                    </h3>
-                                    <i
-                                        class="bx bx-git-branch text-xl text-[var(--accent-color)]"
-                                    ></i>
-                                </div>
-                                <p
-                                    class="text-[var(--text-muted)] text-sm mb-4"
-                                >
-                                    A version control system (Git alternative)
-                                    built in C. Features include init, commit,
-                                    version retrieval, and diff comparison.
-                                    Built to understand VCS
-                                    internals.
-                                </p>
-                                <div class="flex flex-wrap mb-6">
-                                    <span class="tech-tag">C</span>
-                                    <span class="tech-tag"
-                                        >Data Structures</span
-                                    >
-                                    <span class="tech-tag">File I/O</span>
-                                </div>
-                            </div>
-                            <div
-                                class="flex items-center gap-4 text-sm font-medium pt-4 border-t border-dashed border-[var(--border-color)]"
-                            >
-                                <a
-                                    href="https://x.com/aadityansha_06/status/1952724675080982933"
-                                    target="_blank"
-                                    class="hover:text-[var(--accent-color)] flex items-center gap-1"
-                                    ><i class="bx bx-play-circle"></i> Demo</a
-                                >
-                                <a
-                                    href="https://github.com/aadityansha06/snip"
-                                    target="_blank"
-                                    class="hover:text-[var(--accent-color)] flex items-center gap-1 ml-auto"
-                                    ><i class="bx bxl-github"></i> Code</a
-                                >
-                            </div>
-                        </article>
-
-                        <article
-                            class="card flex flex-col justify-between fade-up"
-                        >
-                            <div>
-                                <div
-                                    class="flex justify-between items-start mb-2"
-                                >
-                                    <h3 class="text-xl font-bold">
-                                        Linux USB Driver
-                                    </h3>
-                                    <i
-                                        class="bx bxl-tux text-xl text-[var(--accent-color)]"
-                                    ></i>
-                                </div>
-                                <p
-                                    class="text-[var(--text-muted)] text-sm mb-4"
-                                >
-                                    A basic Linux kernel module written in C.
-                                    Detects USB insertion/removal and logs
-                                    device information. A deep dive
-                                    into kernel space programming.
-                                </p>
-                                <div class="flex flex-wrap mb-6">
-                                    <span class="tech-tag">Kernel C</span>
-                                    <span class="tech-tag">Linux Modules</span>
-                                    <span class="tech-tag">Systems</span>
-                                </div>
-                            </div>
-                            <div
-                                class="flex items-center gap-4 text-sm font-medium pt-4 border-t border-dashed border-[var(--border-color)]"
-                            >
-                                <a
-                                    href="https://x.com/aadityansha_06/status/1984978974221725973"
-                                    target="_blank"
-                                    class="hover:text-[var(--accent-color)] flex items-center gap-1"
-                                    ><i class="bx bx-play-circle"></i> Demo</a
-                                >
-                                <a
-                                    href="https://github.com/aadityansha06/Basic-usb-driver-linux"
-                                    target="_blank"
-                                    class="hover:text-[var(--accent-color)] flex items-center gap-1 ml-auto"
-                                    ><i class="bx bxl-github"></i> Code</a
-                                >
-                            </div>
-                        </article>
-
-                        <article
-                            class="card flex flex-col justify-between fade-up"
-                        >
-                            <div>
-                                <div
-                                    class="flex justify-between items-start mb-2"
-                                >
-                                    <h3 class="text-xl font-bold">
-                                        x86-64 Bootloader
-                                    </h3>
-                                    <i
-                                        class="bx bx-microchip text-xl text-[var(--accent-color)]"
-                                    ></i>
-                                </div>
-                                <p
-                                    class="text-[var(--text-muted)] text-sm mb-4"
-                                >
-                                    A minimal OS bootloader created in x86
-                                    Assembly (AT&T syntax) with a custom linker
-                                    script. Boots and displays a
-                                    welcome message.
-                                </p>
-                                <div class="flex flex-wrap mb-6">
-                                    <span class="tech-tag">Assembly</span>
-                                    <span class="tech-tag">Bare Metal</span>
-                                    <span class="tech-tag">OS Dev</span>
-                                </div>
-                            </div>
-                            <div
-                                class="flex items-center gap-4 text-sm font-medium pt-4 border-t border-dashed border-[var(--border-color)]"
-                            >
-                                <a
-                                    href="https://x.com/aadityansha_06/status/1995138020102885827"
-                                    target="_blank"
-                                    class="hover:text-[var(--accent-color)] flex items-center gap-1"
-                                    ><i class="bx bx-play-circle"></i> Demo</a
-                                >
-                                <a
-                                    href="https://github.com/aadityansha06/bootloader"
-                                    target="_blank"
-                                    class="hover:text-[var(--accent-color)] flex items-center gap-1 ml-auto"
-                                    ><i class="bx bxl-github"></i> Code</a
-                                >
-                            </div>
-                        </article>
-
-                        <article
-                            class="card flex flex-col justify-between fade-up"
-                        >
-                            <div>
-                                <div
-                                    class="flex justify-between items-start mb-2"
-                                >
-                                    <h3 class="text-xl font-bold">
-                                        C Web Chat Room
-                                    </h3>
-                                    <i
-                                        class="bx bx-message-rounded-dots text-xl text-[var(--accent-color)]"
-                                    ></i>
-                                </div>
-                                <p
-                                    class="text-[var(--text-muted)] text-sm mb-4"
-                                >
-                                    Real-time chat server written in C using
-                                    sockets, serving a basic HTML frontend. Uses
-                                    polling for message
-                                    updates.
-                                </p>
-                                <div class="flex flex-wrap mb-6">
-                                    <span class="tech-tag">C Sockets</span>
-                                    <span class="tech-tag"
-                                        >Network Programming</span
-                                    >
-                                </div>
-                            </div>
-                            <div
-                                class="flex items-center gap-4 text-sm font-medium pt-4 border-t border-dashed border-[var(--border-color)]"
-                            >
-                                <a
-                                    href="https://x.com/aadityansha_06/status/1992522479454056473"
-                                    target="_blank"
-                                    class="hover:text-[var(--accent-color)] flex items-center gap-1"
-                                    ><i class="bx bx-play-circle"></i> Demo</a
-                                >
-                                <a
-                                    href="https://github.com/aadityansha06/web-chat"
-                                    target="_blank"
-                                    class="hover:text-[var(--accent-color)] flex items-center gap-1 ml-auto"
-                                    ><i class="bx bxl-github"></i> Code</a
-                                >
-                            </div>
-                        </article>
-
-                        <article
-                            class="card flex flex-col justify-between fade-up"
-                        >
-                            <div>
-                                <div
-                                    class="flex justify-between items-start mb-2"
-                                >
-                                    <h3 class="text-xl font-bold">Quick-Ask</h3>
-                                    <i
-                                        class="bx bx-question-mark text-xl text-[var(--accent-color)]"
-                                    ></i>
-                                </div>
-                                <p
-                                    class="text-[var(--text-muted)] text-sm mb-4"
-                                >
-                                    A dynamic Q&A platform with
-                                    full-stack implementation using PHP and
-                                    MySQL.
-                                </p>
-                                <div class="flex flex-wrap mb-6">
-                                    <span class="tech-tag">PHP</span>
-                                    <span class="tech-tag">MySQL</span>
-                                </div>
-                            </div>
-                            <div
-                                class="flex items-center gap-4 text-sm font-medium pt-4 border-t border-dashed border-[var(--border-color)]"
-                            >
-                                <a
-                                    href="http://quick-ask.byethost6.com/index.php"
-                                    target="_blank"
-                                    class="hover:text-[var(--accent-color)] flex items-center gap-1"
-                                    ><i class="bx bx-globe"></i> Live</a
-                                >
-                                <a
-                                    href="https://github.com/aadityansha06/quick-ask"
-                                    target="_blank"
-                                    class="hover:text-[var(--accent-color)] flex items-center gap-1 ml-auto"
-                                    ><i class="bx bxl-github"></i> Code</a
-                                >
-                            </div>
-                        </article>
+                        <div class="col-span-2 text-center text-[var(--text-muted)]">
+                            Loading projects from database...
+                        </div>
                     </div>
                 </div>
             </section>
@@ -824,70 +546,10 @@
                         </p>
                     </div>
 
-                    <div class="max-w-3xl mx-auto space-y-6 fade-up">
-                        <a
-                            href="https://medium.com/@vermaadityansh/an-interaction-between-kernel-driver-and-hardware-understanding-drivers-37b8ae8613b2"
-                            target="_blank"
-                            class="block group"
-                        >
-                            <div
-                                class="card hover:border-[var(--accent-color)] transition-colors p-6"
-                            >
-                                <div
-                                    class="flex items-center justify-between mb-2"
-                                >
-                                    <h3
-                                        class="font-bold text-lg group-hover:text-[var(--accent-color)] transition-colors"
-                                    >
-                                        Interaction Between Kernel Driver &
-                                        Hardware
-                                    </h3>
-                                    <i
-                                        class="bx bxl-medium text-xl text-gray-400 group-hover:text-[var(--accent-color)]"
-                                    ></i>
-                                </div>
-                                <p
-                                    class="text-sm text-[var(--text-muted)] mb-3"
-                                >
-                                   An interaction Between kernel Driver and Hardware: Understanding Drivers
-                                    <span class="block mt-2 text-xs opacity-70"
-                                        >Read on Medium &rarr;</span
-                                    >
-                                </p>
-                            </div>
-                        </a>
-
-                        <a
-                            href="https://x.com/aadityansha_06/status/2012530411948453993?s=20"
-                            target="_blank"
-                            class="block group"
-                        >
-                            <div
-                                class="card hover:border-[var(--accent-color)] transition-colors p-6"
-                            >
-                                <div
-                                    class="flex items-center justify-between mb-2"
-                                >
-                                    <h3
-                                        class="font-bold text-lg group-hover:text-[var(--accent-color)] transition-colors"
-                                    >
-                                        Latest Development Logs
-                                    </h3>
-                                    <i
-                                        class="bx bxl-twitter text-xl text-gray-400 group-hover:text-[var(--accent-color)]"
-                                    ></i>
-                                </div>
-                                <p
-                                    class="text-sm text-[var(--text-muted)] mb-3"
-                                >
-                                    Updates on my latest system programming
-                                    experiments and build progress.
-                                    <span class="block mt-2 text-xs opacity-70"
-                                        >View on X &rarr;</span
-                                    >
-                                </p>
-                            </div>
-                        </a>
+                    <div id="writings-container" class="max-w-3xl mx-auto space-y-6 fade-up">
+                        <div class="text-center text-[var(--text-muted)]">
+                            Loading writings...
+                        </div>
                     </div>
                 </div>
             </section>
@@ -963,7 +625,7 @@
         >
             <div class="container mx-auto text-center px-4">
                 <p class="text-[var(--text-muted)] text-sm font-hand mb-2 hover:text-[var(--accent-hover)] transition-colors cursor-pointer">
-                   "Simple is better than complex."
+                  
                     <br>
                     Crafted with an object made of atoms and molecules, with my pessimistic thought and unwillingness for the awful creature on this planet who causing global warming
                 </p>
@@ -973,69 +635,182 @@
             </div>
         </footer>
 
-        <script>
-            // --- TYPEWRITER EFFECT ---
-            const words = [
-                "Systems Programmer",
-                "Backend Developer",
-                "Student",
-            ];
-            let i = 0;
-            let timer;
+    <script type="module">
+        // --- 1. FIREBASE IMPORTS (MUST BE AT THE TOP) ---
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
+        import { getFirestore, collection, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js";
 
-            function typeWriter() {
-                const heading = document.getElementById("typewriter");
-                const word = words[i];
-                const current = heading.textContent;
+        // --- 2. FIREBASE CONFIGURATION ---
+        const firebaseConfig = {
+            apiKey: "AIzaSyDWAPWRe7ph3q1SI8NDCA5i6B74vW2tLOY",
+            authDomain: "protfolio-22583.firebaseapp.com",
+            projectId: "protfolio-22583",
+            storageBucket: "protfolio-22583.firebasestorage.app",
+            messagingSenderId: "732637607219",
+            appId: "1:732637607219:web:f64cd2a7c671a7d2fcba46",
+            measurementId: "G-JPKWYX7G0D"
+        };
 
-                if (!heading.classList.contains("deleting")) {
-                    if (current.length < word.length) {
-                        heading.textContent = word.substring(
-                            0,
-                            current.length + 1,
-                        );
-                        timer = setTimeout(typeWriter, 150);
-                    } else {
-                        heading.classList.add("deleting");
-                        timer = setTimeout(typeWriter, 2000);
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // --- 3. DYNAMIC CONTENT LOADING (PROJECTS & WRITINGS) ---
+        
+        async function loadProjects() {
+            const projectsContainer = document.getElementById('projects-container');
+            if (!projectsContainer) return;
+
+            try {
+                const projectsCollection = collection(db, 'projects');
+                const q = query(projectsCollection, orderBy('position', 'asc'));
+                const querySnapshot = await getDocs(q);
+                
+                if (querySnapshot.empty) {
+                    projectsContainer.innerHTML = '<p class="col-span-2 text-center text-[var(--text-muted)]">No projects found.</p>';
+                    return;
+                }
+
+                projectsContainer.innerHTML = '';
+
+                querySnapshot.forEach((doc) => {
+                    const project = doc.data();
+                    const tags = Array.isArray(project.tags) ? project.tags : (project.tags ? project.tags.split(',').map(t => t.trim()) : []);
+                    const projectHTML = `
+                        <article class="card flex flex-col justify-between fade-up">
+                            <div>
+                                <div class="flex justify-between items-start mb-2">
+                                    <h3 class="text-xl font-bold">${project.title}</h3>
+                                    <i class="bx ${project.icon} text-xl text-[var(--accent-color)]"></i>
+                                </div>
+                                <p class="text-[var(--text-muted)] text-sm mb-4">
+                                    ${project.description}
+                                </p>
+                                <div class="flex flex-wrap mb-6">
+                                    ${tags.map(tag => `<span class="tech-tag">${tag}</span>`).join('')}
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-4 text-sm font-medium pt-4 border-t border-dashed border-[var(--border-color)]">
+                                ${project.demoLink ? `<a href="${project.demoLink}" target="_blank" class="hover:text-[var(--accent-color)] flex items-center gap-1"><i class="bx bx-play-circle"></i> Demo</a>` : ''}
+                                ${project.downloadLink ? `<a href="${project.downloadLink}" target="_blank" class="hover:text-[var(--accent-color)] flex items-center gap-1"><i class="bx bx-download"></i> Download</a>` : ''}
+                                ${project.githubLink ? `<a href="${project.githubLink}" target="_blank" class="hover:text-[var(--accent-color)] flex items-center gap-1 ml-auto"><i class="bx bxl-github"></i> Code</a>` : ''}
+                            </div>
+                        </article>
+                    `;
+                    projectsContainer.innerHTML += projectHTML;
+                });
+
+                // Re-initialize fade animation for new elements
+                if (window.observer) {
+                    document.querySelectorAll('.fade-up').forEach((el) => {
+                        if (!el.classList.contains('visible')) {
+                            window.observer.observe(el);
+                        }
+                    });
+                }
+
+            } catch (error) {
+                console.error('Error loading projects:', error);
+                projectsContainer.innerHTML = `<p class="col-span-2 text-center text-red-500">Could not load projects. Check console for details.</p>`;
+            }
+        }
+
+        async function loadWritings() {
+            const writingsContainer = document.getElementById('writings-container');
+            if (!writingsContainer) return;
+
+            try {
+                const writingsCollection = collection(db, 'writings');
+                const q = query(writingsCollection, orderBy('date', 'desc'));
+                const querySnapshot = await getDocs(q);
+                
+                if (querySnapshot.empty) {
+                    writingsContainer.innerHTML = '<p class="text-center text-[var(--text-muted)]">No writings found.</p>';
+                    return;
+                }
+
+                writingsContainer.innerHTML = '';
+
+                querySnapshot.forEach((doc) => {
+                    const writing = doc.data();
+                    // Handle date formatting safely
+                    let formattedDate = 'Recent';
+                    if (writing.date) {
+                        formattedDate = new Date(writing.date).toLocaleDateString('en-US', { 
+                            year: 'numeric', 
+                            month: 'short', 
+                            day: 'numeric' 
+                        });
                     }
+
+                    const writingHTML = `
+                        <div>
+                            <a href="${writing.link}" target="_blank" class="text-[var(--accent-color)] hover:underline font-medium">
+                                ${writing.title}
+                            </a>
+                            <span class="text-sm text-[var(--text-muted)]"> — ${formattedDate}</span>
+                        </div>
+                    `;
+                    writingsContainer.innerHTML += writingHTML;
+                });
+
+            } catch (error) {
+                console.error('Error loading writings:', error);
+            }
+        }
+
+        // --- 4. UI INTERACTIONS (Typewriter, Scroll, Contact) ---
+
+        // Typewriter Effect
+        const words = ["Systems Programmer", "Backend Developer", "Student"];
+        let i = 0;
+        let timer;
+
+        function typeWriter() {
+            const heading = document.getElementById("typewriter");
+            if (!heading) return;
+            
+            const word = words[i];
+            const current = heading.textContent;
+
+            if (!heading.classList.contains("deleting")) {
+                if (current.length < word.length) {
+                    heading.textContent = word.substring(0, current.length + 1);
+                    timer = setTimeout(typeWriter, 150);
                 } else {
-                    if (current.length > 0) {
-                        heading.textContent = word.substring(
-                            0,
-                            current.length - 1,
-                        );
-                        timer = setTimeout(typeWriter, 100);
-                    } else {
-                        heading.classList.remove("deleting");
-                        i = (i + 1) % words.length;
-                        timer = setTimeout(typeWriter, 500);
-                    }
+                    heading.classList.add("deleting");
+                    timer = setTimeout(typeWriter, 2000);
+                }
+            } else {
+                if (current.length > 0) {
+                    heading.textContent = word.substring(0, current.length - 1);
+                    timer = setTimeout(typeWriter, 100);
+                } else {
+                    heading.classList.remove("deleting");
+                    i = (i + 1) % words.length;
+                    timer = setTimeout(typeWriter, 500);
                 }
             }
-            document.addEventListener("DOMContentLoaded", typeWriter);
+        }
 
-            // --- FADE IN ANIMATION (Intersection Observer) ---
-            const observerOptions = {
-                threshold: 0.1,
-                rootMargin: "0px 0px -50px 0px",
-            };
+        // Fade Up Animation
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: "0px 0px -50px 0px",
+        };
 
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach((entry) => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add("visible");
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, observerOptions);
+        // Attach observer to window so loadProjects can access it
+        window.observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("visible");
+                    window.observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
 
-            document
-                .querySelectorAll(".fade-up")
-                .forEach((el) => observer.observe(el));
-
-            // --- CONTACT FORM LOGIC ---
-            const contactForm = document.getElementById("contact-form");
+        // Contact Form Logic
+        const contactForm = document.getElementById("contact-form");
+        if (contactForm) {
             const submitButton = document.getElementById("submit-button");
             const formStatus = document.getElementById("form-status");
 
@@ -1048,7 +823,6 @@
                 formData.append("formType", "contact");
 
                 try {
-                    // Using the script URL from the original file
                     const response = await fetch(
                         "https://script.google.com/macros/s/AKfycbwSjWYoMNKfuZpg1-BF5SJP3p4daM2hxPTCvwefCGwMdREwq6WjPLllfhobcjK9inLOuQ/exec",
                         {
@@ -1072,29 +846,40 @@
                     }, 3000);
                 }
             });
+        }
 
-            // --- LOADING SCREEN LOGIC ---
-            let loadingStartTime = Date.now();
-            const minimumLoadTime = 3000; // 0.7 seconds in milliseconds
-
-            function hideLoading() {
-                const loadingElement = document.getElementById('loading');
-                if (loadingElement) {
-                    const elapsedTime = Date.now() - loadingStartTime;
-                    const remainingTime = Math.max(0, minimumLoadTime - elapsedTime);
-                    
-                    setTimeout(() => {
-                        loadingElement.classList.add('fade-out');
-                    }, remainingTime);
-                }
+        // Loading Screen Logic
+        function hideLoading() {
+            const loadingElement = document.getElementById('loading');
+            if (loadingElement) {
+                loadingElement.classList.add('fade-out');
+                // Remove from DOM after fade out to prevent interaction blocking
+                setTimeout(() => {
+                    loadingElement.style.display = 'none';
+                }, 600);
             }
+        }
 
-            // Hide loading when page is fully loaded
-            window.addEventListener('load', hideLoading);
+        // --- 5. INITIALIZATION ---
+        
+        // Start scripts when DOM is ready
+        document.addEventListener('DOMContentLoaded', () => {
+            typeWriter();
             
-            // Also hide after 5 seconds as a fallback (in case resources don't load)
-            setTimeout(hideLoading, 5000);
-        </script>
-    </body>
+            // Observe existing fade-up elements
+            document.querySelectorAll(".fade-up").forEach((el) => window.observer.observe(el));
+            
+            // Load Firebase Data
+            loadProjects();
+            loadWritings();
+        });
 
+        // Hide loading screen when window fully loads
+        window.addEventListener('load', hideLoading);
+        
+        // Fallback: Force hide loading after 4 seconds if something gets stuck
+        setTimeout(hideLoading, 4000);
+
+    </script>
+</body>
 </html>
