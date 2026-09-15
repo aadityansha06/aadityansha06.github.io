@@ -1,899 +1,273 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Aadityansha Verma | Systems Programmer & Backend Developer</title>
-    <meta name="description"
-        content="Hi, I'm Aadityansha Verma! A Systems Programmer & Low level coder who is still digging to find out on what ot settle on...check out more about me on my page ">
-    <meta name="keywords" content="Aadityansha, C Programmer, Linux Kernel, Backend Developer, Portfolio">
-    <meta name="author" content="Aadityansha">
-    <meta name="google-site-verification" content="4pAV5sb37L7j3-MzhgkRuwtt7_B7AEJZKIG20WOgfr0" />
-    <meta name="robots" content="index, follow">
-    <meta http-equiv="cache-control" content="no-cache, no-store, must-revalidate">
-
-    <link rel="canonical" href="https://aadityansha06.github.io/">
-
-    <link rel="icon" type="image/x-icon" href="pic/favicon.ico" />
-    <link rel="apple-touch-icon" sizes="180x180" href="pic/apple-touch-icon.png" />
-    <link rel="icon" type="image/png" sizes="32x32" href="pic/favicon-32x32.png" />
-    <link rel="icon" type="image/png" sizes="16x16" href="pic/favicon-16x16.png" />
-    <link rel="manifest" href="/site.webmanifest" />
-
-    <meta property="og:title" content="Aadityansha Verma | Systems Programmer">
-    <meta property="og:description"
-        content=" Systems Programmer,Low level, Computer Architecture still digging to find out on what ot settle on...check out more about me on my portfolio web page">
-    <meta property="og:image" content="https://aadityansha06.github.io/pic/main-img.png">
-    <meta property="og:url" content="https://aadityansha06.github.io/">
-    <meta property="og:type" content="website">
-
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "WebSite",
-        "name": "Aadityansha Portfolio",
-        "url": "https://aadityansha06.github.io/",
-        "description": "Aadityansha - Systems Programmer,low level coder ",
-        "author": {
-          "@type": "Person",
-          "name": "Aadityansha"
-        },
-        "sameAs": [
-          "https://github.com/aadityansha06",
-          "https://www.linkedin.com/in/aadityansha-verma-a4a35a213/",
-          "https://x.com/aadityansha_06",
-          "https://medium.com/@vermaadityansh"
-        ]
-      }
-    </script>
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Patrick+Hand&display=swap"
-        rel="stylesheet">
-    <script src="https://unpkg.com/@lottiefiles/dotlottie-wc@0.6.2/dist/dotlottie-wc.js" type="module"></script>
-
-    <script>
-        (function () {
-            try {
-                if (localStorage.getItem('theme') === 'rose') {
-                    document.documentElement.classList.add('theme-rose');
-                } else {
-                    document.documentElement.classList.remove('theme-rose');
-                }
-            } catch (e) {
-                console.warn('Could not set theme from localStorage', e);
-            }
-        })();
-    </script>
-
-        <style>
-            /* --- DESIGN SYSTEM --- */
-            :root {
-                /* Warm/Paper Theme - NO WHITE */
-                --bg-primary: #fff1cb;
-                --bg-secondary: #faedcd;
-                --bg-card: #fdf6e3;
-                --bg-header: rgba(250, 237, 205, 0.9);
-
-                /* Typography */
-                --text-heading: #2c241b;
-                --text-body: #4a4036;
-                --text-muted: #786b59;
-
-                /* Accents */
-                --accent-color: #e84a58;
-                /* Coral Red */
-                --accent-hover: #d13846;
-                --accent-subtle: rgba(232, 74, 88, 0.08);
-                --border-color: #e6dbb8;
-            }
-
-            /* --- BASE STYLES --- */
-            body {
-                font-family: "Inter", sans-serif;
-                background-color: var(--bg-primary);
-                color: var(--text-body);
-                line-height: 1.6;
-            }
-
-            h1,
-            h2,
-            h3,
-            h4 {
-                color: var(--text-heading);
-            }
-
-            /* --- COMPONENTS --- */
-
-            /* Nav */
-            header {
-                backdrop-filter: blur(8px);
-                border-bottom: 1px solid var(--border-color);
-            }
-
-            /* Cards */
-            .card {
-                background-color: var(--bg-card);
-                border: 1px solid var(--border-color);
-                border-radius: 12px;
-                padding: 1.5rem;
-                transition: all 0.3s ease;
-            }
-
-            .card:hover {
-                border-color: var(--accent-color);
-                transform: translateY(-4px);
-                box-shadow: 0 10px 25px rgba(232, 74, 88, 0.05);
-            }
-
-            /* Tech Tags - Minimal Outline Style */
-            .tech-tag {
-                display: inline-flex;
-                align-items: center;
-                background-color: transparent;
-                border: 1px solid var(--border-color);
-                padding: 0.4rem 1rem;
-                border-radius: 6px;
-                font-size: 0.85rem;
-                font-weight: 500;
-                color: var(--text-body);
-                margin: 0.25rem 0.25rem 0.25rem 0;
-                transition: all 0.2s;
-            }
-
-            .tech-tag:hover {
-                border-color: var(--accent-color);
-                color: var(--accent-color);
-                background-color: var(--bg-card);
-            }
-
-            /* Sticky Note */
-            .sticky-note {
-                background: linear-gradient(135deg, #fff8dc 0%, #f5e6a3 100%);
-                padding: 2rem;
-                transform: rotate(-1deg);
-                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-                border: 1px solid rgba(0, 0, 0, 0.05);
-                position: relative;
-                max-width: 32rem;
-                margin: 0 auto;
-            }
-
-            .sticky-tape {
-                position: absolute;
-                top: -10px;
-                left: 50%;
-                transform: translateX(-50%) rotate(2deg);
-                width: 100px;
-                height: 25px;
-                background-color: rgba(255, 255, 255, 0.4);
-                border: 1px solid rgba(255, 255, 255, 0.2);
-                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-            }
-
-            /* Handwriting */
-            .font-hand {
-                font-family: "Patrick Hand", cursive;
-            }
-
-            /* Animations */
-            .fade-up {
-                opacity: 0;
-                transform: translateY(20px);
-                transition:
-                    opacity 0.6s ease-out,
-                    transform 0.6s ease-out;
-            }
-
-            .fade-up.visible {
-                opacity: 1;
-                transform: translateY(0);
-            }
-
-            .typewriter-cursor {
-                display: inline-block;
-                width: 2px;
-                height: 1.2em;
-                background-color: var(--accent-color);
-                margin-left: 2px;
-                vertical-align: middle;
-                animation: blink 0.8s infinite;
-            }
-
-            @keyframes blink {
-                0%,
-                100% {
-                    opacity: 1;
-                }
-                50% {
-                    opacity: 0;
-                }
-            }
-
-            /* Form Input overrides */
-            input,
-            textarea {
-                background-color: var(--bg-card) !important;
-                border-color: var(--border-color) !important;
-            }
-            input:focus,
-            textarea:focus {
-                border-color: var(--accent-color) !important;
-                background-color: #fff !important;
-            }
-
-            /* Scrollbar */
-            ::-webkit-scrollbar {
-                width: 8px;
-            }
-
-            ::-webkit-scrollbar-track {
-                background: var(--bg-primary);
-            }
-
-            ::-webkit-scrollbar-thumb {
-                background: #d4c5a0;
-                border-radius: 4px;
-            }
-
-            ::-webkit-scrollbar-thumb:hover {
-                background: var(--accent-color);
-            }
-
-            /* Loading Screen */
-            #loading {
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background-color: var(--bg-primary);
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                z-index: 9999;
-                opacity: 1;
-                transition: opacity 0.6s ease-out;
-            }
-
-            #loading.fade-out {
-                opacity: 0;
-                pointer-events: none;
-            }
-        </style>
-    </head>
-
-    <body class="antialiased">
-        <div id="loading">
-            <dotlottie-wc src="https://lottie.host/1c1777ab-8c78-4644-b77c-04dfd06326fa/zlYPpE5bAG.lottie"
-                style="width: 500px; height: 500px" speed="1" autoplay loop>
-            </dotlottie-wc>
-        </div>
-        <header class="fixed top-0 left-0 right-0 z-50 bg-[var(--bg-header)]">
-            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="flex items-center justify-between h-16">
-                    <a href="#hero" class="flex items-center gap-3 group">
-                        <img
-                            src="https://avatars.githubusercontent.com/u/96714228?v=4"
-                            alt="Logo"
-                            class="w-8 h-8 rounded-full border border-[var(--border-color)] group-hover:border-[var(--accent-color)] transition-colors"
-                        />
-                        <span class="font-bold text-lg tracking-tight"
-                            >Aadityansha</span
-                        >
-                    </a>
-
-                    <nav class="hidden md:flex items-center space-x-8">
-                        <a
-                            href="#about"
-                            class="text-sm font-medium hover:text-[var(--accent-color)] transition-colors"
-                            >About</a
-                        >
-                        <a
-                            href="#projects"
-                            class="text-sm font-medium hover:text-[var(--accent-color)] transition-colors"
-                            >Projects</a
-                        >
-                        <a
-                            href="#skills"
-                            class="text-sm font-medium hover:text-[var(--accent-color)] transition-colors"
-                            >Skills</a
-                        >
-                        <a
-                            href="#writings"
-                            class="text-sm font-medium hover:text-[var(--accent-color)] transition-colors"
-                            >Writings</a
-                        >
-                        <a
-                            href="#contact"
-                            class="px-4 py-2 text-sm font-medium bg-[var(--accent-color)] text-white rounded-md hover:bg-[var(--accent-hover)] transition-all transform hover:scale-105 shadow-sm"
-                            >Contact</a
-                        >
-                    </nav>
-
-                    <button
-                        class="md:hidden text-2xl text-[var(--text-heading)]"
-                        aria-label="Menu"
-                    >
-                        <i class="bx bx-menu"></i>
-                    </button>
-                </div>
-            </div>
-        </header>
-
-        <main class="pt-20">
-            <section
-                id="hero"
-                class="min-h-[90vh] flex items-center justify-center relative overflow-hidden"
-            >
-                <div class="container mx-auto px-4 text-center z-10 fade-up">
-                    <div class="mb-6 relative inline-block">
-                        <img
-                            src="https://avatars.githubusercontent.com/u/96714228?v=4"
-                            alt="Aadityansha Verma"
-                            class="w-32 h-32 md:w-40 md:h-40 rounded-full border-4 border-[var(--bg-secondary)] shadow-lg mx-auto"
-                        />
-                        
-                    </div>
-
-                    <h1
-                        class="text-4xl md:text-6xl font-extrabold mb-4 tracking-tight"
-                    >
-                        Aadityansha Verma
-                    </h1>
-
-                    <p
-                        class="text-xl md:text-2xl text-[var(--accent-color)] font-medium mb-6 font-hand"
-                    >
-                        <span id="typewriter"></span
-                        ><span class="typewriter-cursor"></span>
-                    </p>
-
-                    <p
-                        class="max-w-xl mx-auto text-[var(--text-muted)] text-lg mb-8 leading-relaxed"
-                    >
-                        An 18-year-old programmer passionate about
-                        <strong class="text-[var(--text-heading)]"
-                            >Systems Engineering, Backend Architecture &
-                            Low-Level Code</strong
-                        ><br />Currently exploring
-                        <em class="text-[var(--text-body)]"
-                            >Go & Scalable Database Design</em
-                        >.
-                    </p>
-
-                    <div class="flex justify-center gap-6">
-                        <a
-                            href="https://github.com/aadityansha06"
-                            target="_blank"
-                            class="text-2xl text-[var(--text-muted)] hover:text-[var(--accent-color)] hover:-translate-y-1 transition-all"
-                            ><i class="bx bxl-github"></i
-                        ></a>
-                        <a
-                            href="https://www.linkedin.com/in/aadityansha-verma-a4a35a213/"
-                            target="_blank"
-                            class="text-2xl text-[var(--text-muted)] hover:text-[var(--accent-color)] hover:-translate-y-1 transition-all"
-                            ><i class="bx bxl-linkedin"></i
-                        ></a>
-                        <a
-                            href="https://x.com/aadityansha_06"
-                            target="_blank"
-                            class="text-2xl text-[var(--text-muted)] hover:text-[var(--accent-color)] hover:-translate-y-1 transition-all"
-                            ><i class="bx bxl-twitter"></i
-                        ></a>
-                        <a
-                            href="https://medium.com/@vermaadityansh"
-                            target="_blank"
-                            class="text-2xl text-[var(--text-muted)] hover:text-[var(--accent-color)] hover:-translate-y-1 transition-all"
-                            ><i class="bx bxl-medium"></i
-                        ></a>
-                    </div>
-                </div>
-            </section>
-
-            <section
-                id="about"
-                class="py-20 bg-[var(--bg-secondary)] border-y border-[var(--border-color)]"
-            >
-                <div class="container mx-auto px-4">
-                    <div class="max-w-3xl mx-auto">
-                        <div class="text-center mb-10 fade-up">
-                            <h2 class="text-3xl font-bold mb-2">About Me</h2>
-                            <span
-                                class="font-hand text-[var(--accent-color)] text-lg"
-                                >My journey and background</span
-                            >
-                        </div>
-
-                        <div
-                            class="prose prose-lg mx-auto text-center text-[var(--text-body)] mb-12 fade-up"
-                        >
-                            <p>
-                                My coding journey began in 8th
-                                grade, sparking a deep interest in
-                                backend development, system
-                                optimization, and UI design. I enjoy
-                                building my own replicas of existing tools with
-                                custom features and solving
-                                real-world problems through
-                                technology.
-                            </p>
-                            <div
-                                class="mt-4 flex items-center justify-center gap-2 text-sm text-[var(--text-muted)]"
-                            >
-                                <i class="bx bxs-map"></i> Bihar, India
-                            </div>
-                        </div>
-
-                        <div class="sticky-note fade-up">
-                            <div class="sticky-tape"></div>
-                            <p
-                                class="font-hand text-xl text-gray-800 leading-relaxed text-center"
-                            >
-                                "I believe writing code should be fun. I'd
-                                rather be genuine than use corporate buzzwords.
-                                My projects speak for themselves."
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section id="projects" class="py-24">
-                <div class="container mx-auto px-4 sm:px-6">
-                    <div class="text-center mb-16 fade-up">
-                        <h2 class="text-3xl font-bold mb-2">
-                            Featured Projects
-                        </h2>
-                        <p class="text-[var(--text-muted)]">
-                            Systems, web, and everything in between.
-                        </p>
-                    </div>
-
-                    <div id="projects-container"
-                        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 max-w-5xl mx-auto"
-                    >
-                        <div class="col-span-2 text-center text-[var(--text-muted)]">
-                            Loading projects from database...
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section
-                id="skills"
-                class="py-24 border-y border-[var(--border-color)]"
-            >
-                <div class="container mx-auto px-4">
-                    <div class="text-center mb-16 fade-up">
-                        <h2 class="text-3xl font-bold mb-2">
-                            Technical Arsenal
-                        </h2>
-                        <p class="text-[var(--text-muted)] font-hand">
-                            The tools I use.
-                        </p>
-                    </div>
-
-                    <div
-                        class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto"
-                    >
-                        <div class="fade-up">
-                            <h3
-                                class="font-bold text-xl mb-6 text-[var(--text-heading)]"
-                            >
-                                Systems & Core
-                            </h3>
-                            <div class="flex flex-wrap gap-2">
-                                <span class="tech-tag">C Language</span>
-                                <span class="tech-tag">Assembly (x86-64)</span>
-                                <span class="tech-tag">Linux Kernel</span>
-                                <span class="tech-tag"
-                                    >Network Programming</span
-                                >
-                                <span class="tech-tag"
-                                    >Computer Architecture</span
-                                >
-                            </div>
-                        </div>
-
-                        <div class="fade-up" style="transition-delay: 100ms">
-                            <h3
-                                class="font-bold text-xl mb-6 text-[var(--text-heading)]"
-                            >
-                                Backend & Data
-                            </h3>
-                            <div class="flex flex-wrap gap-2">
-                                <span class="tech-tag">PHP</span>
-                                <span class="tech-tag">MySQL</span>
-                                <span class="tech-tag">Go (Learning)</span>
-                                <span class="tech-tag">Firebase</span>
-                                <span class="tech-tag">GitHub Actions</span>
-                            </div>
-                        </div>
-
-                        <div class="fade-up" style="transition-delay: 200ms">
-                            <h3
-                                class="font-bold text-xl mb-6 text-[var(--text-heading)]"
-                            >
-                                Frontend
-                            </h3>
-                            <div class="flex flex-wrap gap-2">
-                                <span class="tech-tag">JavaScript</span>
-                                <span class="tech-tag">HTML5</span>
-                                <span class="tech-tag">CSS3</span>
-                                <span class="tech-tag">Tailwind CSS</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section id="writings" class="py-20">
-                <div class="container mx-auto px-4">
-                    <div class="text-center mb-12 fade-up">
-                        <h2 class="text-3xl font-bold mb-2">
-                            Writings & Thoughts
-                        </h2>
-                        <p class="text-[var(--text-muted)]">
-                            Recent explorations in Kernel space and beyond.
-                        </p>
-                    </div>
-
-                    <div id="writings-container" class="max-w-3xl mx-auto space-y-6 fade-up">
-                        <div class="text-center text-[var(--text-muted)]">
-                            Loading writings...
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section id="contact" class="py-20 bg-[var(--bg-secondary)]">
-                <div class="container mx-auto px-4">
-                    <div
-                        class="max-w-xl mx-auto bg-[var(--bg-primary)] p-8 rounded-xl border border-[var(--border-color)] shadow-sm fade-up"
-                    >
-                        <div class="text-center mb-8">
-                            <h2 class="text-2xl font-bold mb-2">
-                                Get In Touch
-                            </h2>
-                            <p class="text-sm text-[var(--text-muted)]">
-                                Have a complex backend problem, a system to
-                                architect, or just want to connect?
-                            </p>
-                        </div>
-
-                        <form id="contact-form" class="space-y-4">
-                            <div>
-                                <label class="block text-sm font-medium mb-1"
-                                    >Name</label
-                                >
-                                <input
-                                    type="text"
-                                    name="name"
-                                    required
-                                    class="w-full rounded-md px-4 py-2 focus:outline-none transition-colors"
-                                />
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium mb-1"
-                                    >Email</label
-                                >
-                                <input
-                                    type="email"
-                                    name="email"
-                                    required
-                                    class="w-full rounded-md px-4 py-2 focus:outline-none transition-colors"
-                                />
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium mb-1"
-                                    >Message</label
-                                >
-                                <textarea
-                                    name="Feedback"
-                                    required
-                                    rows="4"
-                                    class="w-full rounded-md px-4 py-2 focus:outline-none transition-colors"
-                                ></textarea>
-                            </div>
-                            <button
-                                type="submit"
-                                id="submit-button"
-                                class="w-full bg-[var(--accent-color)] text-white font-bold py-3 rounded-md hover:bg-[var(--accent-hover)] transition-colors"
-                            >
-                                Send Message
-                            </button>
-                            <div
-                                id="form-status"
-                                class="text-center text-sm mt-3 h-5"
-                            ></div>
-                        </form>
-                    </div>
-                </div>
-            </section>
-        </main>
-
-        <footer
-            class="bg-[var(--bg-header)] py-8 border-t border-[var(--border-color)]"
-        >
-            <div class="container mx-auto text-center px-4">
-                <p class="text-[var(--text-muted)] text-sm font-hand mb-2 hover:text-[var(--accent-hover)] transition-colors cursor-pointer">
-                  
-                    <br>
-                    Crafted with an object made of atoms and molecules, with my pessimistic thought and unwillingness for the awful creature on this planet who causing global warming
-                </p>
-                <p class="text-xs text-[var(--text-muted)] opacity-70">
-                    © 2025 Aadityansha Verma. All rights reserved.
-                </p>
-            </div>
-        </footer>
-
-    <script type="module">
-        // --- 1. FIREBASE IMPORTS (MUST BE AT THE TOP) ---
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
-        import { getFirestore, collection, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js";
-
-        // --- 2. FIREBASE CONFIGURATION ---
-        const firebaseConfig = {
-            apiKey: "AIzaSyDWAPWRe7ph3q1SI8NDCA5i6B74vW2tLOY",
-            authDomain: "protfolio-22583.firebaseapp.com",
-            projectId: "protfolio-22583",
-            storageBucket: "protfolio-22583.firebasestorage.app",
-            messagingSenderId: "732637607219",
-            appId: "1:732637607219:web:f64cd2a7c671a7d2fcba46",
-            measurementId: "G-JPKWYX7G0D"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-
-        // --- 3. DYNAMIC CONTENT LOADING (PROJECTS & WRITINGS) ---
-        
-        async function loadProjects() {
-            const projectsContainer = document.getElementById('projects-container');
-            if (!projectsContainer) return;
-
-            try {
-                const projectsCollection = collection(db, 'projects');
-                const q = query(projectsCollection, orderBy('position', 'asc'));
-                const querySnapshot = await getDocs(q);
-                
-                if (querySnapshot.empty) {
-                    projectsContainer.innerHTML = '<p class="col-span-2 text-center text-[var(--text-muted)]">No projects found.</p>';
-                    return;
-                }
-
-                projectsContainer.innerHTML = '';
-
-                querySnapshot.forEach((doc) => {
-                    const project = doc.data();
-                    const tags = Array.isArray(project.tags) ? project.tags : (project.tags ? project.tags.split(',').map(t => t.trim()) : []);
-                    const projectHTML = `
-                        <article class="card flex flex-col justify-between fade-up">
-                            <div>
-                                <div class="flex justify-between items-start mb-2">
-                                    <h3 class="text-xl font-bold">${project.title}</h3>
-                                    <i class="bx ${project.icon} text-xl text-[var(--accent-color)]"></i>
-                                </div>
-                                <p class="text-[var(--text-muted)] text-sm mb-4">
-                                    ${project.description}
-                                </p>
-                                <div class="flex flex-wrap mb-6">
-                                    ${tags.map(tag => `<span class="tech-tag">${tag}</span>`).join('')}
-                                </div>
-                            </div>
-                            <div class="flex items-center gap-4 text-sm font-medium pt-4 border-t border-dashed border-[var(--border-color)]">
-                                ${project.demoLink ? `<a href="${project.demoLink}" target="_blank" class="hover:text-[var(--accent-color)] flex items-center gap-1"><i class="bx bx-play-circle"></i> Demo</a>` : ''}
-                                ${project.downloadLink ? `<a href="${project.downloadLink}" target="_blank" class="hover:text-[var(--accent-color)] flex items-center gap-1"><i class="bx bx-download"></i> Download</a>` : ''}
-                                ${project.githubLink ? `<a href="${project.githubLink}" target="_blank" class="hover:text-[var(--accent-color)] flex items-center gap-1 ml-auto"><i class="bx bxl-github"></i> Code</a>` : ''}
-                            </div>
-                        </article>
-                    `;
-                    projectsContainer.innerHTML += projectHTML;
-                });
-
-                // Re-initialize fade animation for new elements
-                if (window.observer) {
-                    document.querySelectorAll('.fade-up').forEach((el) => {
-                        if (!el.classList.contains('visible')) {
-                            window.observer.observe(el);
-                        }
-                    });
-                }
-
-            } catch (error) {
-                console.error('Error loading projects:', error);
-                projectsContainer.innerHTML = `<p class="col-span-2 text-center text-red-500">Could not load projects. Check console for details.</p>`;
-            }
-        }
-
-        async function loadWritings() {
-            const writingsContainer = document.getElementById('writings-container');
-            if (!writingsContainer) return;
-
-            try {
-                const writingsCollection = collection(db, 'writings');
-                const q = query(writingsCollection, orderBy('date', 'desc'));
-                const querySnapshot = await getDocs(q);
-                
-                if (querySnapshot.empty) {
-                    writingsContainer.innerHTML = '<p class="text-center text-[var(--text-muted)]">No writings found.</p>';
-                    return;
-                }
-
-                writingsContainer.innerHTML = '';
-
-                querySnapshot.forEach((doc) => {
-                    const writing = doc.data();
-                    // Handle date formatting safely
-                    let formattedDate = 'Recent';
-                    if (writing.date) {
-                        formattedDate = new Date(writing.date).toLocaleDateString('en-US', { 
-                            year: 'numeric', 
-                            month: 'short', 
-                            day: 'numeric' 
-                        });
-                    }
-
-                    const writingHTML = `
-                        <div>
-                            <a href="${writing.link}" target="_blank" class="text-[var(--accent-color)] hover:underline font-medium">
-                                ${writing.title}
-                            </a>
-                            <span class="text-sm text-[var(--text-muted)]"> — ${formattedDate}</span>
-                        </div>
-                    `;
-                    writingsContainer.innerHTML += writingHTML;
-                });
-
-            } catch (error) {
-                console.error('Error loading writings:', error);
-            }
-        }
-
-        // --- 4. UI INTERACTIONS (Typewriter, Scroll, Contact) ---
-
-        // Typewriter Effect
-        const words = ["Systems Programmer", "Backend Developer", "Student"];
-        let i = 0;
-        let timer;
-
-        function typeWriter() {
-            const heading = document.getElementById("typewriter");
-            if (!heading) return;
-            
-            const word = words[i];
-            const current = heading.textContent;
-
-            if (!heading.classList.contains("deleting")) {
-                if (current.length < word.length) {
-                    heading.textContent = word.substring(0, current.length + 1);
-                    timer = setTimeout(typeWriter, 150);
-                } else {
-                    heading.classList.add("deleting");
-                    timer = setTimeout(typeWriter, 2000);
-                }
-            } else {
-                if (current.length > 0) {
-                    heading.textContent = word.substring(0, current.length - 1);
-                    timer = setTimeout(typeWriter, 100);
-                } else {
-                    heading.classList.remove("deleting");
-                    i = (i + 1) % words.length;
-                    timer = setTimeout(typeWriter, 500);
-                }
-            }
-        }
-
-        // Fade Up Animation
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: "0px 0px -50px 0px",
-        };
-
-        // Attach observer to window so loadProjects can access it
-        window.observer = new IntersectionObserver((entries) => {
-            entries.forEach((entry) => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add("visible");
-                    window.observer.unobserve(entry.target);
-                }
-            });
-        }, observerOptions);
-
-        // Contact Form Logic
-        const contactForm = document.getElementById("contact-form");
-        if (contactForm) {
-            const submitButton = document.getElementById("submit-button");
-            const formStatus = document.getElementById("form-status");
-
-            contactForm.addEventListener("submit", async function (event) {
-                event.preventDefault();
-                submitButton.innerText = "Sending...";
-                submitButton.disabled = true;
-
-                const formData = new FormData(event.target);
-                formData.append("formType", "contact");
-
-                try {
-                    const response = await fetch(
-                        "https://script.google.com/macros/s/AKfycbwSjWYoMNKfuZpg1-BF5SJP3p4daM2hxPTCvwefCGwMdREwq6WjPLllfhobcjK9inLOuQ/exec",
-                        {
-                            method: "POST",
-                            body: formData,
-                        },
-                    );
-                    if (response.ok) {
-                        formStatus.innerHTML = `<span style="color: #10b981;">Message sent successfully!</span>`;
-                        event.target.reset();
-                    } else {
-                        throw new Error("Failed");
-                    }
-                } catch (error) {
-                    formStatus.innerHTML = `<span style="color: #ef4444;">Error sending message.</span>`;
-                } finally {
-                    setTimeout(() => {
-                        submitButton.innerText = "Send Message";
-                        submitButton.disabled = false;
-                        formStatus.innerHTML = "";
-                    }, 3000);
-                }
-            });
-        }
-
-        // Loading Screen Logic - Minimum Display Time
-        const MINIMUM_LOAD_TIME = 1500; // 1.5 seconds minimum
-        let loadingStartTime = Date.now();
-        let contentLoaded = false;
-
-        function hideLoading() {
-            const loadingElement = document.getElementById('loading');
-            if (!loadingElement) return;
-
-            const elapsedTime = Date.now() - loadingStartTime;
-            const remainingTime = Math.max(0, MINIMUM_LOAD_TIME - elapsedTime);
-
-            setTimeout(() => {
-                loadingElement.classList.add('fade-out');
-                // Remove from DOM after fade out to prevent interaction blocking
-                setTimeout(() => {
-                    loadingElement.style.display = 'none';
-                }, 600);
-            }, remainingTime);
-        }
-
-        // --- 5. INITIALIZATION ---
-        
-        // Start scripts when DOM is ready
-        document.addEventListener('DOMContentLoaded', () => {
-            typeWriter();
-            
-            // Observe existing fade-up elements
-            document.querySelectorAll(".fade-up").forEach((el) => window.observer.observe(el));
-            
-            // Load Firebase Data
-            loadProjects();
-            loadWritings();
-        });
-
-        // Hide loading screen when window fully loads (respects minimum time)
-        window.addEventListener('load', () => {
-            contentLoaded = true;
-            hideLoading();
-        });
-        
-        // Fallback: Force hide loading after 5 seconds if something gets stuck (respects minimum time)
-        setTimeout(() => {
-            hideLoading();
-        }, 5000);
-
-    </script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aadityansha Verma | Performance & Inference Research Engineer</title>
+<meta name="description"
+    content="Aadityansha Verma — performance / inference research engineer. Contributor at Harvard CS249R (ML Systems) and OpenBLAS. Working in C, assembly, CUDA, and Go.">
+<meta name="keywords" content="Aadityansha, C Programmer, CUDA, OpenBLAS, Performance Engineering, Systems Programming, Portfolio">
+<meta name="author" content="Aadityansha">
+<meta name="google-site-verification" content="4pAV5sb37L7j3-MzhgkRuwtt7_B7AEJZKIG20WOgfr0" />
+<meta name="robots" content="index, follow">
+<meta http-equiv="cache-control" content="no-cache, no-store, must-revalidate">
+
+<link rel="canonical" href="https://aadityansha06.github.io/">
+
+<link rel="icon" type="image/x-icon" href="pic/favicon.ico" />
+<link rel="apple-touch-icon" sizes="180x180" href="pic/apple-touch-icon.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="pic/favicon-32x32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="pic/favicon-16x16.png" />
+<link rel="manifest" href="/site.webmanifest" />
+
+<meta property="og:title" content="Aadityansha Verma | Performance & Inference Research Engineer">
+<meta property="og:description"
+    content="Performance / inference research engineer. Contributor at Harvard CS249R (ML Systems) and OpenBLAS. Working in C, assembly, CUDA, and Go.">
+<meta property="og:image" content="https://aadityansha06.github.io/pic/main-img.png">
+<meta property="og:url" content="https://aadityansha06.github.io/">
+<meta property="og:type" content="website">
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Aadityansha Portfolio",
+    "url": "https://aadityansha06.github.io/",
+    "description": "Aadityansha Verma — performance / inference research engineer, contributor at Harvard CS249R and OpenBLAS.",
+    "author": {
+      "@type": "Person",
+      "name": "Aadityansha Verma"
+    },
+    "sameAs": [
+      "https://github.com/aadityansha06",
+      "https://www.linkedin.com/in/aadityansha-verma-a4a35a213/",
+      "https://x.com/aadityansha_06",
+      "https://trentorch.com/"
+    ]
+  }
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f6f4ee;
+    --ink: #1c1c1a;
+    --muted: #7a7568;
+    --line: #ddd8c8;
+    --accent: #a8481f;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 14px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  main {
+    max-width: 560px;
+    margin: 0 auto;
+    padding: 4.5rem 1.5rem 3rem;
+  }
+
+  a {
+    color: var(--ink);
+    text-decoration: underline;
+    text-decoration-color: var(--line);
+    text-underline-offset: 3px;
+    transition: text-decoration-color .15s ease, color .15s ease;
+  }
+
+  a:hover {
+    color: var(--accent);
+    text-decoration-color: var(--accent);
+  }
+
+  h1 {
+    font-size: 1.15rem;
+    font-weight: 600;
+    margin: 0 0 0.35rem;
+    letter-spacing: -0.01em;
+  }
+
+  .role {
+    color: var(--muted);
+    font-size: 0.9rem;
+    margin: 0 0 1.6rem;
+  }
+
+  .stack {
+    color: var(--muted);
+    font-size: 0.85rem;
+    margin: 0 0 2.4rem;
+  }
+
+  section {
+    margin-bottom: 2.2rem;
+    padding-top: 1.6rem;
+    border-top: 1px solid var(--line);
+  }
+
+  section:first-of-type {
+    border-top: none;
+    padding-top: 0;
+  }
+
+  .label {
+    color: var(--muted);
+    font-size: 0.78rem;
+    margin: 0 0 0.7rem;
+  }
+
+  .resume-row {
+    display: flex;
+    align-items: baseline;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+  }
+
+  .note {
+    color: var(--muted);
+    font-size: 0.78rem;
+  }
+
+  .oss-item {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.55rem 0;
+  }
+
+  .oss-item + .oss-item {
+    border-top: 1px dashed var(--line);
+  }
+
+  .oss-title {
+    font-size: 0.87rem;
+  }
+
+  .oss-desc {
+    color: var(--muted);
+  }
+
+  .oss-num {
+    color: var(--muted);
+    white-space: nowrap;
+    font-size: 0.82rem;
+  }
+
+  .links {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+    font-size: 0.87rem;
+  }
+
+  footer {
+    max-width: 560px;
+    margin: 0 auto;
+    padding: 0 1.5rem 3rem;
+    color: var(--muted);
+    font-size: 0.75rem;
+  }
+</style>
+</head>
+<body>
+<main>
+
+  <h1>Aadityansha</h1>
+  <p class="role">
+    Performance / inference research engineer<br>
+    Contributor @ Harvard CS249R (ML Systems) · @ OpenBLAS (OpenMathLib)<br>
+    Founding engineer &amp; product head @ <a href="https://trentorch.com/" target="_blank">Trentorch</a>
+  </p>
+  <p class="stack">C · Assembly (x86-64) · CUDA · Go · C++ · Python · JavaScript</p>
+
+  <section>
+    <p class="label">Resume</p>
+    <div class="resume-row">
+      <a href="https://drive.google.com/file/d/1XnwPjfls4jCZEmlDvMYCypUfWXNkz2Xh/view?usp=sharing" target="_blank">drive.google.com/resume</a>
+    </div>
+    <p class="note">may not be fully up to date</p>
+  </section>
+
+  <section>
+    <p class="note">And yes, I use vim btw.</p>
+  </section>
+
+  <section>
+    <p class="label">Open source</p>
+
+    <div class="oss-item">
+      <div>
+        <div class="oss-title">OpenBLAS — transpose support for GEADD</div>
+        <div class="oss-desc">OpenMathLib/OpenBLAS</div>
+      </div>
+      <a class="oss-num" href="https://github.com/OpenMathLib/OpenBLAS/pull/5913" target="_blank">#5913</a>
+    </div>
+
+    <div class="oss-item">
+      <div>
+        <div class="oss-title">Harvard CS249R — reported silent WASM save-loss bug</div>
+        <div class="oss-desc">DesignLedger.save() failing silently across all browser labs</div>
+      </div>
+      <a class="oss-num" href="https://github.com/harvard-edge/cs249r_book/issues/1985" target="_blank">#1985</a>
+    </div>
+
+    <div class="oss-item">
+      <div>
+        <div class="oss-title">Harvard CS249R — fixed silent WASM save-loss bug</div>
+        <div class="oss-desc">harvard-edge/cs249r_book</div>
+      </div>
+      <a class="oss-num" href="https://github.com/harvard-edge/cs249r_book/pull/1988" target="_blank">#1988</a>
+    </div>
+  </section>
+
+  <section>
+    <p class="label">Writings</p>
+
+    <div class="oss-item">
+      <div>
+        <div class="oss-title"><a href="https://github.com/aadityansha06/vecdb/blob/main/write-up/Delete-architecture.md" target="_blank">OriginDB — deferred delete architecture</a></div>
+        <div class="oss-desc">design write-up for OriginDB, a disk-backed ANN vector database being built from scratch in C (still in progress)</div>
+      </div>
+    </div>
+
+    <div class="oss-item">
+      <div>
+        <div class="oss-title"><a href="https://x.com/aadityansha_06/status/2012530411948453993?s=20" target="_blank">Path of a packet through the Linux kernel</a></div>
+        <div class="oss-desc">a walkthrough of packet ingress &amp; egress in the Linux networking stack, inspired by the paper <a href="https://www.net.in.tum.de/fileadmin/TUM/NET/NET-2024-04-1/NET-2024-04-1_16.pdf" target="_blank">"Path of a Packet Through the Linux Kernel"</a></div>
+      </div>
+    </div>
+
+    <div class="oss-item">
+      <div>
+        <div class="oss-title"><a href="https://x.com/aadityansha_06/status/2078099876664246720?s=20" target="_blank">Squeezing matrix multiplication: 58s → 0.1s</a></div>
+        <div class="oss-desc">tiling &amp; SIMD in C on an old i3 Sandy Bridge — workload testing notes</div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <p class="label">Elsewhere</p>
+    <div class="links">
+      <a href="https://github.com/aadityansha06" target="_blank">github.com/aadityansha06</a>
+      <a href="https://www.linkedin.com/in/aadityansha-verma-a4a35a213" target="_blank">linkedin.com/in/aadityansha-verma</a>
+      <a href="https://x.com/aadityansha_06" target="_blank">x.com/aadityansha_06</a>
+      <a href="mailto:vermaadityansh@gmail.com">vermaadityansh@gmail.com</a>
+    </div>
+  </section>
+
+</main>
+
+<footer>© 2026 Aadityansha Verma</footer>
+
 </body>
 </html>
